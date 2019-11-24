@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#FF3A3A</color>
+    <color name="colorPrimaryDark">#FF3A3A</color>
+    <color name="colorAccent">#E65100</color>
+
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="trans">#00000000</color>
+    <color name="color_sneaker_start">#FF3A3A</color>
+    <color name="color_sneaker_end">#FD7272</color>
+
+    <color name="color_toast">#1a58bf</color>
+
+
+    <color name="color_pressed">#0F77B3</color>
+    <color name="color_normal">#1296db</color>
+    <color name="color_enable">#E5E5E5</color>
+
+</resources>

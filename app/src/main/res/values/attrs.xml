@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="DotView">
+        <attr name="dotColor" format="color|reference"/>
+        <attr name="dotStyle" format="enum">
+            <enum name="FILL" value="0"/>
+            <enum name="STROKE" value="1"/>
+        </attr>
+    </declare-styleable>
+
+    <!--涟漪控件属性-->
+    <declare-styleable name="RippleView">
+        <attr name="rippleColor" format="color"/>
+        <attr name="rippleSpeed" format="integer"/>
+        <attr name="rippleDensity" format="integer"/>
+        <attr name="rippleHasFill" format="boolean"/>
+        <attr name="rippleHasAlpha" format="boolean"/>
+    </declare-styleable>
+</resources>

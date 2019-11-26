@@ -30,6 +30,12 @@ android {
         }
     }
 
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
     dataBinding {
         enabled true
     }

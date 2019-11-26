@@ -23,14 +23,14 @@ abstract class BaseViewActivity<DB : ViewDataBinding, VM : BaseViewModel> : Base
     override fun setContentLayout() {
         super.setContentLayout()
         this.binding.lifecycleOwner = this
-        viewModel = ViewModelProviders.of(this).get(providerViewModel())
+        this.viewModel = ViewModelProviders.of(this).get(providerViewModel())
     }
 
 
     override fun onDestroy() {
         super.onDestroy()
         cancel()
-        binding.unbind()
+        this.binding.unbind()
     }
 
 }

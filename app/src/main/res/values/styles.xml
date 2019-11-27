@@ -18,4 +18,9 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+
+    <style name="style_checkbox_agree" parent="@android:style/Widget.CompoundButton.CheckBox">
+        <item name="android:drawableLeft">@drawable/selector_box_agree</item>
+        <item name="android:button">@null</item>
+    </style>
 </resources>

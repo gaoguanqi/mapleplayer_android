@@ -24,6 +24,7 @@ abstract class BaseViewActivity<DB : ViewDataBinding, VM : BaseViewModel> : Base
         super.setContentLayout()
         this.binding.lifecycleOwner = this
         this.viewModel = ViewModelProviders.of(this).get(providerViewModel())
+        this.bindViewModel()
     }
 
 

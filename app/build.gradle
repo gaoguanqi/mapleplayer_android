@@ -28,6 +28,13 @@ android {
             sourceCompatibility JavaVersion.VERSION_1_8
             targetCompatibility JavaVersion.VERSION_1_8
         }
+
+        //指定room.schemaLocation生成的文件路径
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+            }
+        }
     }
 
     repositories {
@@ -68,6 +75,10 @@ dependencies {
 
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "androidx.navigation:navigation-ui-ktx:$navigationVersion"
+
+    implementation 'androidx.room:room-runtime:2.2.2'
+    kapt 'androidx.room:room-compiler:2.2.2'
+
 
     implementation 'com.blankj:utilcodex:1.26.0'
     implementation 'org.greenrobot:eventbus:3.1.1'

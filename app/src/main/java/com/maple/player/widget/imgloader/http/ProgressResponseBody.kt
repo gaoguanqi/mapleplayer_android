@@ -32,6 +32,7 @@ class ProgressResponseBody(var url:String?,var responseBody:ResponseBody?) : Res
         var totalBytesRead:Long = 0L
         var currentProgress:Int = 0
 
+
         override fun read(sink: Buffer, byteCount: Long): Long {
 //            return super.read(sink, byteCount)
             val bytesRead:Long = super.read(sink, byteCount)

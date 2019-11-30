@@ -14,6 +14,7 @@ import com.maple.player.viewmodel.factory.PhoneModelFactory
 import com.maple.player.widget.imgloader.ImageLoader
 import com.maple.player.widget.imgloader.TransType
 import com.maple.player.widget.imgloader.glide.GlideImageConfig
+import com.maple.player.widget.imgloader.listener.ProgressDrawable
 import com.maple.player.widget.imgloader.listener.ProgressListener
 
 class PhoneFragment : BaseFragment<FragmentPhoneBinding>() {
@@ -28,7 +29,7 @@ class PhoneFragment : BaseFragment<FragmentPhoneBinding>() {
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
 
-        val url = "https://ss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=3608155120,1630233151&fm=26&gp=0.jpg"
+        val url = "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1031088294,2770759814&fm=111&gp=0.jpg"
         ImageLoader.getInstance().loadImage(MyApplication.instance,
             GlideImageConfig(url,binding.image).also {
                 it.type = TransType.NORMAL

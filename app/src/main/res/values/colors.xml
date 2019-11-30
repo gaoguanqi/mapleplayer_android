@@ -15,7 +15,7 @@
     <color name="color_toast">#1a58bf</color>
     <color name="color_ripple">#FF5E51</color>
     <color name="color_text">#D81E06</color>
-    <color name="color_646464">#646464</color>
+    <color name="color_progress">#55E5E5E5</color>
 
 
     <color name="color_pressed">#D81E06</color>

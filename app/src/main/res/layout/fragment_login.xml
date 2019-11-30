@@ -77,11 +77,11 @@
             android:paddingBottom="20dp">
 
             <CheckBox
+                android:id="@+id/cbox_agree"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="同意"
-                android:layout_gravity="center"
-                android:gravity="center"
+                android:checked="@{viewModel.isAgree()}"
                 style="@style/style_checkbox_agree"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_12" />
@@ -89,27 +89,27 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:text="服务条款"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:text="《服务条款》"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_12" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:text="隐私政策"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:text="《隐私政策》"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_12" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingLeft="4dp"
-                android:paddingRight="4dp"
-                android:text="儿童隐私政策"
+                android:paddingLeft="2dp"
+                android:paddingRight="2dp"
+                android:text="《儿童隐私政策》"
                 android:textColor="@color/white"
                 android:textSize="@dimen/font_12" />
         </LinearLayout>

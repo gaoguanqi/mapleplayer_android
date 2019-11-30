@@ -19,18 +19,18 @@ class DotView @JvmOverloads constructor(
 
     private var paint: Paint
     private var dotColor: Int = Color.RED
-    private var dotStype:Int = 0
-    private val strokeWidth:Float = 2.0f
+    private var dotStype: Int = 0
+    private val strokeWidth: Float = 2.0f
 
     init {
         paint = Paint()
         paint.isAntiAlias = true
         paint.style = Paint.Style.FILL
-        val array: TypedArray  = context.obtainStyledAttributes(attrs, R.styleable.DotView)
-        dotColor = array.getColor(R.styleable.DotView_dotColor,dotColor)
+        val array: TypedArray = context.obtainStyledAttributes(attrs, R.styleable.DotView)
+        dotColor = array.getColor(R.styleable.DotView_dotColor, dotColor)
         paint.color = dotColor
-        dotStype = array.getInteger(R.styleable.DotView_dotStyle,dotStype)
-        if(dotStype != 0){
+        dotStype = array.getInteger(R.styleable.DotView_dotStyle, dotStype)
+        if (dotStype != 0) {
             paint.style = Paint.Style.STROKE
             paint.strokeWidth = strokeWidth
         }
@@ -40,11 +40,11 @@ class DotView @JvmOverloads constructor(
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-        canvas?.drawCircle(width/2.0f,height/2.0f,width/2.0f - strokeWidth,paint)
+        canvas?.drawCircle(width / 2.0f, height / 2.0f, width / 2.0f - strokeWidth, paint)
     }
 
 
-    fun setColor(color: Int){
+    fun setColor(color: Int) {
         paint.color = color
         invalidate()
     }

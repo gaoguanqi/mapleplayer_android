@@ -7,7 +7,7 @@ class LogUtils {
     companion object {
         @JvmStatic
         fun logGGQ(s: String?) {
-            if (BuildConfig.DEBUG) {
+            if (true) {
                 Log.i("GGQ", "->>>$s")
             }
         }

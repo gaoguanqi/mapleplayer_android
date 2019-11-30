@@ -25,6 +25,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
+        navController.navigate(R.id.action_loginFragment_to_phoneFragment)
 
     }
 

@@ -4,9 +4,12 @@ package com.maple.player.view.fragment
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.maple.player.R
+import com.maple.player.app.MyApplication
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentLoginBinding
 import com.maple.player.view.activity.HomeActivity
@@ -44,7 +47,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 startActivity(Intent(this.activity,HomeActivity::class.java))
                 this.activity?.finish()
             })
+
+        viewModel.shakeEvent.observe(
+            this,
+            Observer<Boolean> {
+                val anim:Animation = AnimationUtils.loadAnimation(MyApplication.instance, R.anim.shake_anim)
+                binding.llAgree.startAnimation(anim)
+            })
     }
-
-
 }

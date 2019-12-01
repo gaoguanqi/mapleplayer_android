@@ -20,7 +20,7 @@ import com.maple.player.widget.imgloader.listener.ProgressListener
 class PhoneFragment : BaseFragment<FragmentPhoneBinding>() {
 
     private val viewModel: PhoneViewModel by lazy {
-        ViewModelProvider(requireActivity(), PhoneModelFactory())
+        ViewModelProvider(this, PhoneModelFactory())
             .get(PhoneViewModel::class.java)
     }
 

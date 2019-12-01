@@ -8,11 +8,14 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.maple.player.R
 import com.maple.player.app.MyApplication
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentLoginBinding
+import com.maple.player.model.AutoEntity
 import com.maple.player.view.activity.HomeActivity
+import com.maple.player.view.adapter.LoginAutoAdapter
 import com.maple.player.viewmodel.LoginViewModel
 import com.maple.player.viewmodel.factory.LoginModelFactory
 
@@ -20,7 +23,7 @@ import com.maple.player.viewmodel.factory.LoginModelFactory
 class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     private val viewModel: LoginViewModel by lazy {
-        ViewModelProvider(requireActivity(), LoginModelFactory())
+        ViewModelProvider(this, LoginModelFactory())
             .get(LoginViewModel::class.java)
     }
 
@@ -31,6 +34,23 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
+
+        binding.rvAuto.layoutManager = LinearLayoutManager(this.context).also { it.orientation = LinearLayoutManager.HORIZONTAL }
+        val list:MutableList<AutoEntity> = mutableListOf()
+        list.add(AutoEntity(R.drawable.icon_logo_wx))
+        list.add(AutoEntity(R.drawable.icon_logo_qq))
+        list.add(AutoEntity(R.drawable.icon_logo_sina))
+        list.add(AutoEntity(R.drawable.icon_logo_163))
+        val adapter:LoginAutoAdapter = LoginAutoAdapter().also {
+            it.setData(list)
+            it.setListener(object :LoginAutoAdapter.OnClickListener{
+                override fun onItemClick(pos: Int) {
+                    viewModel.onAuto(pos)
+                }
+            })
+        }
+        binding.rvAuto.adapter = adapter
+
         binding.cboxAgree.setOnCheckedChangeListener { buttonView, isChecked ->
             viewModel.isAgree.set(
                 isChecked

@@ -8,19 +8,16 @@ import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 
-abstract class BaseFragment<DB : ViewDataBinding> : Fragment(),
+abstract class BaseFragment<VB : ViewDataBinding> : Fragment(),
     CoroutineScope by MainScope(), IView {
 
-    protected lateinit var binding: DB
+    protected lateinit var binding: VB
 
 
     protected lateinit var navController: NavController
@@ -32,9 +29,9 @@ abstract class BaseFragment<DB : ViewDataBinding> : Fragment(),
 
     abstract fun initData(view:View,savedInstanceState: Bundle?): Unit
 
-    fun <T : ViewModel> getViewModel(clazz: Class<T>): T = ViewModelProviders.of(this).get(clazz)
-
-    fun <T : ViewModel> getSharedViewModel(clazz: Class<T>): T = ViewModelProviders.of(requireActivity()).get(clazz)
+//    fun <T : ViewModel> getViewModel(clazz: Class<T>): T = ViewModelProviders.of(this).get(clazz)
+//
+//    fun <T : ViewModel> getSharedViewModel(clazz: Class<T>): T = ViewModelProviders.of(requireActivity()).get(clazz)
 
 
     private var isFirst:Boolean = true

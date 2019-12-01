@@ -71,6 +71,7 @@ dependencies {
 
     // ViewModel and LiveData
     implementation 'androidx.lifecycle:lifecycle-extensions:2.1.0'
+    //使用 ViewModel 协程作用域
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.1.0"
 
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
@@ -78,7 +79,6 @@ dependencies {
 
     implementation 'androidx.room:room-runtime:2.2.2'
     kapt 'androidx.room:room-compiler:2.2.2'
-
 
     implementation 'com.blankj:utilcodex:1.26.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
@@ -92,6 +92,7 @@ dependencies {
     //解决Glide找不到Android声明库问题
     annotationProcessor 'androidx.annotation:annotation:1.1.0'
     implementation 'jp.wasabeef:glide-transformations:4.1.0'
+
 
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'

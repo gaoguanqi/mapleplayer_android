@@ -7,12 +7,13 @@
     <color name="color_background">#FF1E13</color>
 
     <color name="white">#FFFFFF</color>
+    <color name="color_half_white">#88FFFFFF</color>
     <color name="black">#000000</color>
     <color name="trans">#00000000</color>
     <color name="color_sneaker_start">#FF1E13</color>
     <color name="color_sneaker_end">#FF5E51</color>
 
-    <color name="color_toast">#1a58bf</color>
+    <color name="color_toast">#333333</color>
     <color name="color_ripple">#FF5E51</color>
     <color name="color_text">#D81E06</color>
     <color name="color_progress">#55E5E5E5</color>

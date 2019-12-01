@@ -67,6 +67,15 @@
             android:textColor="@color/white"
             android:layout_marginTop="20dp" />
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_auto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp" />
 
         <LinearLayout
             android:id="@+id/ll_agree"
@@ -74,8 +83,8 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingTop="80dp"
-            android:paddingBottom="20dp">
+            android:paddingTop="40dp"
+            android:paddingBottom="40dp">
 
             <CheckBox
                 android:id="@+id/cbox_agree"
@@ -84,7 +93,7 @@
                 android:text="同意"
                 android:checked="@{viewModel.isAgree()}"
                 style="@style/style_checkbox_agree"
-                android:textColor="@color/white"
+                android:textColor="@color/color_half_white"
                 android:textSize="@dimen/font_12" />
 
             <TextView

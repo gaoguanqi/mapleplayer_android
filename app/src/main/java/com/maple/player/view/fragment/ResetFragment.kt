@@ -13,7 +13,7 @@ import com.maple.player.viewmodel.factory.ResetModelFactory
 class ResetFragment : BaseFragment<FragmentResetBinding>() {
 
     private val viewModel: ResetViewModel by lazy {
-        ViewModelProvider(requireActivity(), ResetModelFactory())
+        ViewModelProvider(this, ResetModelFactory())
             .get(ResetViewModel::class.java)
     }
 

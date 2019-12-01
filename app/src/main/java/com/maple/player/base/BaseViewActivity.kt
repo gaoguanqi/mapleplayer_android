@@ -8,10 +8,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
 
-abstract class BaseViewActivity<DB : ViewDataBinding, VM : BaseViewModel> : BaseActivity(),
+abstract class BaseViewActivity<VB : ViewDataBinding, VM : BaseViewModel> : BaseActivity(),
     CoroutineScope by MainScope() {
 
-    protected val binding: DB by lazy { DataBindingUtil.setContentView(this, getLayoutId()) as DB }
+    protected val binding: VB by lazy { DataBindingUtil.setContentView(this, getLayoutId()) as VB }
     protected lateinit var viewModel: VM
 
 

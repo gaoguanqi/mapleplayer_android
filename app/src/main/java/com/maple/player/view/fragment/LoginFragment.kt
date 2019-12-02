@@ -41,7 +41,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
         list.add(AutoEntity(R.drawable.icon_logo_qq))
         list.add(AutoEntity(R.drawable.icon_logo_sina))
         list.add(AutoEntity(R.drawable.icon_logo_163))
-        val adapter:LoginAutoAdapter = LoginAutoAdapter().also {
+        binding.rvAuto.adapter = LoginAutoAdapter().also {
             it.setData(list)
             it.setListener(object :LoginAutoAdapter.OnClickListener{
                 override fun onItemClick(pos: Int) {
@@ -49,7 +49,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 }
             })
         }
-        binding.rvAuto.adapter = adapter
 
         binding.cboxAgree.setOnCheckedChangeListener { buttonView, isChecked ->
             viewModel.isAgree.set(

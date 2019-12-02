@@ -4,6 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
 import com.maple.player.app.MyApplication
 import com.maple.player.base.BaseViewModel
+import com.maple.player.http.RetrofitManager
 import com.maple.player.utils.ToastUtil
 
 class LoginViewModel(var app: MyApplication) : BaseViewModel(app) {

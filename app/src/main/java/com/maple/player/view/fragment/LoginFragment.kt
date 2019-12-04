@@ -37,10 +37,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
         binding.rvAuto.layoutManager = LinearLayoutManager(this.context).also { it.orientation = LinearLayoutManager.HORIZONTAL }
         val list:MutableList<AutoEntity> = mutableListOf()
-        list.add(AutoEntity(R.drawable.icon_logo_wx))
-        list.add(AutoEntity(R.drawable.icon_logo_qq))
-        list.add(AutoEntity(R.drawable.icon_logo_sina))
-        list.add(AutoEntity(R.drawable.icon_logo_163))
+        list.add(AutoEntity(false,R.drawable.icon_logo_wx))
+        list.add(AutoEntity(false,R.drawable.icon_logo_qq))
+        list.add(AutoEntity(false,R.drawable.icon_logo_sina))
+        list.add(AutoEntity(false,R.drawable.icon_logo_163))
         binding.rvAuto.adapter = LoginAutoAdapter().also {
             it.setData(list)
             it.setListener(object :LoginAutoAdapter.OnClickListener{
@@ -50,7 +50,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             })
         }
 
-        binding.cboxAgree.setOnCheckedChangeListener { buttonView, isChecked ->
+        binding.cboxAgree.setOnCheckedChangeListener { _, isChecked ->
             viewModel.isAgree.set(
                 isChecked
             )

@@ -1,3 +1,3 @@
 package com.maple.player.model
 
-data class AutoEntity(var icon:Int)
+data class AutoEntity(var isTag:Boolean,var icon:Int)

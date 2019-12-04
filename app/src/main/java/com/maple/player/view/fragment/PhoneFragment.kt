@@ -29,21 +29,7 @@ class PhoneFragment : BaseFragment<FragmentPhoneBinding>() {
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
 
-        val url = "https://ss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=1031088294,2770759814&fm=111&gp=0.jpg"
-        ImageLoader.getInstance().loadImage(MyApplication.instance,
-            GlideImageConfig(url,binding.image).also {
-                it.type = TransType.NORMAL
-                it.progressListener = object :ProgressListener{
-                    override fun onLoadProgress(isDone: Boolean, progress: Int) {
-                        LogUtils.logGGQ("onLoadProgress-->>> isDone:${isDone}--progress:${progress.toString()}")
-                    }
 
-                    override fun onLoadFailed() {
-                        LogUtils.logGGQ("onLoadFailed")
-                    }
-
-                }
-            })
 
     }
 

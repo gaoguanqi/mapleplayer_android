@@ -83,14 +83,14 @@ class OkHttpStreamFetcher(var client: Call.Factory, var url: GlideUrl) : DataFet
     }
 
     override fun onResponse(call: Call, response: Response) {
-        responseBody = response.body()
+        responseBody = response.body
         if (response.isSuccessful) {
             val contentLength: Long = Preconditions.checkNotNull(responseBody).contentLength()
             stream = responseBody?.byteStream()
                 ?.let { ContentLengthInputStream.obtain(it, contentLength) }
             callback.onDataReady(stream)
         } else {
-            callback.onLoadFailed(HttpException(response.message(), response.code()))
+            callback.onLoadFailed(HttpException(response.message, response.code))
         }
     }
 }

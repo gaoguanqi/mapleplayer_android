@@ -12,10 +12,10 @@ import kotlinx.android.synthetic.main.item_login_auto.view.*
 
 class LoginAutoAdapter : RecyclerView.Adapter<LoginAutoAdapter.ViewHolder>() {
 
-    private var list: MutableList<AutoEntity>? = null
+    private var list: List<AutoEntity>? = null
     private var listener:OnClickListener? = null
 
-    fun setData(list: MutableList<AutoEntity>?) {
+    fun setData(list: List<AutoEntity>?) {
         this.list = list
         notifyDataSetChanged()
     }
@@ -47,6 +47,7 @@ class LoginAutoAdapter : RecyclerView.Adapter<LoginAutoAdapter.ViewHolder>() {
 
         fun setData(pos:Int,entity: AutoEntity?) {
             if (entity != null) {
+                itemView.tv_auto_tag.visibility = if(entity.isTag) View.VISIBLE else View.INVISIBLE
                 itemView.iv_icon.setBackgroundResource(entity.icon)
                 itemView.item_root.setOnClickListener { listener?.onItemClick(pos) }
             }

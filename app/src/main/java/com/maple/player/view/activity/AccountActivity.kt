@@ -10,7 +10,6 @@ class AccountActivity : BaseActivity() {
 
 
     override fun initData(savedInstanceState: Bundle?) {
-        showTopMessage("initData")
 
     }
 

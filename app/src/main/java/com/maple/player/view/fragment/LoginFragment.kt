@@ -9,8 +9,12 @@ import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.blankj.utilcode.util.SPUtils
 import com.maple.player.R
 import com.maple.player.app.MyApplication
+import com.maple.player.app.global.Constants
+import com.maple.player.app.global.Constants.SaveInfoKey.KEY_LOGIN_TAG
+import com.maple.player.app.global.Constants.SaveInfoKey.VALUE_LOGIN_TAG_LOGIN
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentLoginBinding
 import com.maple.player.model.AutoEntity
@@ -34,15 +38,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
     }
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
-
         binding.rvAuto.layoutManager = LinearLayoutManager(this.context).also { it.orientation = LinearLayoutManager.HORIZONTAL }
-        val list:MutableList<AutoEntity> = mutableListOf()
-        list.add(AutoEntity(false,R.drawable.icon_logo_wx))
-        list.add(AutoEntity(false,R.drawable.icon_logo_qq))
-        list.add(AutoEntity(false,R.drawable.icon_logo_sina))
-        list.add(AutoEntity(false,R.drawable.icon_logo_163))
+
         binding.rvAuto.adapter = LoginAutoAdapter().also {
-            it.setData(list)
+            it.setData(viewModel.autoList.get())
             it.setListener(object :LoginAutoAdapter.OnClickListener{
                 override fun onItemClick(pos: Int) {
                     viewModel.onAuto(pos)
@@ -58,7 +57,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
         viewModel.loginEvent.observe(
             this,
-            Observer<Boolean> { navController.navigate(R.id.action_loginFragment_to_phoneFragment) })
+            Observer<Boolean> {
+                navController.navigate(R.id.action_loginFragment_to_phoneFragment)
+                SPUtils.getInstance().put(KEY_LOGIN_TAG,VALUE_LOGIN_TAG_LOGIN)
+            })
 
         viewModel.tasteEvent.observe(
             this,

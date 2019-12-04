@@ -47,7 +47,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/font_10"
             android:layout_gravity="center_horizontal"
-            android:visibility="visible"
+            android:visibility="@{viewModel.loginTag.intValue()}"
             android:text="上次登录"
             android:paddingBottom="8dp"
             android:paddingLeft="6dp"
@@ -87,7 +87,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:paddingLeft="10dp"
             android:paddingRight="10dp" />
@@ -98,7 +97,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:paddingTop="40dp"
+            android:paddingTop="10dp"
             android:paddingBottom="40dp">
 
             <CheckBox

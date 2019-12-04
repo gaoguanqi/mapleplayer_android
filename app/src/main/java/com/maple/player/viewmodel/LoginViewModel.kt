@@ -1,10 +1,19 @@
 package com.maple.player.viewmodel
 
+import android.view.View
 import androidx.databinding.ObservableField
 import androidx.lifecycle.MutableLiveData
+import com.blankj.utilcode.util.SPUtils
+import com.maple.player.R
 import com.maple.player.app.MyApplication
+import com.maple.player.app.global.Constants.SaveInfoKey.KEY_LOGIN_TAG
+import com.maple.player.app.global.Constants.SaveInfoKey.VALUE_LOGIN_TAG_163
+import com.maple.player.app.global.Constants.SaveInfoKey.VALUE_LOGIN_TAG_LOGIN
+import com.maple.player.app.global.Constants.SaveInfoKey.VALUE_LOGIN_TAG_QQ
+import com.maple.player.app.global.Constants.SaveInfoKey.VALUE_LOGIN_TAG_SINA
+import com.maple.player.app.global.Constants.SaveInfoKey.VALUE_LOGIN_TAG_WX
 import com.maple.player.base.BaseViewModel
-import com.maple.player.http.RetrofitManager
+import com.maple.player.model.AutoEntity
 import com.maple.player.utils.ToastUtil
 
 class LoginViewModel(var app: MyApplication) : BaseViewModel(app) {
@@ -13,6 +22,19 @@ class LoginViewModel(var app: MyApplication) : BaseViewModel(app) {
     var tasteEvent: MutableLiveData<Boolean> = MutableLiveData()
     var shakeEvent: MutableLiveData<Boolean> = MutableLiveData()
     val isAgree: ObservableField<Boolean> = ObservableField(false)
+    val loginTag: ObservableField<Int> = ObservableField()
+    val autoList: ObservableField<List<AutoEntity>> = ObservableField()
+
+    init {
+        val tag: Int = SPUtils.getInstance().getInt(KEY_LOGIN_TAG);
+        if (VALUE_LOGIN_TAG_LOGIN == tag) loginTag.set(View.VISIBLE) else loginTag.set(View.GONE)
+        val list: MutableList<AutoEntity> = mutableListOf()
+        list.add(AutoEntity(VALUE_LOGIN_TAG_WX == tag, R.drawable.icon_logo_wx))
+        list.add(AutoEntity(VALUE_LOGIN_TAG_QQ == tag, R.drawable.icon_logo_qq))
+        list.add(AutoEntity(VALUE_LOGIN_TAG_SINA == tag, R.drawable.icon_logo_sina))
+        list.add(AutoEntity(VALUE_LOGIN_TAG_163 == tag, R.drawable.icon_logo_163))
+        autoList.set(list)
+    }
 
     fun onLogin() {
         if (isAgree.get()!!) {
@@ -32,8 +54,14 @@ class LoginViewModel(var app: MyApplication) : BaseViewModel(app) {
         }
     }
 
-    fun onAuto(pos:Int) {
+    fun onAuto(pos: Int) {
         if (isAgree.get()!!) {
+            when(pos){
+                0 -> SPUtils.getInstance().put(KEY_LOGIN_TAG, VALUE_LOGIN_TAG_WX)
+                1 -> SPUtils.getInstance().put(KEY_LOGIN_TAG, VALUE_LOGIN_TAG_QQ)
+                2 -> SPUtils.getInstance().put(KEY_LOGIN_TAG, VALUE_LOGIN_TAG_SINA)
+                3 -> SPUtils.getInstance().put(KEY_LOGIN_TAG, VALUE_LOGIN_TAG_163)
+            }
             ToastUtil.showTipToast("pos${pos}")
         } else {
             ToastUtil.showTipToast("请先同意条款")

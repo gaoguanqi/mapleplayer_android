@@ -25,7 +25,7 @@
             android:textColor="@color/white"
             android:textSize="@dimen/font_10"
             android:layout_gravity="center_horizontal"
-            android:visibility="gone"
+            android:visibility="invisible"
             android:text="上次登录"
             android:paddingBottom="8dp"
             android:paddingLeft="6dp"

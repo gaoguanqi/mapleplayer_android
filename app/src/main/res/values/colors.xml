@@ -12,7 +12,7 @@
     <color name="trans">#00000000</color>
     <color name="color_sneaker_start">#FF1E13</color>
     <color name="color_sneaker_end">#FF5E51</color>
-
+    <color name="color_888888">#888888</color>
     <color name="color_toast">#333333</color>
     <color name="color_ripple">#FF5E51</color>
     <color name="color_text">#D81E06</color>

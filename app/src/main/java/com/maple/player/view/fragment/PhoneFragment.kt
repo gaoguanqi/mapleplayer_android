@@ -1,9 +1,12 @@
 package com.maple.player.view.fragment
 
 
+import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import androidx.lifecycle.ViewModelProvider
+import com.blankj.utilcode.util.BarUtils
 import com.maple.player.R
 import com.maple.player.app.MyApplication
 import com.maple.player.base.BaseFragment
@@ -28,9 +31,8 @@ class PhoneFragment : BaseFragment<FragmentPhoneBinding>() {
 
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
-
-
-
+        BarUtils.addMarginTopEqualStatusBarHeight(view)
+        BarUtils.setStatusBarColor(activity!!,Color.WHITE)
     }
 
     override fun bindViewModel() {

@@ -40,4 +40,5 @@
             android:textColor="@color/color_888888" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </layout>

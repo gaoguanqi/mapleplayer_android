@@ -71,6 +71,8 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(),
     open fun lazyLoadData() {}
 
 
+
+
     override fun onDestroy() {
         super.onDestroy()
         cancel()

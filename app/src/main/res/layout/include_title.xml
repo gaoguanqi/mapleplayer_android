@@ -59,7 +59,8 @@
             <com.maple.player.widget.view.AudioWaveView
                 android:id="@+id/audio_right"
                 android:layout_width="20dp"
-                android:layout_height="22dp" />
+                android:layout_height="22dp"
+                android:visibility="gone" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

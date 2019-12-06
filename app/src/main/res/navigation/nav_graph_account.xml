@@ -18,10 +18,14 @@
     <fragment
         android:id="@+id/phoneFragment"
         android:name="com.maple.player.view.fragment.PhoneFragment"
-        android:label="PhoneFragment">
+        android:label="fragment_phone">
         <action
             android:id="@+id/action_phoneFragment_to_resetFragment"
             app:destination="@id/resetFragment" />
+
+        <action
+            android:id="@+id/action_phoneFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
     </fragment>
 
     <fragment

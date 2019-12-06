@@ -124,6 +124,8 @@ class AudioWaveView @JvmOverloads constructor(
     }
 
 
+    fun getPlyState():Boolean = this.isPlay
+
     override fun onDetachedFromWindow() {
         super.onDetachedFromWindow()
         handle.removeMessages(0)

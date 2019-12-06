@@ -22,6 +22,7 @@ import com.maple.player.app.global.Constants.SaveInfoKey.VALUE_LOGIN_TAG_LOGIN
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentLoginBinding
 import com.maple.player.model.AutoEntity
+import com.maple.player.utils.UIUtils
 import com.maple.player.view.activity.HomeActivity
 import com.maple.player.view.adapter.LoginAutoAdapter
 import com.maple.player.viewmodel.LoginViewModel
@@ -43,7 +44,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
         BarUtils.addMarginTopEqualStatusBarHeight(view)
-        BarUtils.setStatusBarColor(activity!!,ContextCompat.getColor(context!!,R.color.colorPrimary))
+        BarUtils.setStatusBarColor(activity!!, UIUtils.getColor(R.color.colorPrimary))
 
         binding.rvAuto.layoutManager = LinearLayoutManager(this.context).also { it.orientation = LinearLayoutManager.HORIZONTAL }
 

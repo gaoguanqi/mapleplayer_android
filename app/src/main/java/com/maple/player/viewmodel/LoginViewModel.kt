@@ -13,7 +13,7 @@ import com.maple.player.app.global.Constants.SaveInfoKey.VALUE_LOGIN_TAG_SINA
 import com.maple.player.app.global.Constants.SaveInfoKey.VALUE_LOGIN_TAG_WX
 import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
-import com.maple.player.model.AutoEntity
+import com.maple.player.model.AuthEntity
 import com.maple.player.utils.ToastUtil
 
 class LoginViewModel(var app: MyApplication) : BaseViewModel(app) {
@@ -24,17 +24,17 @@ class LoginViewModel(var app: MyApplication) : BaseViewModel(app) {
 
     val isAgree: ObservableField<Boolean> = ObservableField(false)
     val loginTag: ObservableField<Int> = ObservableField()
-    val autoList: ObservableField<List<AutoEntity>> = ObservableField()
+    val authList: ObservableField<List<AuthEntity>> = ObservableField()
 
     init {
         val tag: Int = SPUtils.getInstance().getInt(KEY_LOGIN_TAG);
         if (VALUE_LOGIN_TAG_LOGIN == tag) loginTag.set(View.VISIBLE) else loginTag.set(View.GONE)
-        val list: MutableList<AutoEntity> = mutableListOf()
-        list.add(AutoEntity(VALUE_LOGIN_TAG_WX == tag, R.drawable.icon_logo_wx))
-        list.add(AutoEntity(VALUE_LOGIN_TAG_QQ == tag, R.drawable.icon_logo_qq))
-        list.add(AutoEntity(VALUE_LOGIN_TAG_SINA == tag, R.drawable.icon_logo_sina))
-        list.add(AutoEntity(VALUE_LOGIN_TAG_163 == tag, R.drawable.icon_logo_163))
-        autoList.set(list)
+        val list: MutableList<AuthEntity> = mutableListOf()
+        list.add(AuthEntity(VALUE_LOGIN_TAG_WX == tag, R.drawable.icon_logo_wx))
+        list.add(AuthEntity(VALUE_LOGIN_TAG_QQ == tag, R.drawable.icon_logo_qq))
+        list.add(AuthEntity(VALUE_LOGIN_TAG_SINA == tag, R.drawable.icon_logo_sina))
+        list.add(AuthEntity(VALUE_LOGIN_TAG_163 == tag, R.drawable.icon_logo_163))
+        authList.set(list)
     }
 
     fun onLogin() {

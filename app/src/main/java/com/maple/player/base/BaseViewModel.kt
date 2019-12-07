@@ -5,6 +5,10 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import com.maple.player.app.MyApplication
 
-abstract class BaseViewModel(app:MyApplication) : AndroidViewModel(app) {
+open class BaseViewModel(app:MyApplication) : AndroidViewModel(app) {
 
+    private lateinit var app:MyApplication
+    init {
+        this.app = app
+    }
 }

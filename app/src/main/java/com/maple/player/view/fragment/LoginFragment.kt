@@ -65,21 +65,21 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
         viewModel.loginEvent.observe(
             this,
-            Observer<Boolean> {
+            Observer {
                 navController.navigate(R.id.action_loginFragment_to_phoneFragment)
                 SPUtils.getInstance().put(KEY_LOGIN_TAG,VALUE_LOGIN_TAG_LOGIN)
             })
 
         viewModel.tasteEvent.observe(
             this,
-            Observer<Boolean> {
+            Observer {
                 startActivity(Intent(this.activity,HomeActivity::class.java))
                 this.activity?.finish()
             })
 
         viewModel.shakeEvent.observe(
             this,
-            Observer<Boolean> {
+            Observer {
                 val anim:Animation = AnimationUtils.loadAnimation(MyApplication.instance, R.anim.shake_anim)
                 binding.llAgree.startAnimation(anim)
             })

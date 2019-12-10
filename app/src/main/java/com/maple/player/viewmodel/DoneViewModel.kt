@@ -7,14 +7,16 @@ import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
 import com.maple.player.utils.UIUtils
 
-class PhoneViewModel(var app: MyApplication) : BaseViewModel(app) {
+class DoneViewModel(var app:MyApplication):BaseViewModel(app) {
+
 
     val title: ObservableField<String> = ObservableField()
     val backEvent: SingleLiveEvent<Any> = SingleLiveEvent()
-    val nextEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+    val doneEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val clearEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+    val resetEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
-    val hasNext: ObservableField<Boolean> = ObservableField(false)
+    val hasDone: ObservableField<Boolean> = ObservableField(false)
 
 
     init {
@@ -26,11 +28,16 @@ class PhoneViewModel(var app: MyApplication) : BaseViewModel(app) {
     }
 
 
-    fun onPhoneNext() {
-        nextEvent.call()
-    }
 
     fun onClear() {
         clearEvent.call()
+    }
+
+    fun onDone() {
+        doneEvent.call()
+    }
+
+    fun onReset(){
+        resetEvent.call()
     }
 }

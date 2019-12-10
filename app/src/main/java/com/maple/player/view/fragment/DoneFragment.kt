@@ -1,0 +1,69 @@
+package com.maple.player.view.fragment
+
+
+import android.os.Bundle
+import android.text.Editable
+import android.text.TextUtils
+import android.text.TextWatcher
+import android.view.View
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProvider
+import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.KeyboardUtils
+import com.blankj.utilcode.util.RegexUtils
+import com.maple.player.R
+import com.maple.player.base.BaseFragment
+import com.maple.player.databinding.FragmentDoneBinding
+import com.maple.player.utils.UIUtils
+import com.maple.player.viewmodel.DoneViewModel
+import com.maple.player.viewmodel.factory.DoneModelFactory
+
+
+class DoneFragment : BaseFragment<FragmentDoneBinding>() {
+
+    private val viewModel: DoneViewModel by lazy {
+        ViewModelProvider(this, DoneModelFactory())
+            .get(DoneViewModel::class.java)
+    }
+
+    override fun getLayoutId(): Int = R.layout.fragment_done
+
+    override fun bindViewModel() {
+        binding.viewModel = viewModel
+    }
+
+    override fun initData(view: View, savedInstanceState: Bundle?) {
+        BarUtils.addMarginTopEqualStatusBarHeight(view)
+        BarUtils.setStatusBarColor(activity!!, UIUtils.getColor(R.color.color_background))
+        viewModel.backEvent.observe(
+            this,
+            Observer { navController.navigateUp() })
+
+        viewModel.clearEvent.observe(this, Observer { binding.etPassword.text.clear() })
+        viewModel.resetEvent.observe(this, Observer {
+            navController.navigate(R.id.action_doneFragment_to_resetFragment)
+        })
+
+
+        viewModel.doneEvent.observe(this, Observer {
+            if(TextUtils.isEmpty(binding.etPassword.text)){
+                showTopMessage("请输入密码")
+            }else{
+//                navController.navigate(R.id.action_doneFragment_to_resetFragment)
+            }
+        })
+
+        binding.etPassword.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.hasDone.set(!s.isNullOrEmpty())
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        KeyboardUtils.showSoftInput(binding.etPassword)
+    }
+
+
+}

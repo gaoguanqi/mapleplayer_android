@@ -2,11 +2,18 @@ package com.maple.player.view.fragment
 
 
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.view.TextureView
 import android.view.View
 import androidx.core.content.ContextCompat
+import androidx.core.text.set
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.BarUtils
+import com.blankj.utilcode.util.KeyboardUtils
+import com.blankj.utilcode.util.PhoneUtils
+import com.blankj.utilcode.util.RegexUtils
 import com.maple.player.R
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentPhoneBinding
@@ -29,11 +36,39 @@ class PhoneFragment : BaseFragment<FragmentPhoneBinding>() {
         BarUtils.setStatusBarColor(activity!!, UIUtils.getColor(R.color.color_background))
         viewModel.backEvent.observe(
             this,
-            Observer { navController.navigate(R.id.action_phoneFragment_to_loginFragment) })
+            Observer { navController.navigateUp() })
+
+        viewModel.clearEvent.observe(this, Observer { binding.etPhone.text.clear() })
+        viewModel.nextEvent.observe(this, Observer {
+            if(RegexUtils.isMobileSimple(binding.etPhone.text)){
+                navController.navigate(R.id.action_phoneFragment_to_doneFragment)
+            }else{
+                showTopMessage("请输入正确的手机号")
+            }
+        })
+
+        binding.etPhone.addTextChangedListener(object :TextWatcher{
+            override fun afterTextChanged(s: Editable?) {
+                viewModel.hasNext.set(!s.isNullOrEmpty())
+            }
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        KeyboardUtils.showSoftInput(binding.etPhone)
     }
 
     override fun bindViewModel() {
         binding.viewModel = viewModel
+    }
+
+
+    override fun onPause() {
+        super.onPause()
+        if(view != null){
+            KeyboardUtils.hideSoftInput(view!!)
+        }
     }
 
 }

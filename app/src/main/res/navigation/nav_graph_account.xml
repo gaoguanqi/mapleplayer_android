@@ -18,14 +18,21 @@
     <fragment
         android:id="@+id/phoneFragment"
         android:name="com.maple.player.view.fragment.PhoneFragment"
-        android:label="fragment_phone">
+        android:label="fragment_phone"
+        tools:layout="@layout/fragment_phone">
         <action
-            android:id="@+id/action_phoneFragment_to_resetFragment"
-            app:destination="@id/resetFragment" />
+            android:id="@+id/action_phoneFragment_to_doneFragment"
+            app:destination="@id/doneFragment" />
+    </fragment>
 
+    <fragment
+        android:id="@+id/doneFragment"
+        android:name="com.maple.player.view.fragment.DoneFragment"
+        android:label="fragment_done"
+        tools:layout="@layout/fragment_done">
         <action
-            android:id="@+id/action_phoneFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            android:id="@+id/action_doneFragment_to_resetFragment"
+            app:destination="@id/resetFragment" />
     </fragment>
 
     <fragment
@@ -34,8 +41,14 @@
         android:label="fragment_reset"
         tools:layout="@layout/fragment_reset">
         <action
-            android:id="@+id/action_resetFragment_to_loginFragment"
-            app:destination="@id/loginFragment" />
+            android:id="@+id/action_resetFragment_to_checkFragment"
+            app:destination="@id/checkFragment" />
     </fragment>
 
+
+    <fragment
+        android:id="@+id/checkFragment"
+        android:name="com.maple.player.view.fragment.CheckFragment"
+        android:label="fragment_check"
+        tools:layout="@layout/fragment_check"></fragment>
 </navigation>

@@ -1,15 +1,20 @@
 package com.maple.player.base
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
+import com.irozon.sneaker.Sneaker
+import com.maple.player.R
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -43,7 +48,6 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(),
         savedInstanceState: Bundle?
     ): View? {
         this.binding = DataBindingUtil.inflate(inflater, getLayoutId(), container, false)
-        this.navController = NavHostFragment.findNavController(this)
         return binding.root
     }
 
@@ -51,6 +55,7 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         this.binding.lifecycleOwner = this
         this.bindViewModel()
+        this.navController = Navigation.findNavController(view)
         this.initData(view,savedInstanceState)
         this.onVisible()
     }
@@ -79,4 +84,17 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(),
         this.binding.unbind()
     }
 
+
+    /**
+     * 顶部提示消息
+     */
+    fun showTopMessage(msg: String?) {
+        if (!TextUtils.isEmpty(msg)) {
+            val sneaker = Sneaker.with(this) // Activity, Fragment or ViewGroup
+            val view: View =
+                this.layoutInflater.inflate(R.layout.sneaker_view, sneaker.getView(), false)
+            view.findViewById<TextView>(R.id.tv_message).text = msg
+            sneaker.sneakCustom(view)
+        }
+    }
 }

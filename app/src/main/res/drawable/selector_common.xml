@@ -1,17 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:state_pressed="true">
-        <shape android:shape="rectangle">
-            <solid android:color="@color/color_pressed" />
-            <corners android:radius="4dp" />
-        </shape>
-    </item>
-
-    <item>
-        <shape android:shape="rectangle">
-            <solid android:color="@color/color_normal" />
-            <corners android:radius="4dp" />
-        </shape>
-    </item>
-
+    <!--按下时-->
+    <item android:drawable="@drawable/shape_common_pressed"  android:state_pressed="true"/>
+    <!--失去焦点时-->
+    <item android:drawable="@drawable/shape_common_enable"  android:state_enabled="false"/>
+    <!--默认时-->
+    <item android:drawable="@drawable/shape_common_normal"/>
 </selector>

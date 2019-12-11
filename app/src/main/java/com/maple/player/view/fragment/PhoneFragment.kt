@@ -15,8 +15,10 @@ import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.PhoneUtils
 import com.blankj.utilcode.util.RegexUtils
 import com.maple.player.R
+import com.maple.player.app.global.Constants
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentPhoneBinding
+import com.maple.player.utils.ToastUtil
 import com.maple.player.utils.UIUtils
 import com.maple.player.viewmodel.PhoneViewModel
 import com.maple.player.viewmodel.factory.PhoneModelFactory
@@ -34,14 +36,30 @@ class PhoneFragment : BaseFragment<FragmentPhoneBinding>() {
     override fun initData(view: View, savedInstanceState: Bundle?) {
         BarUtils.addMarginTopEqualStatusBarHeight(view)
         BarUtils.setStatusBarColor(activity!!, UIUtils.getColor(R.color.color_background))
+
+        viewModel.defUI.showDialog.observe(this, Observer {
+            showLoading()
+        })
+
+        viewModel.defUI.dismissDialog.observe(this, Observer {
+            dismissLoading()
+        })
+
+        viewModel.defUI.toastEvent.observe(this, Observer {
+            ToastUtil.showToast(it)
+        })
+
         viewModel.backEvent.observe(
             this,
             Observer { navController.navigateUp() })
 
+
         viewModel.clearEvent.observe(this, Observer { binding.etPhone.text.clear() })
         viewModel.nextEvent.observe(this, Observer {
             if(RegexUtils.isMobileSimple(binding.etPhone.text)){
-                navController.navigate(R.id.action_phoneFragment_to_doneFragment)
+                val bundle:Bundle = Bundle()
+                bundle.putString(Constants.BundleKey.EXTRA_PHONE,binding.etPhone.text.toString())
+                navController.navigate(R.id.action_phoneFragment_to_doneFragment,bundle)
             }else{
                 showTopMessage("请输入正确的手机号")
             }

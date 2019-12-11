@@ -8,11 +8,13 @@ import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.SPUtils
 import com.maple.player.R
 import com.maple.player.app.MyApplication
+import com.maple.player.app.global.Constants
 import com.maple.player.app.global.Constants.SaveInfoKey.KEY_LOGIN_TAG
 import com.maple.player.app.global.Constants.SaveInfoKey.VALUE_LOGIN_TAG_LOGIN
 import com.maple.player.base.BaseFragment

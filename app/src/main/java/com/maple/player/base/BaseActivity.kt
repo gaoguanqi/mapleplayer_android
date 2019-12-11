@@ -11,6 +11,7 @@ import com.irozon.sneaker.Sneaker
 import com.maple.player.R
 import com.maple.player.utils.Event
 import com.maple.player.utils.EventBusUtils
+import com.maple.player.widget.dialog.LoadingDialog
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
 
@@ -21,6 +22,7 @@ abstract class BaseActivity : AppCompatActivity(), IView {
     abstract fun initData(savedInstanceState: Bundle?): Unit
 
     open fun hasUsedEventBus(): Boolean = false
+    private var loadingDialog:LoadingDialog? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setStatusBarLightMode(true)
@@ -66,6 +68,19 @@ abstract class BaseActivity : AppCompatActivity(), IView {
         }
     }
 
+    open fun showLoading(){
+        if(loadingDialog == null){
+            loadingDialog = LoadingDialog(this)
+        }
+
+        if(!loadingDialog!!.isShowing){
+            loadingDialog!!.show()
+        }
+    }
+
+    open fun dismissLoading(){
+        loadingDialog?.cancel()
+    }
     /**
      * 四种线程模型
      * EventBus3.0有四种线程模型，分别是：

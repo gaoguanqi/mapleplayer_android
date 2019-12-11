@@ -16,7 +16,7 @@ import com.maple.player.base.BaseViewModel
 import com.maple.player.model.AuthEntity
 import com.maple.player.utils.ToastUtil
 
-class LoginViewModel(var app: MyApplication) : BaseViewModel(app) {
+class LoginViewModel(private val app:MyApplication) : BaseViewModel(app) {
 
     val loginEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val tasteEvent: SingleLiveEvent<Any> = SingleLiveEvent()

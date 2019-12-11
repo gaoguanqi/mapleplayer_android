@@ -1,4 +1,4 @@
-package com.maple.player.http.base
+package com.maple.player.http
 
 import com.maple.player.BuildConfig
 import okhttp3.OkHttpClient
@@ -21,7 +21,18 @@ abstract class BaseRetrofitClient {
             } else {
                 logging.level = HttpLoggingInterceptor.Level.BASIC
             }
+
+//            val map:Map<String,String> = HashMap<String,String>()
+//            val header = HeaderInterceptor(map)
             builder.addInterceptor(logging)
+//            builder.addInterceptor(header)
+
+//                    ssl
+//            builder.sslSocketFactory(SSLHelper.sslSocketFactory, SSLHelper.trustManager).hostnameVerifier(SSLHelper.hostnameVerifier)
+
+//            val sslContext = SSLHelper.getSSLContext(caIn, ksIn, ksPwd)
+//            builder.sslSocketFactory(sslContext.socketFactory).hostnameVerifier(SSLHelper.hostnameVerifier)
+
                 .connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
             handleBuilder(builder)
             return builder.build()
@@ -30,9 +41,9 @@ abstract class BaseRetrofitClient {
     /**
      * 以便对builder可以再扩展
      */
-    abstract fun handleBuilder(builder: OkHttpClient.Builder)
+    protected abstract fun handleBuilder(builder: OkHttpClient.Builder)
 
-    open fun <Service> getService(serviceClass: Class<Service>, baseUrl: String): Service {
+     fun <S> getService(serviceClass: Class<S>, baseUrl: String): S {
         return Retrofit.Builder()
             .client(client)
             .addConverterFactory(GsonConverterFactory.create())

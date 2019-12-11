@@ -12,8 +12,10 @@ import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.RegexUtils
 import com.maple.player.R
+import com.maple.player.app.global.Constants
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentDoneBinding
+import com.maple.player.utils.ToastUtil
 import com.maple.player.utils.UIUtils
 import com.maple.player.viewmodel.DoneViewModel
 import com.maple.player.viewmodel.factory.DoneModelFactory
@@ -35,13 +37,27 @@ class DoneFragment : BaseFragment<FragmentDoneBinding>() {
     override fun initData(view: View, savedInstanceState: Bundle?) {
         BarUtils.addMarginTopEqualStatusBarHeight(view)
         BarUtils.setStatusBarColor(activity!!, UIUtils.getColor(R.color.color_background))
+
+        viewModel.defUI.showDialog.observe(this, Observer {
+            showLoading()
+        })
+
+        viewModel.defUI.dismissDialog.observe(this, Observer {
+            dismissLoading()
+        })
+
+        viewModel.defUI.toastEvent.observe(this, Observer {
+            ToastUtil.showToast(it)
+        })
+
+
         viewModel.backEvent.observe(
             this,
             Observer { navController.navigateUp() })
 
         viewModel.clearEvent.observe(this, Observer { binding.etPassword.text.clear() })
         viewModel.resetEvent.observe(this, Observer {
-            navController.navigate(R.id.action_doneFragment_to_resetFragment)
+            navController.navigate(R.id.action_doneFragment_to_resetFragment,arguments)
         })
 
 
@@ -49,7 +65,9 @@ class DoneFragment : BaseFragment<FragmentDoneBinding>() {
             if(TextUtils.isEmpty(binding.etPassword.text)){
                 showTopMessage("请输入密码")
             }else{
-//                navController.navigate(R.id.action_doneFragment_to_resetFragment)
+                val phone:String = arguments?.getString(Constants.BundleKey.EXTRA_PHONE)!!
+                val password:String = binding.etPassword.text.toString()
+                viewModel.onPhoneLogin(phone,password)
             }
         })
 

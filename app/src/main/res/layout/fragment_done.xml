@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerHorizontal="true"
                     android:layout_centerVertical="true"
-                    android:text="@{viewModel.title}"
+                    android:text="@{viewModel.defUI.title}"
                     android:textColor="@color/black"
                     android:textSize="@dimen/font_16"
                     android:textStyle="bold"

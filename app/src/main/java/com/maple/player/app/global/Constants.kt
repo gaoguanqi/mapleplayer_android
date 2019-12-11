@@ -20,6 +20,6 @@ class Constants {
     }
 
     object BundleKey {
-        const val EXTRA_INDEX = "index"
+        const val EXTRA_PHONE = "phone"
     }
 }

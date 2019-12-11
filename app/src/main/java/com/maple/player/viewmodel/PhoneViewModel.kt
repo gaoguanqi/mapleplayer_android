@@ -7,7 +7,7 @@ import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
 import com.maple.player.utils.UIUtils
 
-class PhoneViewModel(var app: MyApplication) : BaseViewModel(app) {
+class PhoneViewModel(private val app:MyApplication) : BaseViewModel(app) {
 
     val title: ObservableField<String> = ObservableField()
     val backEvent: SingleLiveEvent<Any> = SingleLiveEvent()
@@ -18,7 +18,7 @@ class PhoneViewModel(var app: MyApplication) : BaseViewModel(app) {
 
 
     init {
-        title.set(UIUtils.getString(R.string.title_login_phone))
+        defUI.title.set(UIUtils.getString(R.string.title_login_phone))
     }
 
     fun onBack() {

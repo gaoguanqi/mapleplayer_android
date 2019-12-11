@@ -15,6 +15,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.fragment.NavHostFragment
 import com.irozon.sneaker.Sneaker
 import com.maple.player.R
+import com.maple.player.widget.dialog.LoadingDialog
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.cancel
@@ -41,6 +42,7 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(),
 
     private var isFirst:Boolean = true
 
+    private var loadingDialog:LoadingDialog? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -58,6 +60,20 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(),
         this.navController = Navigation.findNavController(view)
         this.initData(view,savedInstanceState)
         this.onVisible()
+    }
+
+    open fun showLoading(){
+        if(loadingDialog == null){
+            loadingDialog = LoadingDialog(this.context!!)
+        }
+
+        if(!loadingDialog!!.isShowing){
+            loadingDialog!!.show()
+        }
+    }
+
+    open fun dismissLoading(){
+        loadingDialog?.cancel()
     }
 
 

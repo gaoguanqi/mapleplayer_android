@@ -41,9 +41,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
         BarUtils.addMarginTopEqualStatusBarHeight(view)
-        BarUtils.setStatusBarColor(activity!!, UIUtils.getColor(R.color.colorPrimary))
+        BarUtils.setStatusBarColor(requireActivity(), UIUtils.getColor(R.color.colorPrimary))
 
-        binding.rvAuth.layoutManager = LinearLayoutManager(this.context).also { it.orientation = LinearLayoutManager.HORIZONTAL }
+        binding.rvAuth.layoutManager = LinearLayoutManager(this.requireContext()).also { it.orientation = LinearLayoutManager.HORIZONTAL }
 
         binding.rvAuth.adapter = LoginAuthAdapter().also {
             it.setData(viewModel.authList.get())

@@ -1,16 +1,20 @@
 package com.maple.player.viewmodel
 
 import androidx.databinding.ObservableField
+import com.blankj.utilcode.util.GsonUtils
 import com.maple.player.R
 import com.maple.player.app.MyApplication
 import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
+import com.maple.player.http.BaseResult
+import com.maple.player.model.entity.UserInfoEntity
 import com.maple.player.model.repository.AccountRepository
+import com.maple.player.utils.LogUtils
 import com.maple.player.utils.UIUtils
-import java.util.logging.Handler
 
-class DoneViewModel(private val app:MyApplication,private val repository: AccountRepository):BaseViewModel(app) {
+class DoneViewModel(private val app:MyApplication):BaseViewModel(app) {
 
+    private val repository by lazy { AccountRepository() }
 
     val backEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val doneEvent: SingleLiveEvent<Any> = SingleLiveEvent()
@@ -40,6 +44,20 @@ class DoneViewModel(private val app:MyApplication,private val repository: Accoun
         resetEvent.call()
     }
 
-    suspend fun onPhoneLogin(phone:String, password:String){
+     fun onPhoneLogin(phone:String, password:String){
+
+        launch(
+            {
+                val result:BaseResult<UserInfoEntity> = repository.loginPhone(phone,password)
+                LogUtils.logGGQ("结果：$result")
+                val entity:UserInfoEntity = GsonUtils.fromJson<UserInfoEntity>(result.toString(),UserInfoEntity::class.java)
+                LogUtils.logGGQ("登录成功${entity.code}")
+            },
+            {
+                LogUtils.logGGQ("异常${it.errMsg}")
+            },
+            {
+                LogUtils.logGGQ("回调完成 complete $")
+            })
     }
 }

@@ -9,7 +9,7 @@ import java.util.concurrent.TimeUnit
 
 abstract class BaseRetrofitClient {
     companion object CLIENT {
-        private const val TIME_OUT = 5
+        private const val TIME_OUT:Long = 60000L
     }
 
     protected val client: OkHttpClient
@@ -32,8 +32,8 @@ abstract class BaseRetrofitClient {
 
 //            val sslContext = SSLHelper.getSSLContext(caIn, ksIn, ksPwd)
 //            builder.sslSocketFactory(sslContext.socketFactory).hostnameVerifier(SSLHelper.hostnameVerifier)
-
-                .connectTimeout(TIME_OUT.toLong(), TimeUnit.SECONDS)
+                .connectTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
+                .readTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
             handleBuilder(builder)
             return builder.build()
         }

@@ -64,7 +64,7 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(),
 
     open fun showLoading(){
         if(loadingDialog == null){
-            loadingDialog = LoadingDialog(this.context!!)
+            loadingDialog = LoadingDialog(this.requireContext())
         }
 
         if(!loadingDialog!!.isShowing){

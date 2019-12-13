@@ -36,7 +36,7 @@ class DoneFragment : BaseFragment<FragmentDoneBinding>() {
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
         BarUtils.addMarginTopEqualStatusBarHeight(view)
-        BarUtils.setStatusBarColor(activity!!, UIUtils.getColor(R.color.color_background))
+        BarUtils.setStatusBarColor(requireActivity(), UIUtils.getColor(R.color.color_background))
 
         viewModel.defUI.showDialog.observe(this, Observer {
             showLoading()
@@ -65,7 +65,7 @@ class DoneFragment : BaseFragment<FragmentDoneBinding>() {
             if(TextUtils.isEmpty(binding.etPassword.text)){
                 showTopMessage("请输入密码")
             }else{
-                val phone:String = arguments?.getString(Constants.BundleKey.EXTRA_PHONE)!!
+                val phone:String = requireArguments().getString(Constants.BundleKey.EXTRA_PHONE)!!
                 val password:String = binding.etPassword.text.toString()
                 viewModel.onPhoneLogin(phone,password)
             }

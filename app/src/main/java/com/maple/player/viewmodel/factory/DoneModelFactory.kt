@@ -10,6 +10,6 @@ class DoneModelFactory : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return DoneViewModel(MyApplication.instance, AccountRepository()) as T
+        return DoneViewModel(MyApplication.instance) as T
     }
 }

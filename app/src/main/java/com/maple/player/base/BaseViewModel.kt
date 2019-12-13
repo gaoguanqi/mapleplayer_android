@@ -24,14 +24,6 @@ open class BaseViewModel(app: MyApplication) : AndroidViewModel(app), LifecycleO
         viewModelScope.launch { block() }
     }
 
-    /**
-     * 用流的方式进行网络请求
-     */
-    fun <T> launchFlow(block: suspend () -> T): Flow<T> {
-        return flow {
-            emit(block())
-        }
-    }
 
     /**
      *  不过滤请求结果
@@ -49,7 +41,8 @@ open class BaseViewModel(app: MyApplication) : AndroidViewModel(app), LifecycleO
         if (isShowDialog) defUI.showDialog.call()
         launchUI {
             handleException(
-                withContext(Dispatchers.IO) { block },
+                withContext(Dispatchers.IO)
+                { block },
                 { error(it) },
                 {
                     defUI.dismissDialog.call()
@@ -60,75 +53,7 @@ open class BaseViewModel(app: MyApplication) : AndroidViewModel(app), LifecycleO
         }
     }
 
-    /**
-     * 过滤请求结果，其他全抛异常
-     * @param block 请求体
-     * @param success 成功回调
-     * @param errorCall 失败回调
-     * @param complete  完成回调（无论成功失败都会调用）
-     * @param isShowDialog 是否显示加载框
-     */
-    fun <T> launchOnlyResult(
-        block: suspend CoroutineScope.() -> BaseResult<T>,
-        success: (T) -> Unit,
-        errorCall: (ResponseThrowable) -> Unit = {},
-        complete: () -> Unit = {},
-        isShowDialog: Boolean = true
-    ) {
-        if (isShowDialog) defUI.showDialog.call()
-        launchUI {
-            handleException(
-                { withContext(Dispatchers.IO) { block() } },
-                { res ->
-                    executeResponse(res) { success(it) }
-                },
-                {
-                    errorCall(it)
-                },
-                {
-                    defUI.dismissDialog.call()
-                    complete()
-                },
-                true
-            )
-        }
-    }
 
-    /**
-     * 请求结果过滤
-     */
-    private suspend fun <T> executeResponse(
-        response: BaseResult<T>,
-        success: suspend CoroutineScope.(T) -> Unit
-    ) {
-        coroutineScope {
-            if (response.isSuccessOK()) response.getData()?.let { success(it) }
-            else throw ResponseThrowable(response.getCode(), response.getMessage())
-        }
-    }
-
-    /**
-     * 异常统一处理
-     */
-    private suspend fun <T> handleException(
-        block: suspend CoroutineScope.() -> BaseResult<T>,
-        success: suspend CoroutineScope.(BaseResult<T>) -> Unit,
-        error: suspend CoroutineScope.(ResponseThrowable) -> Unit,
-        complete: suspend CoroutineScope.() -> Unit,
-        isHandlerError: Boolean = false
-    ) {
-        coroutineScope {
-            try {
-                success(block())
-            } catch (e: Throwable) {
-                val err = ExceptionHandle.handleException(e)
-                if (!isHandlerError) defUI.toastEvent.postValue("${err.code}:${err.errMsg}")
-                else error(err)
-            } finally {
-                complete()
-            }
-        }
-    }
 
 
     /**
@@ -152,7 +77,6 @@ open class BaseViewModel(app: MyApplication) : AndroidViewModel(app), LifecycleO
             }
         }
     }
-
 
     /**
      * UI事件

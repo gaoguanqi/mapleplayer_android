@@ -91,9 +91,8 @@ class PhoneFragment : BaseFragment<FragmentPhoneBinding>() {
         binding.viewModel = viewModel
     }
 
-
-    override fun onPause() {
-        super.onPause()
+    override fun onStop() {
+        super.onStop()
         KeyboardUtils.hideSoftInput(requireView())
     }
 

@@ -21,5 +21,6 @@ class Constants {
 
     object BundleKey {
         const val EXTRA_PHONE = "phone"
+        const val EXTRA_VERIFY_CODE = "verifyCode"
     }
 }

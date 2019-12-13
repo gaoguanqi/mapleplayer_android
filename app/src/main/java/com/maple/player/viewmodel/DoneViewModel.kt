@@ -2,6 +2,8 @@ package com.maple.player.viewmodel
 
 import androidx.databinding.ObservableField
 import com.blankj.utilcode.util.GsonUtils
+import com.github.salomonbrys.kotson.fromJson
+import com.google.gson.Gson
 import com.maple.player.R
 import com.maple.player.app.MyApplication
 import com.maple.player.app.manager.SingleLiveEvent
@@ -10,6 +12,7 @@ import com.maple.player.http.BaseResult
 import com.maple.player.model.entity.UserInfoEntity
 import com.maple.player.model.repository.AccountRepository
 import com.maple.player.utils.LogUtils
+import com.maple.player.utils.StringNullAdapter
 import com.maple.player.utils.UIUtils
 
 class DoneViewModel(private val app:MyApplication):BaseViewModel(app) {
@@ -45,19 +48,21 @@ class DoneViewModel(private val app:MyApplication):BaseViewModel(app) {
     }
 
      fun onPhoneLogin(phone:String, password:String){
-
         launch(
             {
-                val result:BaseResult<UserInfoEntity> = repository.loginPhone(phone,password)
-                LogUtils.logGGQ("结果：$result")
-                val entity:UserInfoEntity = GsonUtils.fromJson<UserInfoEntity>(result.toString(),UserInfoEntity::class.java)
-                LogUtils.logGGQ("登录成功${entity.code}")
+                val result:UserInfoEntity = repository.loginPhone(phone,password).apply {
+                    if(this.code == 200){
+
+                    }else{
+                        defUI.toastEvent.postValue("${this.message}")
+                    }
+                }
             },
             {
-                LogUtils.logGGQ("异常${it.errMsg}")
+                defUI.toastEvent.postValue("error:${it.code} -- ${it.errMsg}")
             },
             {
-                LogUtils.logGGQ("回调完成 complete $")
+                LogUtils.logGGQ("回调完成 complete")
             })
     }
 }

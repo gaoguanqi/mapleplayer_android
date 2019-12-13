@@ -3,12 +3,12 @@ package com.maple.player.viewmodel.factory
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.maple.player.app.MyApplication
-import com.maple.player.viewmodel.CheckViewModel
+import com.maple.player.viewmodel.VerifyViewModel
 
-class CheckModelFactory : ViewModelProvider.NewInstanceFactory() {
+class VerifyModelFactory : ViewModelProvider.NewInstanceFactory() {
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return CheckViewModel(MyApplication.instance) as T
+        return VerifyViewModel(MyApplication.instance) as T
     }
 }

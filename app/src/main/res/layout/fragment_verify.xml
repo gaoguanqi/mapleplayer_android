@@ -3,15 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+        <import type="android.view.View"/>
         <variable
             name="viewModel"
-            type="com.maple.player.viewmodel.CheckViewModel" />
+            type="com.maple.player.viewmodel.VerifyViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.fragment.CheckFragment">
+        android:background="@color/white"
+        tools:context=".view.fragment.VerifyFragment">
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

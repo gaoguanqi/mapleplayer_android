@@ -9,6 +9,7 @@ import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.http.BaseResult
 import com.maple.player.http.ExceptionHandle
 import com.maple.player.http.ResponseThrowable
+import io.reactivex.internal.operators.completable.CompletableDoFinally
 import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -63,7 +64,7 @@ open class BaseViewModel(app: MyApplication) : AndroidViewModel(app), LifecycleO
         block: suspend CoroutineScope.() -> Unit,
         error: suspend CoroutineScope.(ResponseThrowable) -> Unit,
         complete: suspend CoroutineScope.() -> Unit,
-        isHandlerError: Boolean
+        isHandlerError: Boolean = false
     ) {
         coroutineScope {
             try {

@@ -16,6 +16,8 @@ class ResetViewModel(private val app:MyApplication):BaseViewModel(app) {
     val clearPhoneEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val clearPasswordEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
+    val nextEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+
     init {
         defUI.title.set(UIUtils.getString(R.string.title_reset_password))
     }
@@ -30,5 +32,9 @@ class ResetViewModel(private val app:MyApplication):BaseViewModel(app) {
 
     fun onPasswordClear() {
         clearPasswordEvent.call()
+    }
+
+    fun onNext(){
+        nextEvent.call()
     }
 }

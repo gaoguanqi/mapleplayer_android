@@ -49,7 +49,7 @@ class ResetFragment : BaseFragment<FragmentResetBinding>() {
             ToastUtil.showToast(it)
         })
 
-        val phone:String? = arguments?.getString(Constants.BundleKey.EXTRA_PHONE)
+        val phone:String? = requireArguments().getString(Constants.BundleKey.EXTRA_PHONE)
         if(!TextUtils.isEmpty(phone)){
             binding.etPhone.setText(phone)
         }

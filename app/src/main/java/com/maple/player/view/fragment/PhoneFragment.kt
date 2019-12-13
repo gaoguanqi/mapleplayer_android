@@ -57,12 +57,22 @@ class PhoneFragment : BaseFragment<FragmentPhoneBinding>() {
         viewModel.clearEvent.observe(this, Observer { binding.etPhone.text.clear() })
         viewModel.nextEvent.observe(this, Observer {
             if(RegexUtils.isMobileSimple(binding.etPhone.text)){
-                val bundle:Bundle = Bundle()
-                bundle.putString(Constants.BundleKey.EXTRA_PHONE,binding.etPhone.text.toString())
-                navController.navigate(R.id.action_phoneFragment_to_doneFragment,bundle)
+                val phone:String = binding.etPhone.text.toString()
+                viewModel.onCheckPhone(phone)
             }else{
                 showTopMessage("请输入正确的手机号")
             }
+        })
+
+        viewModel.acceptEvent.observe(this, Observer {
+            val bundle:Bundle = Bundle()
+            bundle.putString(Constants.BundleKey.EXTRA_PHONE,binding.etPhone.text.toString())
+            navController.navigate(R.id.action_phoneFragment_to_doneFragment,bundle)
+        })
+        viewModel.registEvent.observe(this, Observer {
+            val bundle:Bundle = Bundle()
+            bundle.putString(Constants.BundleKey.EXTRA_PHONE,binding.etPhone.text.toString())
+            navController.navigate(R.id.action_phoneFragment_to_verifyFragment,bundle)
         })
 
         binding.etPhone.addTextChangedListener(object :TextWatcher{

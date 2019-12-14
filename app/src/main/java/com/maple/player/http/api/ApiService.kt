@@ -3,6 +3,7 @@ package com.maple.player.http.api
 import com.maple.player.http.BaseResult
 import com.maple.player.model.entity.CheckPhoneEntity
 import com.maple.player.model.entity.UserInfoEntity
+import com.maple.player.model.entity.VerifyCodeEntity
 import retrofit2.http.*
 
 interface ApiService {
@@ -12,4 +13,9 @@ interface ApiService {
 
     @GET("/cellphone/existence/check")
     suspend fun checkPhone(@Query("phone") phone:String): CheckPhoneEntity
+
+    @GET("/captcha/sent")
+    suspend fun sendVerifyCode(@Query("phone") phone:String): VerifyCodeEntity
+
+
 }

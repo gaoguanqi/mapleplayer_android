@@ -91,51 +91,59 @@
             android:paddingLeft="10dp"
             android:paddingRight="10dp" />
 
-        <LinearLayout
-            android:id="@+id/ll_agree"
+        <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:paddingTop="10dp"
-            android:paddingBottom="40dp">
+            android:scrollbars="none">
 
-            <CheckBox
-                android:id="@+id/cbox_agree"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/ll_agree"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="同意"
-                android:checked="@{viewModel.isAgree()}"
-                style="@style/style_checkbox_agree"
-                android:textColor="@color/color_half_white"
-                android:textSize="@dimen/font_12" />
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:paddingBottom="40dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:text="《服务条款》"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_12" />
+                <CheckBox
+                    android:id="@+id/cbox_agree"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="同意"
+                    android:checked="@{viewModel.isAgree()}"
+                    style="@style/style_checkbox_agree"
+                    android:textColor="@color/color_half_white"
+                    android:textSize="@dimen/font_12" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:text="《隐私政策》"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_12" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:text="《服务条款》"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_12" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingLeft="2dp"
-                android:paddingRight="2dp"
-                android:text="《儿童隐私政策》"
-                android:textColor="@color/white"
-                android:textSize="@dimen/font_12" />
-        </LinearLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:text="《隐私政策》"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_12" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="2dp"
+                    android:paddingRight="2dp"
+                    android:text="《儿童隐私政策》"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/font_12" />
+            </LinearLayout>
+        </HorizontalScrollView>
     </LinearLayout>
 </layout>

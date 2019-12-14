@@ -75,7 +75,7 @@ class LoginViewModel(private val app:MyApplication) : BaseViewModel(app) {
         }
     }
 
-    fun onAuto(pos: Int) {
+    fun onAuth(pos: Int) {
         if (isAgree.get()!!) {
             when (pos) {
                 0 -> SPUtils.getInstance().put(KEY_LOGIN_TAG, VALUE_LOGIN_TAG_WX)

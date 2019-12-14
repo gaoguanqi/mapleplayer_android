@@ -49,7 +49,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             it.setData(viewModel.authList.get())
             it.setListener(object :LoginAuthAdapter.OnClickListener{
                 override fun onItemClick(pos: Int) {
-                    viewModel.onAuto(pos)
+                    viewModel.onAuth(pos)
                 }
             })
         }

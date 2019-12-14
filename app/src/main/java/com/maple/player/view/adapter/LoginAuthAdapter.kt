@@ -32,7 +32,11 @@ class LoginAuthAdapter : RecyclerView.Adapter<LoginAuthAdapter.ViewHolder>() {
             parent,
             false
         )
-        return ViewHolder(binding.root)
+        val holder: ViewHolder = ViewHolder(binding.root)
+        holder.itemView.item_root.setOnClickListener {
+            listener?.onItemClick(holder.adapterPosition)
+        }
+        return holder
     }
 
     override fun getItemCount(): Int {
@@ -49,7 +53,6 @@ class LoginAuthAdapter : RecyclerView.Adapter<LoginAuthAdapter.ViewHolder>() {
             if (entity != null) {
                 itemView.tv_auth_tag.visibility = if(entity.isTag) View.VISIBLE else View.INVISIBLE
                 itemView.iv_icon.setBackgroundResource(entity.icon)
-                itemView.item_root.setOnClickListener { listener?.onItemClick(pos) }
             }
         }
     }

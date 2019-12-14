@@ -2,12 +2,14 @@ package com.maple.player.view.fragment
 
 
 import android.os.Bundle
+import android.text.TextUtils
 import android.view.View
 import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
+import com.blankj.utilcode.util.StringUtils
 import com.maple.player.R
 import com.maple.player.app.global.Constants
 import com.maple.player.app.global.Constants.BundleKey.EXTRA_VERIFY_CODE
@@ -53,11 +55,21 @@ class VerifyFragment : BaseFragment<FragmentVerifyBinding>() {
             Observer { navController.navigateUp() })
 
 
+        val phone:String? = requireArguments().getString(Constants.BundleKey.EXTRA_PHONE)
+        if(!TextUtils.isEmpty(phone)){
+            StringUtils.length(phone)> 8.apply {
+                val sphone = "${phone!!.substring(0,3)}****${phone!!.substring(7,phone!!.length)}"
+                binding.tvPhone.text = "+86\t${sphone}"
+            }
+            viewModel.sendVerifyCode(phone!!)
+        }
+
         binding.verifyCodeView.setListener(object :VerifyCodeView.InputCompleteListener{
             override fun inputComplete(content: String) {
-                val bundle:Bundle = requireArguments()
-                bundle.putString(EXTRA_VERIFY_CODE,content)
-                navController.navigate(R.id.action_verifyFragment_to_passwordFragment,bundle)
+//                val bundle:Bundle = requireArguments()
+//                bundle.putString(EXTRA_VERIFY_CODE,content)
+//                navController.navigate(R.id.action_verifyFragment_to_passwordFragment,bundle)
+                viewModel.checkVerifyCode(phone!!,content)
             }
 
             override fun invalidContent() {

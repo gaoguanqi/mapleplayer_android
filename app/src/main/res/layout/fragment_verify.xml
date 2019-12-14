@@ -98,15 +98,16 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/color_gray"
                 android:textSize="@dimen/font_14"
-                tools:text="手机号"
-                android:text="手机号" />
+                tools:text="手机号"/>
 
             <TextView
                 android:id="@+id/tv_code"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="重新发送"
+                android:text="@{viewModel.taskText}"
                 android:textColor="@color/color_verify"
+                android:onClick="@{(v) ->viewModel.repeatSend()}"
+                android:enabled="@{viewModel.taskTextEnable.booleanValue()}"
                 android:textSize="@dimen/font_14"
                 android:paddingLeft="10dp"
                 android:paddingTop="8dp"

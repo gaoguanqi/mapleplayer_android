@@ -16,4 +16,9 @@ class AccountRepository : BaseRepository() {
     suspend fun checkPhone(phone: String) = withContext(Dispatchers.IO) {
         retrofitClient.checkPhone(phone)
     }
+
+
+    suspend fun sendVerifyCode(phone: String) = withContext(Dispatchers.IO) {
+        retrofitClient.sendVerifyCode(phone)
+    }
 }

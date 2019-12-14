@@ -12,6 +12,7 @@ import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.StringUtils
 import com.maple.player.R
 import com.maple.player.app.global.Constants
+import com.maple.player.app.global.Constants.BundleKey.EXTRA_PHONE
 import com.maple.player.app.global.Constants.BundleKey.EXTRA_VERIFY_CODE
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentVerifyBinding
@@ -66,15 +67,21 @@ class VerifyFragment : BaseFragment<FragmentVerifyBinding>() {
 
         binding.verifyCodeView.setListener(object :VerifyCodeView.InputCompleteListener{
             override fun inputComplete(content: String) {
-//                val bundle:Bundle = requireArguments()
-//                bundle.putString(EXTRA_VERIFY_CODE,content)
-//                navController.navigate(R.id.action_verifyFragment_to_passwordFragment,bundle)
+
                 viewModel.checkVerifyCode(phone!!,content)
             }
 
             override fun invalidContent() {
 
             }
+        })
+
+        viewModel.nextEvent.observe(this, Observer {
+            val bundle:Bundle = requireArguments()
+            bundle.putString(EXTRA_VERIFY_CODE,it)
+            bundle.putString(EXTRA_PHONE,phone)
+            navController.navigate(R.id.action_verifyFragment_to_passwordFragment,bundle)
+
         })
 
         KeyboardUtils.showSoftInput(binding.verifyCodeView.getEditText())

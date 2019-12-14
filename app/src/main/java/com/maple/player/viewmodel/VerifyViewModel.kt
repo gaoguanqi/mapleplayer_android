@@ -1,12 +1,12 @@
 package com.maple.player.viewmodel
 
 import androidx.databinding.ObservableField
+import androidx.lifecycle.MutableLiveData
 import com.maple.player.R
 import com.maple.player.app.MyApplication
 import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
-import com.maple.player.model.entity.UserInfoEntity
-import com.maple.player.model.entity.VerifyCodeEntity
+import com.maple.player.model.entity.CommonEntity
 import com.maple.player.model.repository.AccountRepository
 import com.maple.player.utils.LogUtils
 import com.maple.player.utils.UIUtils
@@ -18,6 +18,7 @@ class VerifyViewModel(private val app:MyApplication):BaseViewModel(app) {
     private val repository by lazy { AccountRepository() }
 
     val backEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+    val nextEvent: MutableLiveData<String> = MutableLiveData ()
     var phone:String? = null
     private val timer:MyCountDownTimer
 
@@ -52,7 +53,7 @@ class VerifyViewModel(private val app:MyApplication):BaseViewModel(app) {
         this.phone = phone
         launch(
             {
-                val result: VerifyCodeEntity = repository.sendVerifyCode(phone).apply {
+                val result: CommonEntity = repository.sendVerifyCode(phone).apply {
                     if(this.code == 200){
                         defUI.toastEvent.postValue("发送成功")
                     }else{
@@ -73,7 +74,7 @@ class VerifyViewModel(private val app:MyApplication):BaseViewModel(app) {
             timer.start()
             launch(
                 {
-                    val result: VerifyCodeEntity = repository.sendVerifyCode(phone!!).apply {
+                    val result: CommonEntity = repository.sendVerifyCode(phone!!).apply {
                         if(this.code == 200){
                             defUI.toastEvent.postValue("发送成功")
                         }else{
@@ -93,6 +94,23 @@ class VerifyViewModel(private val app:MyApplication):BaseViewModel(app) {
 
     //校验验证码
     fun checkVerifyCode(phone: String, content: String) {
-
+        launch(
+            {
+                val result: CommonEntity = repository.checkVerifyCode(phone,content).apply {
+                    if(this.code == 200){
+                        nextEvent.value = content
+                    }else{
+//                        defUI.toastEvent.postValue("error:code ${code}")
+                        nextEvent.value = content
+                    }
+                }
+            },
+            {
+//                defUI.toastEvent.postValue("error:${it.code} -- ${it.errMsg}")
+                nextEvent.value = content
+            },
+            {
+                LogUtils.logGGQ("回调完成 complete")
+            },false)
     }
 }

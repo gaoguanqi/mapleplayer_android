@@ -7,17 +7,16 @@ import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
 import com.maple.player.utils.UIUtils
 
-class PasswordViewModel(private val app: MyApplication) : BaseViewModel(app) {
+class NicknameViewModel(private val app: MyApplication) : BaseViewModel(app) {
     val backEvent: SingleLiveEvent<Any> = SingleLiveEvent()
-    val nextEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val clearEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+    val submitEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
-    val hasNext: ObservableField<Boolean> = ObservableField(false)
-
+    val hasClear: ObservableField<Boolean> = ObservableField(false)
 
 
     init {
-        defUI.title.set(UIUtils.getString(R.string.title_password_phone))
+        defUI.title.set(UIUtils.getString(R.string.title_nickname))
     }
 
     fun onBack() {
@@ -28,8 +27,8 @@ class PasswordViewModel(private val app: MyApplication) : BaseViewModel(app) {
         clearEvent.call()
     }
 
-    fun onNext() {
-        nextEvent.call()
+    fun onSubmit() {
+        submitEvent.call()
     }
 
 }

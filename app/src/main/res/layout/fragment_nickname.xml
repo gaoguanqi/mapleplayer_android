@@ -73,6 +73,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="30dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             android:src="@mipmap/ic_launcher" />
@@ -88,7 +89,7 @@
             android:text="你希望大家怎么称呼你呢？"
             android:textSize="@dimen/font_14"
             android:textColor="@color/color_text_gray"
-            android:layout_marginTop="30dp" />
+            android:layout_marginTop="10dp" />
 
         <LinearLayout
             android:id="@+id/ll_input"

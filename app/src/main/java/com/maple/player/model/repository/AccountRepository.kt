@@ -25,4 +25,8 @@ class AccountRepository : BaseRepository() {
     suspend fun checkVerifyCode(phone: String,captcha: String) = withContext(Dispatchers.IO) {
         retrofitClient.checkVerifyCode(phone,captcha)
     }
+
+    suspend fun registerPhone(phone: String,password: String,captcha: String,nickname:String) = withContext(Dispatchers.IO) {
+        retrofitClient.registerPhone(phone,password,captcha,nickname)
+    }
 }

@@ -1,8 +1,10 @@
 package com.maple.player.view.fragment
 
 
+import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
+import android.text.TextUtils
 import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -14,10 +16,12 @@ import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
 
 import com.maple.player.R
+import com.maple.player.app.global.Constants
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentNicknameBinding
 import com.maple.player.utils.ToastUtil
 import com.maple.player.utils.UIUtils
+import com.maple.player.view.activity.AccountActivity
 import com.maple.player.viewmodel.NicknameViewModel
 import com.maple.player.viewmodel.PasswordViewModel
 import com.maple.player.viewmodel.factory.NicknameModelFactory
@@ -70,7 +74,25 @@ class NicknameFragment : BaseFragment<FragmentNicknameBinding>() {
         })
 
         viewModel.submitEvent.observe(this, Observer {
-            showTopMessage("11111")
+            val bundle:Bundle = requireArguments()
+            val phone:String? = bundle.getString(Constants.BundleKey.EXTRA_PHONE)
+            val password:String? = bundle.getString(Constants.BundleKey.EXTRA_PASSWORD)
+            val verifyCode:String? = bundle.getString(Constants.BundleKey.EXTRA_VERIFY_CODE)
+            if(TextUtils.isEmpty(phone) && TextUtils.isEmpty(password) && TextUtils.isEmpty(verifyCode)){
+                showTopMessage("error")
+                return@Observer
+            }
+
+            val nicename:String = binding.etNickname.text.toString()
+            if(TextUtils.isEmpty(nicename)){
+                showTopMessage("请输入昵称")
+            }else{
+                viewModel.onConfirmSubmit(phone!!,password!!,verifyCode!!,nicename)
+            }
+        })
+
+        viewModel.homeEvent.observe(this, Observer {
+            (requireActivity() as AccountActivity).startHomeActivity()
         })
 
         KeyboardUtils.showSoftInput(binding.etNickname)

@@ -19,4 +19,7 @@ interface ApiService {
     @GET("/captcha/verify")
     suspend fun checkVerifyCode(@Query("phone") phone:String,@Query("captcha") captcha:String): ResultEntity
 
+    @GET("/register/cellphone")
+    suspend fun registerPhone(@Query("phone")phone: String, @Query("password")password: String, @Query("captcha")captcha: String, @Query("nickname")nickname: String): UserInfoEntity
+
 }

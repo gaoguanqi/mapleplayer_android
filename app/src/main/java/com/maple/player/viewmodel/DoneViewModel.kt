@@ -23,6 +23,7 @@ class DoneViewModel(private val app:MyApplication):BaseViewModel(app) {
     val doneEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val clearEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val resetEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+    val homeEvent:SingleLiveEvent<Any> = SingleLiveEvent()
 
     val hasDone: ObservableField<Boolean> = ObservableField(false)
 
@@ -52,7 +53,9 @@ class DoneViewModel(private val app:MyApplication):BaseViewModel(app) {
             {
                 val result:UserInfoEntity = repository.loginPhone(phone,password).apply {
                     if(this.code == 200){
+                        //save userinfo room
 
+                        homeEvent.call()
                     }else{
                         defUI.toastEvent.postValue("${this.message}")
                     }

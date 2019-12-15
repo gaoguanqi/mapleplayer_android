@@ -17,6 +17,7 @@ import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentDoneBinding
 import com.maple.player.utils.ToastUtil
 import com.maple.player.utils.UIUtils
+import com.maple.player.view.activity.AccountActivity
 import com.maple.player.viewmodel.DoneViewModel
 import com.maple.player.viewmodel.factory.DoneModelFactory
 
@@ -78,6 +79,10 @@ class DoneFragment : BaseFragment<FragmentDoneBinding>() {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
+        })
+
+        viewModel.homeEvent.observe(this, Observer {
+            (requireActivity() as AccountActivity).startHomeActivity()
         })
 
         KeyboardUtils.showSoftInput(binding.etPassword)

@@ -1,5 +1,6 @@
 package com.maple.player.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.navigation.findNavController
 import com.maple.player.R
@@ -17,5 +18,11 @@ class AccountActivity : BaseActivity() {
     override fun onSupportNavigateUp(): Boolean {
 //        return super.onSupportNavigateUp()
         return findNavController(R.id.fragment_account).navigateUp()
+    }
+
+
+    fun startHomeActivity(){
+        startActivity(Intent(this@AccountActivity,HomeActivity::class.java))
+        this@AccountActivity.finish()
     }
 }

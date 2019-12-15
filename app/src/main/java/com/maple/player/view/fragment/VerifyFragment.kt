@@ -59,7 +59,7 @@ class VerifyFragment : BaseFragment<FragmentVerifyBinding>() {
         val phone:String? = requireArguments().getString(Constants.BundleKey.EXTRA_PHONE)
         if(!TextUtils.isEmpty(phone)){
             StringUtils.length(phone)> 8.apply {
-                val sphone = "${phone!!.substring(0,3)}****${phone!!.substring(7,phone!!.length)}"
+                val sphone = "${phone!!.substring(0,3)}****${phone.substring(7,phone.length)}"
                 binding.tvPhone.text = "+86\t${sphone}"
             }
             viewModel.sendVerifyCode(phone!!)
@@ -78,12 +78,17 @@ class VerifyFragment : BaseFragment<FragmentVerifyBinding>() {
 
         viewModel.nextEvent.observe(this, Observer {
             val bundle:Bundle = requireArguments()
-            bundle.putString(EXTRA_VERIFY_CODE,it)
+            bundle.putString(EXTRA_VERIFY_CODE,viewModel.verifyCode.value?.verifyCode)
             bundle.putString(EXTRA_PHONE,phone)
             navController.navigate(R.id.action_verifyFragment_to_passwordFragment,bundle)
 
         })
 
         KeyboardUtils.showSoftInput(binding.verifyCodeView.getEditText())
+    }
+
+    override fun onStop() {
+        super.onStop()
+        binding.verifyCodeView.initContent()
     }
 }

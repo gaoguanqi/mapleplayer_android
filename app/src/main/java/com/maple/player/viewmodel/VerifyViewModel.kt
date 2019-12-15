@@ -6,7 +6,8 @@ import com.maple.player.R
 import com.maple.player.app.MyApplication
 import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
-import com.maple.player.model.entity.CommonEntity
+import com.maple.player.model.entity.AccountData
+import com.maple.player.model.entity.ResultEntity
 import com.maple.player.model.repository.AccountRepository
 import com.maple.player.utils.LogUtils
 import com.maple.player.utils.UIUtils
@@ -18,8 +19,8 @@ class VerifyViewModel(private val app:MyApplication):BaseViewModel(app) {
     private val repository by lazy { AccountRepository() }
 
     val backEvent: SingleLiveEvent<Any> = SingleLiveEvent()
-    val nextEvent: MutableLiveData<String> = MutableLiveData ()
-    var phone:String? = null
+    val nextEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+    val verifyCode:MutableLiveData<AccountData> = MutableLiveData(AccountData("",""))
     private val timer:MyCountDownTimer
 
     val taskText: ObservableField<String> = ObservableField("重新发送")
@@ -50,10 +51,12 @@ class VerifyViewModel(private val app:MyApplication):BaseViewModel(app) {
     }
 
     fun sendVerifyCode(phone: String) {
-        this.phone = phone
+        verifyCode.value.let {
+            it?.phone = phone
+        }
         launch(
             {
-                val result: CommonEntity = repository.sendVerifyCode(phone).apply {
+                val result: ResultEntity = repository.sendVerifyCode(phone).apply {
                     if(this.code == 200){
                         defUI.toastEvent.postValue("发送成功")
                     }else{
@@ -70,11 +73,11 @@ class VerifyViewModel(private val app:MyApplication):BaseViewModel(app) {
     }
 
     fun repeatSend() {
-        phone?.apply {
+        verifyCode.value?.phone?.apply {
             timer.start()
             launch(
                 {
-                    val result: CommonEntity = repository.sendVerifyCode(phone!!).apply {
+                    val result: ResultEntity = repository.sendVerifyCode(verifyCode.value!!.phone!!).apply {
                         if(this.code == 200){
                             defUI.toastEvent.postValue("发送成功")
                         }else{
@@ -94,20 +97,24 @@ class VerifyViewModel(private val app:MyApplication):BaseViewModel(app) {
 
     //校验验证码
     fun checkVerifyCode(phone: String, content: String) {
+        verifyCode.value.let {
+            it?.phone = phone
+            it?.verifyCode = content
+        }
         launch(
             {
-                val result: CommonEntity = repository.checkVerifyCode(phone,content).apply {
+                val result: ResultEntity = repository.checkVerifyCode(phone,content).apply {
                     if(this.code == 200){
-                        nextEvent.value = content
+                        nextEvent.call()
                     }else{
 //                        defUI.toastEvent.postValue("error:code ${code}")
-                        nextEvent.value = content
+                        nextEvent.call()
                     }
                 }
             },
             {
 //                defUI.toastEvent.postValue("error:${it.code} -- ${it.errMsg}")
-                nextEvent.value = content
+                nextEvent.call()
             },
             {
                 LogUtils.logGGQ("回调完成 complete")

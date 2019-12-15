@@ -52,7 +52,6 @@ class VerifyCodeView @JvmOverloads constructor(
                 inputContent.apply {
                     if (inputContent.length >= MAX) {
                         listener?.inputComplete(inputContent)
-                        initContent()
                     } else {
                         listener?.invalidContent()
                     }

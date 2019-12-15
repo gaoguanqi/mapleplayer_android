@@ -2,7 +2,7 @@ package com.maple.player.http.api
 
 import com.maple.player.model.entity.CheckPhoneEntity
 import com.maple.player.model.entity.UserInfoEntity
-import com.maple.player.model.entity.CommonEntity
+import com.maple.player.model.entity.ResultEntity
 import retrofit2.http.*
 
 interface ApiService {
@@ -14,9 +14,9 @@ interface ApiService {
     suspend fun checkPhone(@Query("phone") phone:String): CheckPhoneEntity
 
     @GET("/captcha/sent")
-    suspend fun sendVerifyCode(@Query("phone") phone:String): CommonEntity
+    suspend fun sendVerifyCode(@Query("phone") phone:String): ResultEntity
 
     @GET("/captcha/verify")
-    suspend fun checkVerifyCode(@Query("phone") phone:String,@Query("captcha") captcha:String): CommonEntity
+    suspend fun checkVerifyCode(@Query("phone") phone:String,@Query("captcha") captcha:String): ResultEntity
 
 }

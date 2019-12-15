@@ -45,13 +45,13 @@ class NicknameViewModel(private val app: MyApplication) : BaseViewModel(app) {
     fun onConfirmSubmit(phone:String,password:String,verifyCode:String,nickname:String){
         launch(
             {
-                val result: UserInfoEntity = repository.registerPhone(phone,password,verifyCode,nickname).apply {
-                    if(this.code == 200){
-                        //save userinfo room
-                        val user: User = User()
-                        user.loginType = this.loginType
-                        user.nickname = this.profile?.nickname
-
+//                val result: UserInfoEntity = repository.registerPhone(phone,password,verifyCode,nickname).apply {
+//                    if(this.code == 200){
+//                        //save userinfo room
+//                        val user: User = User()
+//                        user.loginType = this.loginType
+//                        user.nickname = this.profile?.nickname
+//
 //                        user.account = Account(
 //                            this.account?.anonimousUser,
 //                            this.account?.ban,
@@ -122,14 +122,22 @@ class NicknameViewModel(private val app: MyApplication) : BaseViewModel(app) {
 //
 //                        user.loginType = this.loginType
 //                        user.token = this.token
+//                    }else{
+//                        defUI.toastEvent.postValue("${this.message}")
+//                    }
+//                }
 
-                        AppDatabase.getInstance(app).userDao().insertUser(user)
-                        if(AppDatabase.getInstance(app).userDao().getAllUser().isNullOrEmpty()){
-                         homeEvent.call()
-                        }
-                    }else{
-                        defUI.toastEvent.postValue("${this.message}")
+                val result:UserInfoEntity = repository.loginPhone(phone,password)
+                if(result.code == 200){
+                    AppDatabase.getInstance(app).userDao().insertUser(User().apply {
+                        this.loginType = result.loginType
+                        this.nickname = result.profile?.nickname
+                    })
+                    if(!AppDatabase.getInstance(app).userDao().getAllUser().isNullOrEmpty()){
+                        homeEvent.call()
                     }
+                }else{
+                    defUI.toastEvent.postValue("${result.message}")
                 }
             },
             {

@@ -21,6 +21,7 @@ import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentLoginBinding
 import com.maple.player.db.AppDatabase
 import com.maple.player.db.user.Test
+import com.maple.player.utils.LogUtils
 import com.maple.player.utils.UIUtils
 import com.maple.player.view.activity.HomeActivity
 import com.maple.player.view.adapter.LoginAuthAdapter

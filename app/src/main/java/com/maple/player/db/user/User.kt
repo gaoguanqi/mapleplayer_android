@@ -11,7 +11,7 @@ class User{
     var id:Long = 0
 
     @ColumnInfo(name = "loginType")
-    var loginType:Int? = 0
+    var loginType:Int = 0
 
     @ColumnInfo(name = "nickname")
     var nickname:String? = ""

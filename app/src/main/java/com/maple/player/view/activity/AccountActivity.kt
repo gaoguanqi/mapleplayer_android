@@ -8,12 +8,14 @@ import com.maple.player.app.MyApplication
 import com.maple.player.base.BaseActivity
 import com.maple.player.db.AppDatabase
 import com.maple.player.db.user.Test
+import com.maple.player.utils.LogUtils
 
 class AccountActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_account
 
 
     override fun initData(savedInstanceState: Bundle?) {
+
 
     }
 

@@ -32,11 +32,12 @@ android {
         }
 
         //指定room.schemaLocation生成的文件路径
-        javaCompileOptions {
-            annotationProcessorOptions {
-                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
-            }
-        }
+//        javaCompileOptions {
+//            annotationProcessorOptions {
+//                arguments = ["room.schemaLocation": "$projectDir/schemas".toString()]
+//            }
+//        }
+
 
         packagingOptions {
             exclude 'META-INF/atomicfu.kotlin_module'
@@ -93,6 +94,7 @@ dependencies {
     kapt "androidx.room:room-runtime:$room_version"
     // use kapt for Kotlin
     annotationProcessor "androidx.room:room-compiler:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
     // optional - RxJava support for Room
     implementation "androidx.room:room-rxjava2:$room_version"
     // optional - Guava support for Room, including Optional and ListenableFuture

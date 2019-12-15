@@ -19,6 +19,8 @@ import com.maple.player.app.global.Constants.SaveInfoKey.KEY_LOGIN_TAG
 import com.maple.player.app.global.Constants.SaveInfoKey.VALUE_LOGIN_TAG_LOGIN
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentLoginBinding
+import com.maple.player.db.AppDatabase
+import com.maple.player.db.user.Test
 import com.maple.player.utils.UIUtils
 import com.maple.player.view.activity.HomeActivity
 import com.maple.player.view.adapter.LoginAuthAdapter
@@ -80,5 +82,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 val anim:Animation = AnimationUtils.loadAnimation(MyApplication.instance, R.anim.shake_anim)
                 binding.llAgree.startAnimation(anim)
             })
+
     }
 }

@@ -9,15 +9,18 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
+import com.blankj.utilcode.util.SPUtils
 import com.blankj.utilcode.util.StringUtils
 import com.maple.player.R
 import com.maple.player.app.global.Constants
+import com.maple.player.app.global.Constants.BundleKey.EXTRA_PASSWORD
 import com.maple.player.app.global.Constants.BundleKey.EXTRA_PHONE
 import com.maple.player.app.global.Constants.BundleKey.EXTRA_VERIFY_CODE
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentVerifyBinding
 import com.maple.player.utils.ToastUtil
 import com.maple.player.utils.UIUtils
+import com.maple.player.view.activity.AccountActivity
 import com.maple.player.viewmodel.VerifyViewModel
 import com.maple.player.viewmodel.factory.VerifyModelFactory
 import com.maple.player.widget.view.VerifyCodeView
@@ -77,11 +80,34 @@ class VerifyFragment : BaseFragment<FragmentVerifyBinding>() {
         })
 
         viewModel.nextEvent.observe(this, Observer {
-            val bundle:Bundle = requireArguments()
-            bundle.putString(EXTRA_VERIFY_CODE,viewModel.verifyCode.value?.verifyCode)
-            bundle.putString(EXTRA_PHONE,phone)
-            navController.navigate(R.id.action_verifyFragment_to_passwordFragment,bundle)
 
+            val accountActivity: AccountActivity = (requireActivity() as AccountActivity)
+            val homeAction:Boolean? = accountActivity.homeAction.get()
+
+            homeAction?.let {
+                val bundle:Bundle = requireArguments()
+                if(it){
+                    //直接登陆
+                    ToastUtil.showTipToast("直接登录")
+                    val password:String? = bundle.getString(EXTRA_PASSWORD)
+
+                    viewModel.onPhoneLogin(phone!!,password!!)
+                }else{
+                    bundle.putString(EXTRA_VERIFY_CODE,viewModel.verifyCode.value?.verifyCode)
+                    bundle.putString(EXTRA_PHONE,phone)
+                    navController.navigate(R.id.action_verifyFragment_to_passwordFragment,bundle)
+                }
+            }
+        })
+
+        viewModel.homeEvent.observe(this, Observer {
+            SPUtils.getInstance().put(
+                Constants.SaveInfoKey.KEY_LOGIN_TAG,
+                Constants.SaveInfoKey.VALUE_LOGIN_TAG_LOGIN
+            )
+            val accountActivity:AccountActivity = (requireActivity() as AccountActivity)
+            accountActivity.homeAction.set(false)
+            accountActivity.startHomeActivity()
         })
 
         KeyboardUtils.showSoftInput(binding.verifyCodeView.getEditText())

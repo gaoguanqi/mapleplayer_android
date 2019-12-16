@@ -16,6 +16,12 @@ class User{
     @ColumnInfo(name = "nickname")
     var nickname:String? = ""
 
+    @ColumnInfo(name = "uid")
+    var uid:String? = ""
+
+    @ColumnInfo(name = "token")
+    var token:String? = ""
+
 
 }
 

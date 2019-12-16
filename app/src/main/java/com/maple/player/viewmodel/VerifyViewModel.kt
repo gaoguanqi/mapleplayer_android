@@ -6,8 +6,11 @@ import com.maple.player.R
 import com.maple.player.app.MyApplication
 import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
+import com.maple.player.db.AppDatabase
+import com.maple.player.db.user.User
 import com.maple.player.model.entity.AccountData
 import com.maple.player.model.entity.ResultEntity
+import com.maple.player.model.entity.UserInfoEntity
 import com.maple.player.model.repository.AccountRepository
 import com.maple.player.utils.LogUtils
 import com.maple.player.utils.UIUtils
@@ -26,6 +29,8 @@ class VerifyViewModel(private val app:MyApplication):BaseViewModel(app) {
     val taskText: ObservableField<String> = ObservableField("重新发送")
 
     val taskTextEnable:ObservableField<Boolean> = ObservableField(true)
+
+    val homeEvent:SingleLiveEvent<Any> = SingleLiveEvent()
 
     init {
         defUI.title.set(UIUtils.getString(R.string.title_verify_phone))
@@ -119,5 +124,29 @@ class VerifyViewModel(private val app:MyApplication):BaseViewModel(app) {
             {
                 LogUtils.logGGQ("回调完成 complete")
             },false)
+    }
+
+    fun onPhoneLogin(phone: String, password: String) {
+        launch(
+            {
+                val result: UserInfoEntity = repository.loginPhone(phone,password)
+                if(result.code == 200){
+                    AppDatabase.getInstance(app).userDao().insertUser(User().apply {
+                        this.loginType = result.loginType
+                        this.nickname = result.profile?.nickname
+                    })
+                    if(!AppDatabase.getInstance(app).userDao().getAllUser().isNullOrEmpty()){
+                        homeEvent.call()
+                    }
+                }else{
+                    defUI.toastEvent.postValue("${result.message}")
+                }
+            },
+            {
+                defUI.toastEvent.postValue("error:${it.code} -- ${it.errMsg}")
+            },
+            {
+                LogUtils.logGGQ("回调完成 complete")
+            })
     }
 }

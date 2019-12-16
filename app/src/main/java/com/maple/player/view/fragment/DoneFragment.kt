@@ -59,6 +59,8 @@ class DoneFragment : BaseFragment<FragmentDoneBinding>() {
 
         viewModel.clearEvent.observe(this, Observer { binding.etPassword.text.clear() })
         viewModel.resetEvent.observe(this, Observer {
+            val accountActivity:AccountActivity = (requireActivity() as AccountActivity)
+            accountActivity.homeAction.set(true)
             navController.navigate(R.id.action_doneFragment_to_resetFragment,arguments)
         })
 
@@ -87,8 +89,9 @@ class DoneFragment : BaseFragment<FragmentDoneBinding>() {
                 Constants.SaveInfoKey.KEY_LOGIN_TAG,
                 Constants.SaveInfoKey.VALUE_LOGIN_TAG_LOGIN
             )
-
-            (requireActivity() as AccountActivity).startHomeActivity()
+            val accountActivity:AccountActivity = (requireActivity() as AccountActivity)
+            accountActivity.homeAction.set(false)
+            accountActivity.startHomeActivity()
         })
 
         KeyboardUtils.showSoftInput(binding.etPassword)

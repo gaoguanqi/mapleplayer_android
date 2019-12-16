@@ -2,6 +2,7 @@ package com.maple.player.view.activity
 
 import android.content.Intent
 import android.os.Bundle
+import androidx.databinding.ObservableField
 import androidx.navigation.findNavController
 import com.maple.player.R
 import com.maple.player.app.MyApplication
@@ -11,6 +12,9 @@ import com.maple.player.db.user.Test
 import com.maple.player.utils.LogUtils
 
 class AccountActivity : BaseActivity() {
+
+    val homeAction: ObservableField<Boolean> = ObservableField(false)
+
     override fun getLayoutId(): Int = R.layout.activity_account
 
 

@@ -81,6 +81,13 @@ class ResetFragment : BaseFragment<FragmentResetBinding>() {
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
+
+        viewModel.nextEvent.observe(this, Observer {
+            val bundle:Bundle = requireArguments()
+            bundle.putString(Constants.BundleKey.EXTRA_PASSWORD,binding.etPassword.text.toString())
+            navController.navigate(R.id.action_resetFragment_to_verifyFragment,bundle)
+        })
+
         KeyboardUtils.showSoftInput(binding.etPassword)
     }
 

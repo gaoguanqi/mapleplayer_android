@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
 import com.blankj.utilcode.util.RegexUtils
+import com.blankj.utilcode.util.SPUtils
 import com.maple.player.R
 import com.maple.player.app.global.Constants
 import com.maple.player.base.BaseFragment
@@ -82,6 +83,11 @@ class DoneFragment : BaseFragment<FragmentDoneBinding>() {
         })
 
         viewModel.homeEvent.observe(this, Observer {
+            SPUtils.getInstance().put(
+                Constants.SaveInfoKey.KEY_LOGIN_TAG,
+                Constants.SaveInfoKey.VALUE_LOGIN_TAG_LOGIN
+            )
+
             (requireActivity() as AccountActivity).startHomeActivity()
         })
 

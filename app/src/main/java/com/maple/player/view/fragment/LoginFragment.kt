@@ -23,6 +23,7 @@ import com.maple.player.db.AppDatabase
 import com.maple.player.db.user.Test
 import com.maple.player.utils.LogUtils
 import com.maple.player.utils.UIUtils
+import com.maple.player.view.activity.AccountActivity
 import com.maple.player.view.activity.HomeActivity
 import com.maple.player.view.adapter.LoginAuthAdapter
 import com.maple.player.viewmodel.LoginViewModel
@@ -67,14 +68,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
             this,
             Observer {
                 navController.navigate(R.id.action_loginFragment_to_phoneFragment)
-                SPUtils.getInstance().put(KEY_LOGIN_TAG,VALUE_LOGIN_TAG_LOGIN)
             })
 
         viewModel.tasteEvent.observe(
             this,
             Observer {
-                startActivity(Intent(this.activity,HomeActivity::class.java))
-                this.activity?.finish()
+                (requireActivity() as AccountActivity).startHomeActivity()
             })
 
         viewModel.shakeEvent.observe(

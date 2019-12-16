@@ -6,7 +6,6 @@ import android.text.Editable
 import android.text.TextUtils
 import android.text.TextWatcher
 import android.view.View
-import androidx.core.text.TextUtilsCompat
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.BarUtils
@@ -33,6 +32,8 @@ class PasswordFragment : BaseFragment<FragmentPasswordBinding>() {
         binding.viewModel = viewModel
     }
 
+    override fun hasNavController(): Boolean = true
+
     override fun initData(view: View, savedInstanceState: Bundle?) {
         BarUtils.addMarginTopEqualStatusBarHeight(view)
         BarUtils.setStatusBarColor(requireActivity(), UIUtils.getColor(R.color.color_background))
@@ -51,7 +52,7 @@ class PasswordFragment : BaseFragment<FragmentPasswordBinding>() {
 
         viewModel.backEvent.observe(
             this,
-            Observer { navController.navigateUp() })
+            Observer { navController?.navigateUp() })
 
         viewModel.clearEvent.observe(this, Observer { binding.etPassword.text.clear() })
 
@@ -59,6 +60,7 @@ class PasswordFragment : BaseFragment<FragmentPasswordBinding>() {
             override fun afterTextChanged(s: Editable?) {
                 viewModel.hasNext.set(!s.isNullOrEmpty())
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -66,13 +68,13 @@ class PasswordFragment : BaseFragment<FragmentPasswordBinding>() {
 
 
         viewModel.nextEvent.observe(this, Observer {
-            val password:String = binding.etPassword.text.toString()
-            if(TextUtils.isEmpty(password)){
+            val password: String = binding.etPassword.text.toString()
+            if (TextUtils.isEmpty(password)) {
                 showTopMessage("请输入密码")
-            }else{
-                val bundle:Bundle = requireArguments()
-                bundle.putString(Constants.BundleKey.EXTRA_PASSWORD,password)
-                navController.navigate(R.id.action_passwordFragment_to_nicknameFragment,bundle)
+            } else {
+                val bundle: Bundle = requireArguments()
+                bundle.putString(Constants.BundleKey.EXTRA_PASSWORD, password)
+                navController?.navigate(R.id.action_passwordFragment_to_nicknameFragment, bundle)
             }
         })
     }

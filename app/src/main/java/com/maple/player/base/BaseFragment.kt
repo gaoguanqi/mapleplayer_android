@@ -12,7 +12,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
-import androidx.navigation.fragment.NavHostFragment
 import com.irozon.sneaker.Sneaker
 import com.maple.player.R
 import com.maple.player.widget.dialog.LoadingDialog
@@ -26,23 +25,25 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(),
     protected lateinit var binding: VB
 
 
-    protected lateinit var navController: NavController
+    protected var navController: NavController? = null
 
 
     abstract fun getLayoutId(): Int
 
     abstract fun bindViewModel()
 
-    abstract fun initData(view:View,savedInstanceState: Bundle?): Unit
+    abstract fun initData(view: View, savedInstanceState: Bundle?): Unit
 
 //    fun <T : ViewModel> getViewModel(clazz: Class<T>): T = ViewModelProviders.of(this).get(clazz)
 //
 //    fun <T : ViewModel> getSharedViewModel(clazz: Class<T>): T = ViewModelProviders.of(requireActivity()).get(clazz)
 
 
-    private var isFirst:Boolean = true
+    private var isFirst: Boolean = true
 
-    private var loadingDialog:LoadingDialog? = null
+    private var loadingDialog: LoadingDialog? = null
+
+    open fun hasNavController(): Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -57,22 +58,24 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(),
         super.onViewCreated(view, savedInstanceState)
         this.binding.lifecycleOwner = this
         this.bindViewModel()
-        this.navController = Navigation.findNavController(view)
-        this.initData(view,savedInstanceState)
+        if (this.hasNavController()) {
+            this.navController = Navigation.findNavController(view)
+        }
+        this.initData(view, savedInstanceState)
         this.onVisible()
     }
 
-    open fun showLoading(){
-        if(loadingDialog == null){
+    open fun showLoading() {
+        if (loadingDialog == null) {
             loadingDialog = LoadingDialog(this.requireContext())
         }
 
-        if(!loadingDialog!!.isShowing){
+        if (!loadingDialog!!.isShowing) {
             loadingDialog!!.show()
         }
     }
 
-    open fun dismissLoading(){
+    open fun dismissLoading() {
         loadingDialog?.cancel()
     }
 
@@ -90,8 +93,6 @@ abstract class BaseFragment<VB : ViewDataBinding> : Fragment(),
     }
 
     open fun lazyLoadData() {}
-
-
 
 
     override fun onDestroy() {

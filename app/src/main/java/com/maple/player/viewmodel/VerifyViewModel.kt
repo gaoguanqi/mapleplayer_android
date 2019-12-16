@@ -17,9 +17,13 @@ import com.maple.player.utils.UIUtils
 import com.maple.player.widget.timer.MyCountDownTimer
 import com.maple.player.widget.timer.MyCountDownTimerListener
 
-class VerifyViewModel(private val app:MyApplication):BaseViewModel(app) {
+class VerifyViewModel:BaseViewModel() {
 
     private val repository by lazy { AccountRepository() }
+
+    private val app by lazy {
+        MyApplication.instance
+    }
 
     val backEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val nextEvent: SingleLiveEvent<Any> = SingleLiveEvent()

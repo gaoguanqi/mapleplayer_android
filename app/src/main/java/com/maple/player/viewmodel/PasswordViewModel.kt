@@ -7,7 +7,7 @@ import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
 import com.maple.player.utils.UIUtils
 
-class PasswordViewModel(private val app: MyApplication) : BaseViewModel(app) {
+class PasswordViewModel : BaseViewModel() {
     val backEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val nextEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val clearEvent: SingleLiveEvent<Any> = SingleLiveEvent()

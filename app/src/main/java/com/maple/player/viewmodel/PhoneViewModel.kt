@@ -11,7 +11,7 @@ import com.maple.player.model.repository.AccountRepository
 import com.maple.player.utils.LogUtils
 import com.maple.player.utils.UIUtils
 
-class PhoneViewModel(private val app:MyApplication) : BaseViewModel(app) {
+class PhoneViewModel : BaseViewModel() {
 
     private val repository by lazy { AccountRepository() }
 

@@ -1,20 +1,15 @@
 package com.maple.player.base
 
 import androidx.databinding.ObservableField
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LifecycleObserver
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.maple.player.app.MyApplication
 import com.maple.player.app.manager.SingleLiveEvent
-import com.maple.player.http.BaseResult
 import com.maple.player.http.ExceptionHandle
 import com.maple.player.http.ResponseThrowable
-import io.reactivex.internal.operators.completable.CompletableDoFinally
 import kotlinx.coroutines.*
-import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.flow
 
-open class BaseViewModel(app: MyApplication) : AndroidViewModel(app), LifecycleObserver {
+open class BaseViewModel : ViewModel(), LifecycleObserver {
     val defUI: UIChange by lazy { UIChange() }
 
     /**
@@ -55,8 +50,6 @@ open class BaseViewModel(app: MyApplication) : AndroidViewModel(app), LifecycleO
     }
 
 
-
-
     /**
      * 异常统一处理
      */
@@ -82,11 +75,11 @@ open class BaseViewModel(app: MyApplication) : AndroidViewModel(app), LifecycleO
     /**
      * UI事件
      */
-     inner class UIChange {
+    inner class UIChange {
         val showDialog by lazy { SingleLiveEvent<String>() }
         val dismissDialog by lazy { SingleLiveEvent<Any>() }
         val toastEvent by lazy { SingleLiveEvent<String>() }
-        val title by lazy {  ObservableField<String>()}
+        val title by lazy { ObservableField<String>() }
 
     }
 }

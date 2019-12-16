@@ -7,7 +7,7 @@ import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
 import com.maple.player.utils.UIUtils
 
-class ResetViewModel(private val app:MyApplication):BaseViewModel(app) {
+class ResetViewModel:BaseViewModel() {
     val backEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
     val hasPhone: ObservableField<Boolean> = ObservableField(false)

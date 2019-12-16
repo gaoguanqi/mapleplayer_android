@@ -10,7 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
-import com.blankj.utilcode.util.RegexUtils
 import com.blankj.utilcode.util.SPUtils
 import com.maple.player.R
 import com.maple.player.app.global.Constants
@@ -36,6 +35,8 @@ class DoneFragment : BaseFragment<FragmentDoneBinding>() {
         binding.viewModel = viewModel
     }
 
+    override fun hasNavController(): Boolean = true
+
     override fun initData(view: View, savedInstanceState: Bundle?) {
         BarUtils.addMarginTopEqualStatusBarHeight(view)
         BarUtils.setStatusBarColor(requireActivity(), UIUtils.getColor(R.color.color_background))
@@ -55,23 +56,23 @@ class DoneFragment : BaseFragment<FragmentDoneBinding>() {
 
         viewModel.backEvent.observe(
             this,
-            Observer { navController.navigateUp() })
+            Observer { navController?.navigateUp() })
 
         viewModel.clearEvent.observe(this, Observer { binding.etPassword.text.clear() })
         viewModel.resetEvent.observe(this, Observer {
-            val accountActivity:AccountActivity = (requireActivity() as AccountActivity)
+            val accountActivity: AccountActivity = (requireActivity() as AccountActivity)
             accountActivity.homeAction.set(true)
-            navController.navigate(R.id.action_doneFragment_to_resetFragment,arguments)
+            navController?.navigate(R.id.action_doneFragment_to_resetFragment, arguments)
         })
 
 
         viewModel.doneEvent.observe(this, Observer {
-            if(TextUtils.isEmpty(binding.etPassword.text)){
+            if (TextUtils.isEmpty(binding.etPassword.text)) {
                 showTopMessage("请输入密码")
-            }else{
-                val phone:String = requireArguments().getString(Constants.BundleKey.EXTRA_PHONE)!!
-                val password:String = binding.etPassword.text.toString()
-                viewModel.onPhoneLogin(phone,password)
+            } else {
+                val phone: String = requireArguments().getString(Constants.BundleKey.EXTRA_PHONE)!!
+                val password: String = binding.etPassword.text.toString()
+                viewModel.onPhoneLogin(phone, password)
             }
         })
 
@@ -79,6 +80,7 @@ class DoneFragment : BaseFragment<FragmentDoneBinding>() {
             override fun afterTextChanged(s: Editable?) {
                 viewModel.hasDone.set(!s.isNullOrEmpty())
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -89,7 +91,7 @@ class DoneFragment : BaseFragment<FragmentDoneBinding>() {
                 Constants.SaveInfoKey.KEY_LOGIN_TAG,
                 Constants.SaveInfoKey.VALUE_LOGIN_TAG_LOGIN
             )
-            val accountActivity:AccountActivity = (requireActivity() as AccountActivity)
+            val accountActivity: AccountActivity = (requireActivity() as AccountActivity)
             accountActivity.homeAction.set(false)
             accountActivity.startHomeActivity()
         })

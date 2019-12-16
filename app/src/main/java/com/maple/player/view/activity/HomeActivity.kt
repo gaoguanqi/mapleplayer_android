@@ -1,43 +1,84 @@
 package com.maple.player.view.activity
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.KeyEvent
+import android.view.MenuItem
+import androidx.fragment.app.Fragment
+import androidx.viewpager2.widget.ViewPager2
 import com.blankj.utilcode.util.BarUtils
+import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.maple.player.R
-import com.maple.player.app.MyApplication
-import com.maple.player.base.BaseActivity
-import com.maple.player.db.AppDatabase
-import com.maple.player.db.user.Test
-import com.maple.player.db.user.User
+import com.maple.player.base.BaseViewActivity
+import com.maple.player.databinding.ActivityHomeBinding
 import com.maple.player.utils.ToastUtil
 import com.maple.player.utils.UIUtils
+import com.maple.player.view.adapter.HomeFragmentStateAdapter
+import com.maple.player.view.fragment.*
+import com.maple.player.viewmodel.HomeViewModel
 import kotlinx.android.synthetic.main.activity_home.*
-import okhttp3.internal.userAgent
 
-class HomeActivity : BaseActivity() {
+class HomeActivity : BaseViewActivity<ActivityHomeBinding, HomeViewModel>() {
 
 
-    private var lastBackPressedMillis:Long = 0
+    private var lastBackPressedMillis: Long = 0
 
 
     override fun getLayoutId(): Int = R.layout.activity_home
 
+    override fun providerViewModel(): Class<HomeViewModel> = HomeViewModel::class.java
+
+
+    override fun bindViewModel() {
+        binding.viewModel = viewModel
+    }
+
+
     override fun initData(savedInstanceState: Bundle?) {
-        BarUtils.addMarginTopEqualStatusBarHeight(toolbar)
+        BarUtils.addMarginTopEqualStatusBarHeight(binding.pager)
         BarUtils.setStatusBarColor(this, UIUtils.getColor(R.color.white))
 
 
+        val list: List<Fragment> = listOf(
+            FindFragment.getInstance(),
+            VideoFragment.getInstance(),
+            MineFragment.getInstance(),
+            CloudFragment.getInstance(),
+            AccountFragment.getInstance()
+        )
+
+
+        val adapter: HomeFragmentStateAdapter = HomeFragmentStateAdapter(this, list)
+        binding.pager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
+        binding.pager.adapter = adapter
+        binding.pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {
+            override fun onPageSelected(position: Int) {
+                super.onPageSelected(position)
+                binding.bnav.menu.getItem(position).isChecked = true
+            }
+        })
+        binding.bnav.setOnNavigationItemSelectedListener(object :
+            BottomNavigationView.OnNavigationItemSelectedListener {
+            override fun onNavigationItemSelected(item: MenuItem): Boolean {
+                when(item.itemId){
+                    R.id.item_nav_find ->binding.pager.currentItem = 0
+                    R.id.item_nav_video ->binding.pager.currentItem = 1
+                    R.id.item_nav_mine ->binding.pager.currentItem = 2
+                    R.id.item_nav_cloud ->binding.pager.currentItem = 3
+                    R.id.item_nav_account ->binding.pager.currentItem = 4
+                }
+                return false
+            }
+        })
 
 
     }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
-        if (keyCode == KeyEvent.KEYCODE_BACK){
-            if(lastBackPressedMillis + 2000 > System.currentTimeMillis()){
+        if (keyCode == KeyEvent.KEYCODE_BACK) {
+            if (lastBackPressedMillis + 2000 > System.currentTimeMillis()) {
                 //moveTaskToBack(true)
                 this@HomeActivity.finish()
-            }else{
+            } else {
                 lastBackPressedMillis = System.currentTimeMillis()
                 ToastUtil.showToast("再按一次退出程序")
             }
@@ -45,4 +86,6 @@ class HomeActivity : BaseActivity() {
         }
         return super.onKeyDown(keyCode, event)
     }
+
+
 }

@@ -4,7 +4,6 @@ package com.maple.player.view.fragment
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.View
-import androidx.core.view.get
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.BarUtils
@@ -38,6 +37,8 @@ class VerifyFragment : BaseFragment<FragmentVerifyBinding>() {
         binding.viewModel = viewModel
     }
 
+    override fun hasNavController(): Boolean = true
+
     override fun initData(view: View, savedInstanceState: Bundle?) {
         BarUtils.addMarginTopEqualStatusBarHeight(view)
         BarUtils.setStatusBarColor(requireActivity(), UIUtils.getColor(R.color.color_background))
@@ -56,22 +57,22 @@ class VerifyFragment : BaseFragment<FragmentVerifyBinding>() {
 
         viewModel.backEvent.observe(
             this,
-            Observer { navController.navigateUp() })
+            Observer { navController?.navigateUp() })
 
 
-        val phone:String? = requireArguments().getString(Constants.BundleKey.EXTRA_PHONE)
-        if(!TextUtils.isEmpty(phone)){
-            StringUtils.length(phone)> 8.apply {
-                val sphone = "${phone!!.substring(0,3)}****${phone.substring(7,phone.length)}"
+        val phone: String? = requireArguments().getString(Constants.BundleKey.EXTRA_PHONE)
+        if (!TextUtils.isEmpty(phone)) {
+            StringUtils.length(phone) > 8.apply {
+                val sphone = "${phone!!.substring(0, 3)}****${phone.substring(7, phone.length)}"
                 binding.tvPhone.text = "+86\t${sphone}"
             }
             viewModel.sendVerifyCode(phone!!)
         }
 
-        binding.verifyCodeView.setListener(object :VerifyCodeView.InputCompleteListener{
+        binding.verifyCodeView.setListener(object : VerifyCodeView.InputCompleteListener {
             override fun inputComplete(content: String) {
 
-                viewModel.checkVerifyCode(phone!!,content)
+                viewModel.checkVerifyCode(phone!!, content)
             }
 
             override fun invalidContent() {
@@ -82,20 +83,20 @@ class VerifyFragment : BaseFragment<FragmentVerifyBinding>() {
         viewModel.nextEvent.observe(this, Observer {
 
             val accountActivity: AccountActivity = (requireActivity() as AccountActivity)
-            val homeAction:Boolean? = accountActivity.homeAction.get()
+            val homeAction: Boolean? = accountActivity.homeAction.get()
 
             homeAction?.let {
-                val bundle:Bundle = requireArguments()
-                if(it){
+                val bundle: Bundle = requireArguments()
+                if (it) {
                     //直接登陆
                     ToastUtil.showTipToast("直接登录")
-                    val password:String? = bundle.getString(EXTRA_PASSWORD)
+                    val password: String? = bundle.getString(EXTRA_PASSWORD)
 
-                    viewModel.onPhoneLogin(phone!!,password!!)
-                }else{
-                    bundle.putString(EXTRA_VERIFY_CODE,viewModel.verifyCode.value?.verifyCode)
-                    bundle.putString(EXTRA_PHONE,phone)
-                    navController.navigate(R.id.action_verifyFragment_to_passwordFragment,bundle)
+                    viewModel.onPhoneLogin(phone!!, password!!)
+                } else {
+                    bundle.putString(EXTRA_VERIFY_CODE, viewModel.verifyCode.value?.verifyCode)
+                    bundle.putString(EXTRA_PHONE, phone)
+                    navController?.navigate(R.id.action_verifyFragment_to_passwordFragment, bundle)
                 }
             }
         })
@@ -105,7 +106,7 @@ class VerifyFragment : BaseFragment<FragmentVerifyBinding>() {
                 Constants.SaveInfoKey.KEY_LOGIN_TAG,
                 Constants.SaveInfoKey.VALUE_LOGIN_TAG_LOGIN
             )
-            val accountActivity:AccountActivity = (requireActivity() as AccountActivity)
+            val accountActivity: AccountActivity = (requireActivity() as AccountActivity)
             accountActivity.homeAction.set(false)
             accountActivity.startHomeActivity()
         })

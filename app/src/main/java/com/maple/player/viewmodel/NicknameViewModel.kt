@@ -14,9 +14,13 @@ import com.maple.player.utils.LogUtils
 import com.maple.player.utils.UIUtils
 import org.jetbrains.anko.collections.forEachByIndex
 
-class NicknameViewModel(private val app: MyApplication) : BaseViewModel(app) {
+class NicknameViewModel : BaseViewModel() {
 
     private val repository by lazy { AccountRepository() }
+
+    private val app by lazy {
+        MyApplication.instance
+    }
 
     val backEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val clearEvent: SingleLiveEvent<Any> = SingleLiveEvent()

@@ -4,15 +4,11 @@ package com.maple.player.view.fragment
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
-import android.view.TextureView
 import android.view.View
-import androidx.core.content.ContextCompat
-import androidx.core.text.set
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.blankj.utilcode.util.BarUtils
 import com.blankj.utilcode.util.KeyboardUtils
-import com.blankj.utilcode.util.PhoneUtils
 import com.blankj.utilcode.util.RegexUtils
 import com.maple.player.R
 import com.maple.player.app.global.Constants
@@ -32,6 +28,7 @@ class PhoneFragment : BaseFragment<FragmentPhoneBinding>() {
 
     override fun getLayoutId(): Int = R.layout.fragment_phone
 
+    override fun hasNavController(): Boolean = true
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
         BarUtils.addMarginTopEqualStatusBarHeight(view)
@@ -51,34 +48,35 @@ class PhoneFragment : BaseFragment<FragmentPhoneBinding>() {
 
         viewModel.backEvent.observe(
             this,
-            Observer { navController.navigateUp() })
+            Observer { navController?.navigateUp() })
 
 
         viewModel.clearEvent.observe(this, Observer { binding.etPhone.text.clear() })
         viewModel.nextEvent.observe(this, Observer {
-            if(RegexUtils.isMobileSimple(binding.etPhone.text)){
-                val phone:String = binding.etPhone.text.toString()
+            if (RegexUtils.isMobileSimple(binding.etPhone.text)) {
+                val phone: String = binding.etPhone.text.toString()
                 viewModel.onCheckPhone(phone)
-            }else{
+            } else {
                 showTopMessage("请输入正确的手机号")
             }
         })
 
         viewModel.acceptEvent.observe(this, Observer {
-            val bundle:Bundle = Bundle()
-            bundle.putString(Constants.BundleKey.EXTRA_PHONE,binding.etPhone.text.toString())
-            navController.navigate(R.id.action_phoneFragment_to_doneFragment,bundle)
+            val bundle: Bundle = Bundle()
+            bundle.putString(Constants.BundleKey.EXTRA_PHONE, binding.etPhone.text.toString())
+            navController?.navigate(R.id.action_phoneFragment_to_doneFragment, bundle)
         })
         viewModel.registEvent.observe(this, Observer {
-            val bundle:Bundle = Bundle()
-            bundle.putString(Constants.BundleKey.EXTRA_PHONE,binding.etPhone.text.toString())
-            navController.navigate(R.id.action_phoneFragment_to_verifyFragment,bundle)
+            val bundle: Bundle = Bundle()
+            bundle.putString(Constants.BundleKey.EXTRA_PHONE, binding.etPhone.text.toString())
+            navController?.navigate(R.id.action_phoneFragment_to_verifyFragment, bundle)
         })
 
-        binding.etPhone.addTextChangedListener(object :TextWatcher{
+        binding.etPhone.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 viewModel.hasNext.set(!s.isNullOrEmpty())
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}

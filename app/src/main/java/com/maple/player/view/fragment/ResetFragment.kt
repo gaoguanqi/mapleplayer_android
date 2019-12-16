@@ -33,6 +33,8 @@ class ResetFragment : BaseFragment<FragmentResetBinding>() {
         binding.viewModel = viewModel
     }
 
+    override fun hasNavController(): Boolean = true
+
     override fun initData(view: View, savedInstanceState: Bundle?) {
         BarUtils.addMarginTopEqualStatusBarHeight(view)
         BarUtils.setStatusBarColor(requireActivity(), UIUtils.getColor(R.color.color_background))
@@ -49,13 +51,13 @@ class ResetFragment : BaseFragment<FragmentResetBinding>() {
             ToastUtil.showToast(it)
         })
 
-        val phone:String? = requireArguments().getString(Constants.BundleKey.EXTRA_PHONE)
-        if(!TextUtils.isEmpty(phone)){
+        val phone: String? = requireArguments().getString(Constants.BundleKey.EXTRA_PHONE)
+        if (!TextUtils.isEmpty(phone)) {
             binding.etPhone.setText(phone)
         }
         viewModel.backEvent.observe(
             this,
-            Observer { navController.navigateUp() })
+            Observer { navController?.navigateUp() })
 
         viewModel.clearPhoneEvent.observe(this, Observer {
             binding.etPhone.text.clear()
@@ -68,6 +70,7 @@ class ResetFragment : BaseFragment<FragmentResetBinding>() {
             override fun afterTextChanged(s: Editable?) {
                 viewModel.hasPhone.set(!s.isNullOrEmpty())
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
@@ -77,15 +80,16 @@ class ResetFragment : BaseFragment<FragmentResetBinding>() {
             override fun afterTextChanged(s: Editable?) {
                 viewModel.hasPassword.set(!s.isNullOrEmpty())
             }
+
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
         })
 
         viewModel.nextEvent.observe(this, Observer {
-            val bundle:Bundle = requireArguments()
-            bundle.putString(Constants.BundleKey.EXTRA_PASSWORD,binding.etPassword.text.toString())
-            navController.navigate(R.id.action_resetFragment_to_verifyFragment,bundle)
+            val bundle: Bundle = requireArguments()
+            bundle.putString(Constants.BundleKey.EXTRA_PASSWORD, binding.etPassword.text.toString())
+            navController?.navigate(R.id.action_resetFragment_to_verifyFragment, bundle)
         })
 
         KeyboardUtils.showSoftInput(binding.etPassword)

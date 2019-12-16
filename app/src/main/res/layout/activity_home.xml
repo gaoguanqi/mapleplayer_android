@@ -1,84 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".view.activity.HomeActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <data>
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        <import type="android.view.View" />
+
+        <variable
+            name="viewModel"
+            type="com.maple.player.viewmodel.HomeViewModel" />
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/white"
-        app:contentInsetEnd="0dp"
-        app:contentInsetLeft="0dp"
-        app:contentInsetRight="0dp"
-        app:contentInsetStart="0dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.activity.HomeActivity">
 
-        <RelativeLayout
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/pager"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:background="@color/color_background" />
 
-            <LinearLayout
-                android:id="@+id/ll_bar_left"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:orientation="horizontal"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp">
-
-                <ImageView
-                    android:id="@+id/iv_bar_left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:background="@drawable/icon_back_normal" />
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/tv_bar_title"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:textColor="@color/black"
-                android:textSize="@dimen/font_16"
-                android:textStyle="bold"
-                tools:text="@string/app_name" />
-
-            <com.maple.player.widget.view.AudioWaveView
-                android:id="@+id/audio_right"
-                android:layout_width="20dp"
-                android:layout_height="22dp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:paddingLeft="10dp"
-                android:layout_marginRight="10dp" />
-        </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
-
-    <androidx.viewpager2.widget.ViewPager2
-        android:id="@+id/pager"
-        android:layout_width="match_parent"
-        android:background="@color/color_background"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bnav"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:elevation="0.5dp"
-        app:itemIconSize="16dp"
-        app:itemTextColor="@color/selector_menu_text"
-        app:itemTextAppearanceActive="@style/style_menu_active"
-        app:itemTextAppearanceInactive="@style/style_menu_inactive"
-        app:menu="@menu/bottom_nav_menu"
-        app:labelVisibilityMode="labeled"
-        android:background="@color/white"/>
-</LinearLayout>
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:id="@+id/bnav"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            app:elevation="0.5dp"
+            app:itemIconSize="16dp"
+            app:itemTextAppearanceActive="@style/style_menu_active"
+            app:itemTextAppearanceInactive="@style/style_menu_inactive"
+            app:itemTextColor="@color/selector_menu_text"
+            app:labelVisibilityMode="labeled"
+            app:menu="@menu/bottom_nav_menu" />
+    </LinearLayout>
+</layout>

@@ -1,6 +1,5 @@
 package com.maple.player.base
 
-import android.os.Bundle
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.ViewModelProviders
@@ -14,7 +13,7 @@ abstract class BaseViewActivity<VB : ViewDataBinding, VM : BaseViewModel> : Base
     protected val binding: VB by lazy { DataBindingUtil.setContentView(this, getLayoutId()) as VB }
     protected lateinit var viewModel: VM
 
-
+    /** 获取 ViewModel */
     abstract fun providerViewModel(): Class<VM>
 
     abstract fun bindViewModel()

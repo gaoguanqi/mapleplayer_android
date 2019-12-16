@@ -19,9 +19,13 @@ import com.maple.player.utils.ToastUtil
 import com.maple.player.utils.UIUtils
 import org.jetbrains.anko.collections.forEachByIndex
 
-class DoneViewModel(private val app:MyApplication):BaseViewModel(app) {
+class DoneViewModel:BaseViewModel() {
 
     private val repository by lazy { AccountRepository() }
+
+    private val app by lazy {
+        MyApplication.instance
+    }
 
     val backEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val doneEvent: SingleLiveEvent<Any> = SingleLiveEvent()

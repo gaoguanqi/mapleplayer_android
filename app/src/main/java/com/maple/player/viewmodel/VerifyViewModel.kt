@@ -82,7 +82,7 @@ class VerifyViewModel(private val app:MyApplication):BaseViewModel(app) {
             timer.start()
             launch(
                 {
-                    val result: ResultEntity = repository.sendVerifyCode(verifyCode.value!!.phone!!).apply {
+                    val result: ResultEntity = repository.sendVerifyCode(verifyCode.value!!.phone).apply {
                         if(this.code == 200){
                             defUI.toastEvent.postValue("发送成功")
                         }else{

@@ -61,4 +61,11 @@
         <item name="android:layout_gravity">bottom</item>
         <item name="android:background">@color/color_text_gray</item>
     </style>
+
+    <style name="style_menu_active">
+        <item name="android:textSize">12sp</item>
+    </style>
+    <style name="style_menu_inactive">
+        <item name="android:textSize">10sp</item>
+    </style>
 </resources>

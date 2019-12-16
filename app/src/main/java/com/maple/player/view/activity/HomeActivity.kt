@@ -12,6 +12,7 @@ import com.maple.player.db.user.Test
 import com.maple.player.db.user.User
 import com.maple.player.utils.ToastUtil
 import com.maple.player.utils.UIUtils
+import kotlinx.android.synthetic.main.activity_home.*
 import okhttp3.internal.userAgent
 
 class HomeActivity : BaseActivity() {
@@ -23,7 +24,7 @@ class HomeActivity : BaseActivity() {
     override fun getLayoutId(): Int = R.layout.activity_home
 
     override fun initData(savedInstanceState: Bundle?) {
-//        BarUtils.addMarginTopEqualStatusBarHeight(view)
+        BarUtils.addMarginTopEqualStatusBarHeight(toolbar)
         BarUtils.setStatusBarColor(this, UIUtils.getColor(R.color.white))
 
 

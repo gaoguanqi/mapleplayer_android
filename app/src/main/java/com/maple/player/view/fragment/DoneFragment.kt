@@ -39,7 +39,7 @@ class DoneFragment : BaseFragment<FragmentDoneBinding>() {
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
         BarUtils.addMarginTopEqualStatusBarHeight(view)
-        BarUtils.setStatusBarColor(requireActivity(), UIUtils.getColor(R.color.color_background))
+        BarUtils.setStatusBarColor(requireActivity(), UIUtils.getColor(R.color.white))
 
         viewModel.defUI.showDialog.observe(this, Observer {
             showLoading()

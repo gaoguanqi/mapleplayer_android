@@ -125,6 +125,8 @@ dependencies {
 
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
 
+    implementation 'androidx.preference:preference:1.1.0'
+
     implementation 'com.blankj:utilcodex:1.26.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
     implementation 'com.irozon.sneaker:sneaker:2.0.0'

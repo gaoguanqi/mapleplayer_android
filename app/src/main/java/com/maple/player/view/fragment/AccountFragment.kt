@@ -3,6 +3,7 @@ package com.maple.player.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.maple.player.R
 import com.maple.player.base.BaseFragment
@@ -32,6 +33,10 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
     }
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
+
+        viewModel.bellEvent.observe(this, Observer {
+            showTopMessage("-----------")
+        })
     }
 
 

@@ -16,8 +16,8 @@ class BadgeView @JvmOverloads constructor(
 
 
     init {
-        width = SizeUtils.dp2px(18f)
-        height = SizeUtils.dp2px(18f)
+        width = SizeUtils.dp2px(12f)
+        height = SizeUtils.dp2px(12f)
         gravity = Gravity.CENTER
         background = UIUtils.getDrawable(R.drawable.shape_badge_bg)
     }

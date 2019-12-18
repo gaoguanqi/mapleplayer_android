@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <!--文字大小-->
+    <dimen name="font_6">6sp</dimen>
     <dimen name="font_8">8sp</dimen>
     <dimen name="font_10">10sp</dimen>
     <dimen name="font_12">12sp</dimen>

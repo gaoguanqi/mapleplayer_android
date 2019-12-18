@@ -18,6 +18,7 @@
     <color name="color_text">#D81E06</color>
     <color name="color_progress">#55E5E5E5</color>
     <color name="color_text_gray">#686868</color>
+    <color name="color_line">#F6F6F6</color>
 
 
     <color name="color_pressed">#D81E06</color>

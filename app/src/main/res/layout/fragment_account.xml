@@ -510,6 +510,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
+                    android:onClick="@{(v) -> viewModel.onBellClick()}"
                     android:background="@drawable/selector_event_likely">
 
                     <ImageView
@@ -556,6 +557,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
+                    android:onClick="@{(v) -> viewModel.onOrderClick()}"
                     android:background="@drawable/selector_event_likely">
 
                     <ImageView
@@ -598,6 +600,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
+                    android:onClick="@{(v) -> viewModel.onCreaterClick()}"
                     android:background="@drawable/selector_event_likely">
 
                     <ImageView
@@ -641,6 +644,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
+                    android:onClick="@{(v) -> viewModel.onSettingClick()}"
                     android:background="@drawable/selector_event_likely">
 
                     <ImageView
@@ -715,7 +719,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:paddingRight="10dp"
-
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -732,6 +735,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
+                    android:onClick="@{(v) -> viewModel.onTimerOffClick()}"
                     android:background="@drawable/selector_event_likely">
 
                     <ImageView
@@ -779,6 +783,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
+                    android:onClick="@{(v) -> viewModel.onTimerClockClick()}"
                     android:background="@drawable/selector_event_likely">
 
                     <ImageView
@@ -822,6 +827,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
+                    android:onClick="@{(v) -> viewModel.onFreeLineClick()}"
                     android:background="@drawable/selector_event_likely">
 
                     <ImageView
@@ -868,6 +874,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
+                    android:onClick="@{(v) -> viewModel.onVoucherClick()}"
                     android:background="@drawable/selector_event_likely">
 
                     <ImageView
@@ -914,6 +921,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
+                    android:onClick="@{(v) -> viewModel.onYoungClick()}"
                     android:background="@drawable/selector_event_likely">
 
                     <ImageView
@@ -969,6 +977,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
+                    android:onClick="@{(v) -> viewModel.onShareClick()}"
                     android:background="@drawable/selector_event_likely">
 
                     <ImageView
@@ -1015,6 +1024,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="42dp"
+                    android:onClick="@{(v) -> viewModel.onAboutClick()}"
                     android:background="@drawable/selector_event_likely">
 
                     <ImageView
@@ -1026,7 +1036,7 @@
                         android:src="@drawable/icon_about"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"/>
 
                     <TextView
                         android:id="@+id/tv_about_title"
@@ -1066,7 +1076,7 @@
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="80dp"
+                    android:layout_height="66dp"
                     android:background="@color/color_line" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>

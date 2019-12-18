@@ -1,5 +1,6 @@
 package com.maple.player.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
 
@@ -9,7 +10,6 @@ class AccountViewModel : BaseViewModel() {
     val orderEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val createrEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val settingEvent: SingleLiveEvent<Any> = SingleLiveEvent()
-    val darkEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val timerOffEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val timerClockEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val freeLineEvent: SingleLiveEvent<Any> = SingleLiveEvent()
@@ -19,44 +19,43 @@ class AccountViewModel : BaseViewModel() {
     val aboutEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val logoutEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
+    val switchDarkValue:MutableLiveData<Boolean> = MutableLiveData(false)
 
-    fun onBell(){
+    fun onBellClick(){
         bellEvent.call()
     }
-    fun onOrder(){
-        bellEvent.call()
+    fun onOrderClick(){
+        orderEvent.call()
     }
-    fun onCreater(){
-        bellEvent.call()
+    fun onCreaterClick(){
+        createrEvent.call()
     }
-    fun onSetting(){
-        bellEvent.call()
+    fun onSettingClick(){
+        settingEvent.call()
     }
-    fun onDark(){
-        bellEvent.call()
+
+    fun onTimerOffClick(){
+        timerOffEvent.call()
     }
-    fun onTimerOff(){
-        bellEvent.call()
+    fun onTimerClockClick(){
+        timerClockEvent.call()
     }
-    fun onTimerClock(){
-        bellEvent.call()
+    fun onFreeLineClick(){
+        freeLineEvent.call()
     }
-    fun onFreeLine(){
-        bellEvent.call()
+    fun onVoucherClick(){
+        voucherEvent.call()
     }
-    fun onVoucher(){
-        bellEvent.call()
+    fun onYoungClick(){
+        youngEvent.call()
     }
-    fun onYoung(){
-        bellEvent.call()
+    fun onShareClick(){
+        shareEvent.call()
     }
-    fun onShare(){
-        bellEvent.call()
-    }
-    fun onAbout(){
-        bellEvent.call()
+    fun onAboutClick(){
+        aboutEvent.call()
     }
     fun onLogout(){
-        bellEvent.call()
+        logoutEvent.call()
     }
 }

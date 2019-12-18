@@ -3,6 +3,7 @@ package com.maple.player.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import android.widget.CompoundButton
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.maple.player.R
@@ -34,9 +35,48 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
 
-        viewModel.bellEvent.observe(this, Observer {
-            showTopMessage("-----------")
+        binding.switchDark.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
+            override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
+                viewModel.switchDarkValue.value = isChecked
+            }
         })
+        viewModel.bellEvent.observe(this, Observer {
+            showTopMessage("1")
+        })
+        viewModel.orderEvent.observe(this, Observer {
+            showTopMessage("2")
+        })
+        viewModel.createrEvent.observe(this, Observer {
+            showTopMessage("3")
+        })
+        viewModel.settingEvent.observe(this, Observer {
+            showTopMessage("4")
+        })
+        viewModel.timerOffEvent.observe(this, Observer {
+            showTopMessage("5")
+        })
+        viewModel.timerClockEvent.observe(this, Observer {
+            showTopMessage("6")
+        })
+        viewModel.freeLineEvent.observe(this, Observer {
+            showTopMessage("7")
+        })
+        viewModel.voucherEvent.observe(this, Observer {
+            showTopMessage("8")
+        })
+        viewModel.youngEvent.observe(this, Observer {
+            showTopMessage("9")
+        })
+        viewModel.shareEvent.observe(this, Observer {
+            showTopMessage("10")
+        })
+        viewModel.aboutEvent.observe(this, Observer {
+            showTopMessage("11")
+        })
+        viewModel.logoutEvent.observe(this, Observer {
+            showTopMessage("登录${viewModel.switchDarkValue.value}")
+        })
+
     }
 
 

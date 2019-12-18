@@ -47,6 +47,7 @@ class HomeActivity : BaseViewActivity<ActivityHomeBinding, HomeViewModel>() {
         )
 
 
+        binding.pager.isUserInputEnabled = false
         val adapter: HomeFragmentStateAdapter = HomeFragmentStateAdapter(this, list)
         binding.pager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.pager.adapter = adapter

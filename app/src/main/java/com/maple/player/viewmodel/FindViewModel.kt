@@ -3,9 +3,7 @@ package com.maple.player.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.maple.player.R
 import com.maple.player.base.BaseViewModel
-import com.maple.player.model.entity.Banner
-import com.maple.player.model.entity.BannerEntity
-import com.maple.player.model.entity.GatherData
+import com.maple.player.model.entity.*
 import com.maple.player.model.repository.HomeRepository
 import com.maple.player.utils.LogUtils
 import com.maple.player.utils.UIUtils
@@ -16,6 +14,7 @@ class FindViewModel : BaseViewModel() {
 
     val bannerData: MutableLiveData<List<Banner>> = MutableLiveData()
     val gatherData: MutableLiveData<List<GatherData>> = MutableLiveData()
+    val recommendData: MutableLiveData<List<Result>> = MutableLiveData()
 
     fun getBannerData() {
         launch(
@@ -44,5 +43,24 @@ class FindViewModel : BaseViewModel() {
             GatherData(4, "电台", UIUtils.getDrawable(R.drawable.icon_radio)),
             GatherData(4, "直播", UIUtils.getDrawable(R.drawable.icon_look))
         )
+    }
+
+    fun getRecommendData() {
+        launch(
+            {
+                val limit: String = "6"
+                val result: RecommendEntity = repository.getRecommend(limit)
+                if (result.code == 200) {
+                    recommendData.value = result.result
+                } else {
+                    defUI.toastEvent.postValue("${result.message}")
+                }
+            },
+            {
+                defUI.toastEvent.postValue("error:${it.code} -- ${it.errMsg}")
+            },
+            {
+                LogUtils.logGGQ("回调完成 complete")
+            })
     }
 }

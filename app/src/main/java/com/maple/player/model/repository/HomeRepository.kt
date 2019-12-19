@@ -15,4 +15,8 @@ class HomeRepository : BaseRepository() {
     suspend fun getBanner(type: String) = withContext(Dispatchers.IO) {
         retrofitClient.getBanner(type)
     }
+
+    suspend fun getRecommend(limit: String) = withContext(Dispatchers.IO) {
+        retrofitClient.getRecommend(limit)
+    }
 }

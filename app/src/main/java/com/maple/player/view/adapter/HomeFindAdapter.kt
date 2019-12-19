@@ -9,9 +9,11 @@ import androidx.recyclerview.widget.RecyclerView
 import com.maple.player.R
 import com.maple.player.databinding.ItemFindBannerBinding
 import com.maple.player.databinding.ItemFindGatherBinding
+import com.maple.player.databinding.ItemFindRecommendBinding
 import com.maple.player.extensions.layoutInflater
 import com.maple.player.model.entity.Banner
 import com.maple.player.model.entity.GatherData
+import com.maple.player.model.entity.Result
 import com.maple.player.view.adapter.holder.BannerPagerViewHolder
 import com.zhpan.bannerview.BannerViewPager
 
@@ -32,6 +34,7 @@ class HomeFindAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var bannerList: List<Banner>? = null
     private var gatherList: List<GatherData>? = null
+    private var recommendList: List<Result>? = null
     private var listener:OnClickListener? = null
 
     fun setBannerData(list: List<Banner>?) {
@@ -45,7 +48,10 @@ class HomeFindAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         notifyItemChanged(1)
     }
 
-
+    fun setRecommendData(list: List<Result>?) {
+        this.recommendList = list
+        notifyItemChanged(2)
+    }
 
     fun setListener(listener:OnClickListener?){
         this.listener = listener
@@ -75,9 +81,16 @@ class HomeFindAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 val gatherHolder:GatherViewHolder = GatherViewHolder(gatherBinding.root)
                 return gatherHolder
             }
-//            TYPE_RECOMMEND-> {
-//                return bannerHolder
-//            }
+            TYPE_RECOMMEND-> {
+                val recommendBinding = DataBindingUtil.inflate<ItemFindRecommendBinding>(
+                    parent.context.layoutInflater,
+                    R.layout.item_find_recommend,
+                    parent,
+                    false
+                )
+                val recommendHolder:RecommendViewHolder = RecommendViewHolder(recommendBinding.root)
+                return recommendHolder
+            }
 //            TYPE_NEW-> {
 //                return bannerHolder
 //            }
@@ -108,6 +121,8 @@ class HomeFindAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             holder.setData(position)
         }else if((holder is GatherViewHolder)){
             holder.setData(position)
+        }else if((holder is RecommendViewHolder)){
+            holder.setData(position)
         }
 
     }
@@ -115,7 +130,7 @@ class HomeFindAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun getItemCount(): Int {
 //        return list?.size ?: 0
-        return 2
+        return 3
     }
 
 
@@ -150,11 +165,17 @@ class HomeFindAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
                 it.submitList(gatherList)
             }
         }
-
     }
 
 
     inner class RecommendViewHolder(itemView: View):RecyclerView.ViewHolder(itemView){
+        fun setData(position: Int) {
+            val rvRecommend:RecyclerView = itemView.findViewById<RecyclerView>(R.id.rv_recommend)
+            rvRecommend.layoutManager = GridLayoutManager(itemView.context,3)
+            rvRecommend.adapter = FindRecommendAdapter().also {
+                it.submitList(recommendList)
+            }
+        }
 
     }
 

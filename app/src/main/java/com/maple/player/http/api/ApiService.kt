@@ -1,9 +1,6 @@
 package com.maple.player.http.api
 
-import com.maple.player.model.entity.BannerEntity
-import com.maple.player.model.entity.CheckPhoneEntity
-import com.maple.player.model.entity.UserInfoEntity
-import com.maple.player.model.entity.ResultEntity
+import com.maple.player.model.entity.*
 import retrofit2.http.*
 
 interface ApiService {
@@ -25,5 +22,8 @@ interface ApiService {
 
     @GET("/banner")
     suspend fun getBanner(@Query("type") type:String): BannerEntity
+
+    @GET("/personalized")
+    suspend fun getRecommend(@Query("limit") limit:String): RecommendEntity
 
 }

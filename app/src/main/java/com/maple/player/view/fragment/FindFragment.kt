@@ -50,6 +50,11 @@ class FindFragment : BaseFragment<FragmentFindBinding>() {
         viewModel.gatherData.observe(this, Observer {
             adapter.setGatherData(it)
         })
+
+        viewModel.getRecommendData()
+        viewModel.recommendData.observe(this, Observer {
+            adapter.setRecommendData(it)
+        })
     }
 
 

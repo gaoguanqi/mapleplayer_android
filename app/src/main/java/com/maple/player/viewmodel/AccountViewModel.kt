@@ -1,8 +1,10 @@
 package com.maple.player.viewmodel
 
 import androidx.lifecycle.MutableLiveData
+import com.maple.player.R
 import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
+import com.maple.player.utils.UIUtils
 
 class AccountViewModel : BaseViewModel() {
 
@@ -19,7 +21,30 @@ class AccountViewModel : BaseViewModel() {
     val aboutEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val logoutEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
+    val messageEvent:SingleLiveEvent<Any> = SingleLiveEvent()
+    val shopEvent:SingleLiveEvent<Any> = SingleLiveEvent()
+    val showEvent:SingleLiveEvent<Any> = SingleLiveEvent()
+    val theEvent:SingleLiveEvent<Any> = SingleLiveEvent()
+
     val switchDarkValue:MutableLiveData<Boolean> = MutableLiveData(false)
+
+    init {
+        defUI.title.set(UIUtils.getString(R.string.title_account))
+    }
+
+    fun onMessageClick(){
+        messageEvent.call()
+    }
+    fun onShopClick(){
+        shopEvent.call()
+    }
+    fun onShowClick(){
+        showEvent.call()
+    }
+    fun onTheClick(){
+        theEvent.call()
+    }
+
 
     fun onBellClick(){
         bellEvent.call()

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+
+    </data>
+
+    <com.zhpan.bannerview.BannerViewPager
+        android:id="@+id/banner_view"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        app:bvp_round_corner="6dp"
+        app:bvp_indicator_radius="6dp"
+        app:bvp_indicator_checked_color="@color/colorPrimaryDark"
+        app:bvp_indicator_normal_color="@color/color_trans_white"/>
+
+</layout>

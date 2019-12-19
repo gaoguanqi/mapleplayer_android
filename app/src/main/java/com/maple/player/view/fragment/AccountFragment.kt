@@ -1,14 +1,18 @@
 package com.maple.player.view.fragment
 
 
+import android.animation.ObjectAnimator
 import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.animation.AnimationUtils
+import com.google.android.material.appbar.AppBarLayout
 import com.maple.player.R
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentAccountBinding
+import com.maple.player.utils.LogUtils
 import com.maple.player.viewmodel.AccountViewModel
 import com.maple.player.viewmodel.factory.AccountModelFactory
 
@@ -35,11 +39,37 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
 
+        binding.appBarLayout.addOnOffsetChangedListener(object :
+            AppBarLayout.OnOffsetChangedListener {
+                override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+                if(verticalOffset == 0){ //展开
+                    viewModel.defUI.title.set("账号")
+                }else if(Math.abs(verticalOffset) >= binding.appBarLayout.totalScrollRange){ //折叠
+                    viewModel.defUI.title.set("说出来你可能不信")
+                }else{ //中间
+
+                }
+            }
+        })
+
         binding.switchDark.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
                 viewModel.switchDarkValue.value = isChecked
             }
         })
+        viewModel.messageEvent.observe(this, Observer {
+            showTopMessage("消息")
+        })
+        viewModel.shopEvent.observe(this, Observer {
+            showTopMessage("商城")
+        })
+        viewModel.showEvent.observe(this, Observer {
+            showTopMessage("演出")
+        })
+        viewModel.theEvent.observe(this, Observer {
+            showTopMessage("个性")
+        })
+
         viewModel.bellEvent.observe(this, Observer {
             showTopMessage("1")
         })

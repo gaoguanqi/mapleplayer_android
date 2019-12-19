@@ -141,5 +141,7 @@ dependencies {
     implementation 'jp.wasabeef:glide-transformations:4.1.0'
     implementation 'com.github.salomonbrys.kotson:kotson:2.5.0'
 
+    implementation 'com.github.zhpanvip:BannerViewPager:2.6.1'
+
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
 }

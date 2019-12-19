@@ -1,5 +1,6 @@
 package com.maple.player.http.api
 
+import com.maple.player.model.entity.BannerEntity
 import com.maple.player.model.entity.CheckPhoneEntity
 import com.maple.player.model.entity.UserInfoEntity
 import com.maple.player.model.entity.ResultEntity
@@ -21,5 +22,8 @@ interface ApiService {
 
     @GET("/register/cellphone")
     suspend fun registerPhone(@Query("phone")phone: String, @Query("password")password: String, @Query("captcha")captcha: String, @Query("nickname")nickname: String): UserInfoEntity
+
+    @GET("/banner")
+    suspend fun getBanner(@Query("type") type:String): BannerEntity
 
 }

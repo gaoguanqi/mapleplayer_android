@@ -13,6 +13,7 @@ class ProgressResponseBody(var url:String?,var responseBody:ResponseBody?) : Res
 
     init {
          listener = ProgressInterceptor.LISTENER_MAP.get(url)
+         listener?.onLoadStart()
     }
     override fun contentLength(): Long {
         return if (responseBody != null) responseBody!!.contentLength() else 0L

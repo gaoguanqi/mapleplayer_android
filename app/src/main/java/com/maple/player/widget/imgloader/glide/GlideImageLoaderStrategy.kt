@@ -10,12 +10,13 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop
 import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.DrawableImageViewTarget
 import com.bumptech.glide.request.transition.Transition
+import com.facebook.shimmer.Shimmer
+import com.facebook.shimmer.ShimmerDrawable
 import com.maple.player.GlideApp
 import com.maple.player.R
 import com.maple.player.widget.imgloader.BaseImageLoaderStrategy
 import com.maple.player.widget.imgloader.TransType
 import com.maple.player.widget.imgloader.http.ProgressInterceptor
-import com.maple.player.widget.imgloader.listener.ProgressDrawable
 import jp.wasabeef.glide.transformations.BlurTransformation
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation
 
@@ -43,6 +44,13 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy<GlideImageConfig> {
 
     private fun loadCommon(ctx: Context, options: RequestOptions, config: GlideImageConfig) {
         if (config.progressListener == null) {
+            val shimmerDrawable: ShimmerDrawable = ShimmerDrawable()
+            val shimmer: Shimmer =
+                Shimmer.AlphaHighlightBuilder().setAutoStart(true).setBaseAlpha(0.9f)
+                    .setRepeatCount(1).build()
+            shimmerDrawable.setShimmer(shimmer)
+            config.imageView.setImageDrawable(shimmerDrawable)
+
             GlideApp.with(ctx)
                 .load(config.any)
                 .apply(options)
@@ -69,6 +77,13 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy<GlideImageConfig> {
     @SuppressLint("CheckResult")
     private fun loadCircle(ctx: Context, options: RequestOptions, config: GlideImageConfig) {
         options.transform(CircleCrop())
+        val shimmerDrawable: ShimmerDrawable = ShimmerDrawable()
+        val shimmer: Shimmer =
+            Shimmer.AlphaHighlightBuilder().setAutoStart(true).setBaseAlpha(0.9f).setRepeatCount(1)
+                .build()
+        shimmerDrawable.setShimmer(shimmer)
+        config.imageView.setImageDrawable(shimmerDrawable)
+
         if (config.progressListener == null) {
             GlideApp.with(ctx)
                 .load(config.any)
@@ -86,12 +101,19 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy<GlideImageConfig> {
             config.valueRound = 10
         }
         options.transform(RoundedCornersTransformation(config.valueRound, config.valueRound))
+
+        val shimmerDrawable: ShimmerDrawable = ShimmerDrawable()
+        val shimmer: Shimmer =
+            Shimmer.AlphaHighlightBuilder().setAutoStart(true).setBaseAlpha(0.9f).setRepeatCount(1)
+                .build()
+        shimmerDrawable.setShimmer(shimmer)
+        config.imageView.setImageDrawable(shimmerDrawable)
+
         if (config.progressListener == null) {
             GlideApp.with(ctx)
                 .load(config.any)
                 .apply(options)
                 .into(config.imageView)
-
         } else {
             loadWhitListener(ctx, options, config)
         }
@@ -104,6 +126,14 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy<GlideImageConfig> {
             config.valueBlur = 6
         }
         options.transform(BlurTransformation(config.valueBlur))
+
+        val shimmerDrawable: ShimmerDrawable = ShimmerDrawable()
+        val shimmer: Shimmer =
+            Shimmer.AlphaHighlightBuilder().setAutoStart(true).setBaseAlpha(0.9f).setRepeatCount(1)
+                .build()
+        shimmerDrawable.setShimmer(shimmer)
+        config.imageView.setImageDrawable(shimmerDrawable)
+
         if (config.progressListener == null) {
             GlideApp.with(ctx)
                 .load(config.any)
@@ -121,18 +151,22 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy<GlideImageConfig> {
             config.valueBlur = 6
         }
         options.transform(MultiTransformation(CircleCrop(), BlurTransformation(config.valueBlur)))
+        val shimmerDrawable: ShimmerDrawable = ShimmerDrawable()
+        val shimmer: Shimmer =
+            Shimmer.AlphaHighlightBuilder().setAutoStart(true).setBaseAlpha(0.9f).setRepeatCount(1)
+                .build()
+        shimmerDrawable.setShimmer(shimmer)
+        config.imageView.setImageDrawable(shimmerDrawable)
 
         if (config.progressListener == null) {
             GlideApp.with(ctx)
                 .load(config.any)
                 .apply(options)
                 .into(config.imageView)
-
         } else {
             loadWhitListener(ctx, options, config)
         }
     }
-
 
     private fun loadWhitListener(ctx: Context, options: RequestOptions, config: GlideImageConfig) {
         ProgressInterceptor.addListener(config.any.toString(), config.progressListener!!)

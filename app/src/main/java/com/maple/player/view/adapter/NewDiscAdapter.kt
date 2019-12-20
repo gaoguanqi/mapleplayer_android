@@ -8,25 +8,25 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.maple.player.R
 import com.maple.player.app.MyApplication
-import com.maple.player.databinding.ItemRecommendBinding
+import com.maple.player.databinding.ItemNewDiscBinding
 import com.maple.player.extensions.layoutInflater
-import com.maple.player.model.entity.Result
+import com.maple.player.model.entity.Album
 import com.maple.player.widget.imgloader.ImageLoader
 import com.maple.player.widget.imgloader.TransType
 import com.maple.player.widget.imgloader.glide.GlideImageConfig
 
-class FindRecommendAdapter : ListAdapter<Result, FindRecommendAdapter.ViewHolder>(DiffCallback()) {
+class NewDiscAdapter : ListAdapter<Album, NewDiscAdapter.ViewHolder>(DiffCallback()) {
 
-    private lateinit var binding: ItemRecommendBinding
+    private lateinit var binding: ItemNewDiscBinding
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        binding = DataBindingUtil.inflate<ItemRecommendBinding>(
+        binding = DataBindingUtil.inflate<ItemNewDiscBinding>(
             parent.context.layoutInflater,
-            R.layout.item_recommend,
+            R.layout.item_new_disc,
             parent,
             false
         )
-        val holder: FindRecommendAdapter.ViewHolder = ViewHolder(binding.root)
+        val holder: NewDiscAdapter.ViewHolder = ViewHolder(binding.root)
         return holder
     }
 
@@ -35,24 +35,32 @@ class FindRecommendAdapter : ListAdapter<Result, FindRecommendAdapter.ViewHolder
     }
 
 
-    class DiffCallback : DiffUtil.ItemCallback<Result>() {
-        override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
+    class DiffCallback : DiffUtil.ItemCallback<Album>() {
+        override fun areItemsTheSame(oldItem: Album, newItem: Album): Boolean {
             return oldItem.id == newItem.id
         }
 
-        override fun areContentsTheSame(oldItem: Result, newItem: Result): Boolean {
+        override fun areContentsTheSame(oldItem: Album, newItem: Album): Boolean {
             return oldItem == newItem
         }
     }
 
+
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        fun setData(item: Result?) {
-            binding.tvName.text = item?.name
-            binding.tvCount.text = "${item?.trackCount}万"
+        fun setData(item: Album?) {
+
+            item?.name?.let {
+                binding.tvTitle.text = it
+            }
+
+            item?.company?.let {
+                binding.tvDesc.text = it
+            }
+
             item?.picUrl?.let {
                 ImageLoader.getInstance().loadImage(
                     MyApplication.instance,
-                    GlideImageConfig(item.picUrl, binding.ivPic).also {
+                    GlideImageConfig(item.picUrl, binding.ivImg).also {
                         it.type = TransType.ROUND
                         it.valueRound = 6
                     })
@@ -60,5 +68,6 @@ class FindRecommendAdapter : ListAdapter<Result, FindRecommendAdapter.ViewHolder
         }
 
     }
+
 
 }

@@ -12,6 +12,8 @@ import kotlinx.android.synthetic.main.item_login_auth.view.*
 
 class LoginAuthAdapter : RecyclerView.Adapter<LoginAuthAdapter.ViewHolder>() {
 
+    private lateinit var binding: ItemLoginAuthBinding
+
     private var list: List<AuthEntity>? = null
     private var listener:OnClickListener? = null
 
@@ -26,7 +28,7 @@ class LoginAuthAdapter : RecyclerView.Adapter<LoginAuthAdapter.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoginAuthAdapter.ViewHolder {
-        val binding: ItemLoginAuthBinding = DataBindingUtil.inflate<ItemLoginAuthBinding>(
+         binding = DataBindingUtil.inflate<ItemLoginAuthBinding>(
             parent.context.layoutInflater,
            R.layout.item_login_auth,
             parent,
@@ -51,8 +53,8 @@ class LoginAuthAdapter : RecyclerView.Adapter<LoginAuthAdapter.ViewHolder>() {
 
         fun setData(pos:Int,entity: AuthEntity?) {
             if (entity != null) {
-                itemView.tv_auth_tag.visibility = if(entity.isTag) View.VISIBLE else View.INVISIBLE
-                itemView.iv_icon.setBackgroundResource(entity.icon)
+                binding.tvAuthTag.visibility = if(entity.isTag) View.VISIBLE else View.INVISIBLE
+                binding.ivIcon.setBackgroundResource(entity.icon)
             }
         }
     }

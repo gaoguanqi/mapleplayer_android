@@ -11,13 +11,16 @@ import androidx.recyclerview.widget.RecyclerView
 import com.maple.player.R
 import com.maple.player.databinding.ItemFindGatherBinding
 import com.maple.player.databinding.ItemGatherBinding
+import com.maple.player.databinding.ItemNewDiscBinding
 import com.maple.player.extensions.layoutInflater
 import com.maple.player.model.entity.GatherData
 
 class FindGatherAdapter : ListAdapter<GatherData, FindGatherAdapter.ViewHolder>(DiffCallback()) {
 
+    private lateinit var binding: ItemGatherBinding
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val binding = DataBindingUtil.inflate<ItemGatherBinding>(
+         binding = DataBindingUtil.inflate<ItemGatherBinding>(
             parent.context.layoutInflater,
             R.layout.item_gather,
             parent,
@@ -43,11 +46,8 @@ class FindGatherAdapter : ListAdapter<GatherData, FindGatherAdapter.ViewHolder>(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun setData(item: GatherData?) {
-            val tvText: TextView = itemView.findViewById<TextView>(R.id.tv_text)
-            tvText.text = item?.text
-
-            val ivIcon: ImageView = itemView.findViewById<ImageView>(R.id.iv_icon)
-            ivIcon.background = item?.icon
+            binding.tvText.text = item?.text
+            binding.ivIcon.background = item?.icon
         }
     }
 }

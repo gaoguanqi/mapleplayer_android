@@ -19,4 +19,8 @@ class HomeRepository : BaseRepository() {
     suspend fun getRecommend(limit: String) = withContext(Dispatchers.IO) {
         retrofitClient.getRecommend(limit)
     }
+
+    suspend fun getNewDisc(offset:String,limit: String)= withContext(Dispatchers.IO) {
+        retrofitClient.getNewDisc(offset,limit)
+    }
 }

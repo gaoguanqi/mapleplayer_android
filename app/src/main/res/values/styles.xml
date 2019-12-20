@@ -73,4 +73,9 @@
     <style name="style_menu_inactive">
         <item name="android:textSize">10sp</item>
     </style>
+
+    <style name="style_tablayout_text" parent="TextAppearance.Design.Tab">
+        <item name="android:textSize">14sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
 </resources>

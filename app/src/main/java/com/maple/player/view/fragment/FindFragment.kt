@@ -39,7 +39,7 @@ class FindFragment : BaseFragment<FragmentFindBinding>() {
         binding.refreshFind.setColorSchemeColors(UIUtils.getColor(R.color.colorPrimary))
 
         binding.rvFind.layoutManager = LinearLayoutManager(requireContext())
-        val adapter:HomeFindAdapter = HomeFindAdapter()
+        val adapter:HomeFindAdapter = HomeFindAdapter(requireActivity())
         binding.rvFind.adapter = adapter
         viewModel.getBannerData()
         viewModel.bannerData.observe(this, Observer {
@@ -55,6 +55,12 @@ class FindFragment : BaseFragment<FragmentFindBinding>() {
         viewModel.recommendData.observe(this, Observer {
             adapter.setRecommendData(it)
         })
+
+        viewModel.getNewPageList()
+        viewModel.newPageFragmentList.observe(this, Observer {
+            adapter.setNewPageList(it)
+        })
+
     }
 
 

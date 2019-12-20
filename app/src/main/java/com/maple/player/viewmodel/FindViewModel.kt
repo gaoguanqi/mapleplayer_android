@@ -1,5 +1,6 @@
 package com.maple.player.viewmodel
 
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.maple.player.R
 import com.maple.player.base.BaseViewModel
@@ -8,6 +9,8 @@ import com.maple.player.model.entity.*
 import com.maple.player.model.repository.HomeRepository
 import com.maple.player.utils.LogUtils
 import com.maple.player.utils.UIUtils
+import com.maple.player.view.fragment.NewDiscFragment
+import com.maple.player.view.fragment.NewMusicFragment
 
 class FindViewModel : BaseViewModel() {
 
@@ -16,6 +19,7 @@ class FindViewModel : BaseViewModel() {
     val bannerData: MutableLiveData<List<Banner>> = MutableLiveData()
     val gatherData: MutableLiveData<List<GatherData>> = MutableLiveData()
     val recommendData: MutableLiveData<List<Result>> = MutableLiveData()
+    val newPageFragmentList: MutableLiveData<List<Fragment>> = MutableLiveData()
 
     fun getBannerData() {
         launch(
@@ -63,5 +67,13 @@ class FindViewModel : BaseViewModel() {
             {
                 LogUtils.logGGQ("回调完成 complete")
             })
+    }
+
+    fun getNewPageList(){
+        newPageFragmentList.value = listOf(
+            NewDiscFragment.getInstance(),
+            NewMusicFragment.getInstance()
+        )
+
     }
 }

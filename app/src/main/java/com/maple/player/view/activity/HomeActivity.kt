@@ -12,10 +12,9 @@ import com.maple.player.base.BaseViewActivity
 import com.maple.player.databinding.ActivityHomeBinding
 import com.maple.player.utils.ToastUtil
 import com.maple.player.utils.UIUtils
-import com.maple.player.view.adapter.HomeFragmentStateAdapter
+import com.maple.player.view.adapter.MyFragmentStateAdapter
 import com.maple.player.view.fragment.*
 import com.maple.player.viewmodel.HomeViewModel
-import kotlinx.android.synthetic.main.activity_home.*
 
 class HomeActivity : BaseViewActivity<ActivityHomeBinding, HomeViewModel>() {
 
@@ -48,7 +47,7 @@ class HomeActivity : BaseViewActivity<ActivityHomeBinding, HomeViewModel>() {
 
 
         binding.pager.isUserInputEnabled = false
-        val adapter: HomeFragmentStateAdapter = HomeFragmentStateAdapter(this, list)
+        val adapter: MyFragmentStateAdapter = MyFragmentStateAdapter(this, list)
         binding.pager.orientation = ViewPager2.ORIENTATION_HORIZONTAL
         binding.pager.adapter = adapter
         binding.pager.registerOnPageChangeCallback(object : ViewPager2.OnPageChangeCallback() {

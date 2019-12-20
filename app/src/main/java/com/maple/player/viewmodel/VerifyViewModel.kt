@@ -8,6 +8,7 @@ import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
 import com.maple.player.db.AppDatabase
 import com.maple.player.db.user.User
+import com.maple.player.extensions.isResultSuccess
 import com.maple.player.model.entity.AccountData
 import com.maple.player.model.entity.ResultEntity
 import com.maple.player.model.entity.UserInfoEntity
@@ -17,7 +18,7 @@ import com.maple.player.utils.UIUtils
 import com.maple.player.widget.timer.MyCountDownTimer
 import com.maple.player.widget.timer.MyCountDownTimerListener
 
-class VerifyViewModel:BaseViewModel() {
+class VerifyViewModel : BaseViewModel() {
 
     private val repository by lazy { AccountRepository() }
 
@@ -27,18 +28,18 @@ class VerifyViewModel:BaseViewModel() {
 
     val backEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val nextEvent: SingleLiveEvent<Any> = SingleLiveEvent()
-    val verifyCode:MutableLiveData<AccountData> = MutableLiveData(AccountData("",""))
-    private val timer:MyCountDownTimer
+    val verifyCode: MutableLiveData<AccountData> = MutableLiveData(AccountData("", ""))
+    private val timer: MyCountDownTimer
 
     val taskText: ObservableField<String> = ObservableField("重新发送")
 
-    val taskTextEnable:ObservableField<Boolean> = ObservableField(true)
+    val taskTextEnable: ObservableField<Boolean> = ObservableField(true)
 
-    val homeEvent:SingleLiveEvent<Any> = SingleLiveEvent()
+    val homeEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
     init {
         defUI.title.set(UIUtils.getString(R.string.title_verify_phone))
-        timer = MyCountDownTimer(60000,1000,object: MyCountDownTimerListener {
+        timer = MyCountDownTimer(60000, 1000, object : MyCountDownTimerListener {
             override fun onStart() {
                 taskTextEnable.set(false)
             }
@@ -66,9 +67,9 @@ class VerifyViewModel:BaseViewModel() {
         launch(
             {
                 val result: ResultEntity = repository.sendVerifyCode(phone).apply {
-                    if(this.code == 200){
+                    if (this.code.isResultSuccess()) {
                         defUI.toastEvent.postValue("发送成功")
-                    }else{
+                    } else {
                         defUI.toastEvent.postValue("error:code ${code}")
                     }
                 }
@@ -86,13 +87,14 @@ class VerifyViewModel:BaseViewModel() {
             timer.start()
             launch(
                 {
-                    val result: ResultEntity = repository.sendVerifyCode(verifyCode.value!!.phone).apply {
-                        if(this.code == 200){
-                            defUI.toastEvent.postValue("发送成功")
-                        }else{
-                            defUI.toastEvent.postValue("error:code ${code}")
+                    val result: ResultEntity =
+                        repository.sendVerifyCode(verifyCode.value!!.phone).apply {
+                            if (this.code.isResultSuccess()) {
+                                defUI.toastEvent.postValue("发送成功")
+                            } else {
+                                defUI.toastEvent.postValue("error:code ${code}")
+                            }
                         }
-                    }
                 },
                 {
                     defUI.toastEvent.postValue("error:${it.code} -- ${it.errMsg}")
@@ -112,37 +114,38 @@ class VerifyViewModel:BaseViewModel() {
         }
         launch(
             {
-                val result: ResultEntity = repository.checkVerifyCode(phone,content).apply {
-                    if(this.code == 200){
+                val result: ResultEntity = repository.checkVerifyCode(phone, content).apply {
+                    if (this.code.isResultSuccess()) {
                         nextEvent.call()
-                    }else{
+                    } else {
 //                        defUI.toastEvent.postValue("error:code ${code}")
                         nextEvent.call()
                     }
                 }
             },
             {
-//                defUI.toastEvent.postValue("error:${it.code} -- ${it.errMsg}")
+                //                defUI.toastEvent.postValue("error:${it.code} -- ${it.errMsg}")
                 nextEvent.call()
             },
             {
                 LogUtils.logGGQ("回调完成 complete")
-            },false)
+            }, false
+        )
     }
 
     fun onPhoneLogin(phone: String, password: String) {
         launch(
             {
-                val result: UserInfoEntity = repository.loginPhone(phone,password)
-                if(result.code == 200){
+                val result: UserInfoEntity = repository.loginPhone(phone, password)
+                if (result.code.isResultSuccess()) {
                     AppDatabase.getInstance(app).userDao().insertUser(User().apply {
                         this.loginType = result.loginType
                         this.nickname = result.profile?.nickname
                     })
-                    if(!AppDatabase.getInstance(app).userDao().getAllUser().isNullOrEmpty()){
+                    if (!AppDatabase.getInstance(app).userDao().getAllUser().isNullOrEmpty()) {
                         homeEvent.call()
                     }
-                }else{
+                } else {
                     defUI.toastEvent.postValue("${result.message}")
                 }
             },

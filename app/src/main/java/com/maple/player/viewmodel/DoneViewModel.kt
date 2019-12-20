@@ -1,25 +1,19 @@
 package com.maple.player.viewmodel
 
 import androidx.databinding.ObservableField
-import com.blankj.utilcode.util.GsonUtils
-import com.github.salomonbrys.kotson.fromJson
-import com.google.gson.Gson
 import com.maple.player.R
 import com.maple.player.app.MyApplication
 import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
 import com.maple.player.db.AppDatabase
-import com.maple.player.db.user.*
-import com.maple.player.http.BaseResult
+import com.maple.player.db.user.User
+import com.maple.player.extensions.isResultSuccess
 import com.maple.player.model.entity.UserInfoEntity
 import com.maple.player.model.repository.AccountRepository
 import com.maple.player.utils.LogUtils
-import com.maple.player.utils.StringNullAdapter
-import com.maple.player.utils.ToastUtil
 import com.maple.player.utils.UIUtils
-import org.jetbrains.anko.collections.forEachByIndex
 
-class DoneViewModel:BaseViewModel() {
+class DoneViewModel : BaseViewModel() {
 
     private val repository by lazy { AccountRepository() }
 
@@ -31,7 +25,7 @@ class DoneViewModel:BaseViewModel() {
     val doneEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val clearEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val resetEvent: SingleLiveEvent<Any> = SingleLiveEvent()
-    val homeEvent:SingleLiveEvent<Any> = SingleLiveEvent()
+    val homeEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
     val hasDone: ObservableField<Boolean> = ObservableField(false)
 
@@ -52,23 +46,23 @@ class DoneViewModel:BaseViewModel() {
         doneEvent.call()
     }
 
-    fun onReset(){
+    fun onReset() {
         resetEvent.call()
     }
 
-     fun onPhoneLogin(phone:String, password:String){
+    fun onPhoneLogin(phone: String, password: String) {
         launch(
             {
-                val result:UserInfoEntity = repository.loginPhone(phone,password)
-                if(result.code == 200){
+                val result: UserInfoEntity = repository.loginPhone(phone, password)
+                if (result.code.isResultSuccess()) {
                     AppDatabase.getInstance(app).userDao().insertUser(User().apply {
                         this.loginType = result.loginType
                         this.nickname = result.profile?.nickname
                     })
-                    if(!AppDatabase.getInstance(app).userDao().getAllUser().isNullOrEmpty()){
+                    if (!AppDatabase.getInstance(app).userDao().getAllUser().isNullOrEmpty()) {
                         homeEvent.call()
                     }
-                }else{
+                } else {
                     defUI.toastEvent.postValue("${result.message}")
                 }
             },

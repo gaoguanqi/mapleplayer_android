@@ -6,13 +6,12 @@ import com.maple.player.app.MyApplication
 import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
 import com.maple.player.db.AppDatabase
-import com.maple.player.db.user.*
-import com.maple.player.model.entity.ResultEntity
+import com.maple.player.db.user.User
+import com.maple.player.extensions.isResultSuccess
 import com.maple.player.model.entity.UserInfoEntity
 import com.maple.player.model.repository.AccountRepository
 import com.maple.player.utils.LogUtils
 import com.maple.player.utils.UIUtils
-import org.jetbrains.anko.collections.forEachByIndex
 
 class NicknameViewModel : BaseViewModel() {
 
@@ -25,7 +24,7 @@ class NicknameViewModel : BaseViewModel() {
     val backEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val clearEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val submitEvent: SingleLiveEvent<Any> = SingleLiveEvent()
-    val homeEvent:SingleLiveEvent<Any> = SingleLiveEvent()
+    val homeEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
     val hasClear: ObservableField<Boolean> = ObservableField(false)
 
@@ -46,10 +45,10 @@ class NicknameViewModel : BaseViewModel() {
         submitEvent.call()
     }
 
-    fun onConfirmSubmit(phone:String,password:String,verifyCode:String,nickname:String){
+    fun onConfirmSubmit(phone: String, password: String, verifyCode: String, nickname: String) {
         launch(
             {
-//                val result: UserInfoEntity = repository.registerPhone(phone,password,verifyCode,nickname).apply {
+                //                val result: UserInfoEntity = repository.registerPhone(phone,password,verifyCode,nickname).apply {
 //                    if(this.code == 200){
 //                        //save userinfo room
 //                        val user: User = User()
@@ -131,16 +130,16 @@ class NicknameViewModel : BaseViewModel() {
 //                    }
 //                }
 
-                val result:UserInfoEntity = repository.loginPhone(phone,password)
-                if(result.code == 200){
+                val result: UserInfoEntity = repository.loginPhone(phone, password)
+                if (result.code.isResultSuccess()) {
                     AppDatabase.getInstance(app).userDao().insertUser(User().apply {
                         this.loginType = result.loginType
                         this.nickname = result.profile?.nickname
                     })
-                    if(!AppDatabase.getInstance(app).userDao().getAllUser().isNullOrEmpty()){
+                    if (!AppDatabase.getInstance(app).userDao().getAllUser().isNullOrEmpty()) {
                         homeEvent.call()
                     }
-                }else{
+                } else {
                     defUI.toastEvent.postValue("${result.message}")
                 }
             },

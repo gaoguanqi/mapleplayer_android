@@ -2,11 +2,10 @@ package com.maple.player.viewmodel
 
 import androidx.databinding.ObservableField
 import com.maple.player.R
-import com.maple.player.app.MyApplication
 import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
+import com.maple.player.extensions.isResultSuccess
 import com.maple.player.model.entity.CheckPhoneEntity
-import com.maple.player.model.entity.UserInfoEntity
 import com.maple.player.model.repository.AccountRepository
 import com.maple.player.utils.LogUtils
 import com.maple.player.utils.UIUtils
@@ -49,13 +48,13 @@ class PhoneViewModel : BaseViewModel() {
         launch(
             {
                 val result: CheckPhoneEntity = repository.checkPhone(phone).apply {
-                    if(this.code == 200){
-                        if(this.exist == 1){
+                    if (this.code.isResultSuccess()) {
+                        if (this.exist == 1) {
                             acceptEvent.call()
-                        }else{
+                        } else {
                             registEvent.call()
                         }
-                    }else{
+                    } else {
                         defUI.toastEvent.postValue("error:未知")
                     }
                 }
@@ -65,6 +64,7 @@ class PhoneViewModel : BaseViewModel() {
             },
             {
                 LogUtils.logGGQ("回调完成 complete")
-            },false)
+            }, false
+        )
     }
 }

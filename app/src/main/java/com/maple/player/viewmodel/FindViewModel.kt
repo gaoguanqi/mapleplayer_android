@@ -3,6 +3,7 @@ package com.maple.player.viewmodel
 import androidx.lifecycle.MutableLiveData
 import com.maple.player.R
 import com.maple.player.base.BaseViewModel
+import com.maple.player.extensions.isResultSuccess
 import com.maple.player.model.entity.*
 import com.maple.player.model.repository.HomeRepository
 import com.maple.player.utils.LogUtils
@@ -21,7 +22,7 @@ class FindViewModel : BaseViewModel() {
             {
                 val type: String = "0"
                 val result: BannerEntity = repository.getBanner(type)
-                if (result.code == 200) {
+                if (result.code.isResultSuccess()) {
                     bannerData.value = result.banners
                 } else {
                     defUI.toastEvent.postValue("${result.message}")
@@ -50,7 +51,7 @@ class FindViewModel : BaseViewModel() {
             {
                 val limit: String = "6"
                 val result: RecommendEntity = repository.getRecommend(limit)
-                if (result.code == 200) {
+                if (result.code.isResultSuccess()) {
                     recommendData.value = result.result
                 } else {
                     defUI.toastEvent.postValue("${result.message}")

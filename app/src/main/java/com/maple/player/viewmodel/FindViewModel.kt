@@ -37,7 +37,7 @@ class FindViewModel : BaseViewModel() {
             },
             {
                 LogUtils.logGGQ("回调完成 complete")
-            })
+            },false)
     }
 
     fun getGatherData() {
@@ -66,7 +66,7 @@ class FindViewModel : BaseViewModel() {
             },
             {
                 LogUtils.logGGQ("回调完成 complete")
-            })
+            },false)
     }
 
     fun getNewPageList(){

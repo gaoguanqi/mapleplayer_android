@@ -48,7 +48,6 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
     override fun initData(view: View, savedInstanceState: Bundle?) {
         LogUtils.logGGQ("账号")
 
-
         viewModel.defUI.showDialog.observe(this, Observer {
             showLoading()
         })

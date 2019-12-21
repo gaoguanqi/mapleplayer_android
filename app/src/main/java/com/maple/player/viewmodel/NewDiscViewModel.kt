@@ -31,7 +31,7 @@ class NewDiscViewModel : BaseViewModel() {
             },
             {
                 LogUtils.logGGQ("回调完成 complete")
-            })
+            },false)
     }
 
 }

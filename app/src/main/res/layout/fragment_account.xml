@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="android.view.View" />
-
         <variable
             name="viewModel"
             type="com.maple.player.viewmodel.AccountViewModel" />
@@ -69,17 +67,20 @@
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/font_14"
                                 android:textStyle="bold"
+                                android:maxLines="1"
+                                android:ellipsize="end"
                                 android:text="@{viewModel.userDetail.profile.nickname}"
                                 tools:text="说出来你可能不信" />
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:paddingTop="4dp"
-                                android:text="Lv 1"
-                                android:textColor="@color/color_gray"
+                                android:text="@{viewModel.accountLevel}"
+                                android:layout_marginTop="4dp"
+                                android:background="@drawable/shape_radius_concise"
+                                android:textColor="@color/color_text_gray"
                                 android:textSize="@dimen/font_12"
-                                android:textStyle="bold"
+                                android:textStyle="italic"
                                 tools:text="Lv 1" />
                         </LinearLayout>
 
@@ -111,7 +112,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
+                                android:text="@{String.valueOf(viewModel.userDetail.profile.eventCount)}"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/font_14"
                                 android:textStyle="bold" />
@@ -141,7 +142,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="0"
+                                android:text="@{String.valueOf(viewModel.userDetail.profile.follows)}"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/font_14"
                                 android:textStyle="bold" />

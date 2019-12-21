@@ -7,6 +7,7 @@ import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
 import com.maple.player.db.AppDatabase
 import com.maple.player.extensions.isResultSuccess
+import com.maple.player.model.entity.UserDetailEntity
 import com.maple.player.model.entity.UserInfoEntity
 import com.maple.player.model.repository.HomeRepository
 import com.maple.player.utils.LogUtils
@@ -36,7 +37,10 @@ class AccountViewModel : BaseViewModel() {
 
     val switchDarkValue:MutableLiveData<Boolean> = MutableLiveData(false)
 
-    val userDetail:MutableLiveData<UserInfoEntity> = MutableLiveData()
+    val userDetail:MutableLiveData<UserDetailEntity> = MutableLiveData()
+
+    val accountLevel:MutableLiveData<String> = MutableLiveData()
+
 
     init {
         defUI.title.set(UIUtils.getString(R.string.title_account))
@@ -100,8 +104,9 @@ class AccountViewModel : BaseViewModel() {
                 val user = AppDatabase.getInstance(MyApplication.instance).userDao().getAllUser().last()
                 LogUtils.logGGQ("user:${user.nickname}")
 
-                val result: UserInfoEntity = repository.getUserDetail(user.uid!!)
+                val result: UserDetailEntity = repository.getUserDetail(user.uid!!)
                 if (result.code.isResultSuccess()) {
+                    accountLevel.value = "Lv.${result.level}"
                     userDetail.value = result
                 } else {
                     defUI.toastEvent.postValue("${result.message}")

@@ -29,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/white"
-            app:elevation="0.5dp"
+            app:elevation="4dp"
             app:itemIconSize="16dp"
             app:itemTextAppearanceActive="@style/style_menu_active"
             app:itemTextAppearanceInactive="@style/style_menu_inactive"

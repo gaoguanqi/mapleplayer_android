@@ -33,7 +33,7 @@ interface ApiService {
 
 
     @GET("/user/detail")
-    suspend fun getUserDetail(@Query("uid") uid: String): UserInfoEntity
+    suspend fun getUserDetail(@Query("uid") uid: String): UserDetailEntity
 
 
 }

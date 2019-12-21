@@ -64,7 +64,7 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
         viewModel.userDetail.observe(this, Observer {
             ImageLoader.getInstance().loadImage(
                 MyApplication.instance,
-                GlideImageConfig(it.profile?.avatarUrl!!, binding.ivAvatar).also { it.type = TransType.CIRCLE })
+                GlideImageConfig(it.profile.avatarUrl, binding.ivAvatar).also { it.type = TransType.CIRCLE })
         })
 
         binding.appBarLayout.addOnOffsetChangedListener(object :

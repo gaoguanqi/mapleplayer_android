@@ -27,7 +27,7 @@
                 app:tabIndicatorHeight="0dp"
                 app:tabTextAppearance="@style/style_tablayout_text"
                 app:tabSelectedTextColor="@color/black"
-                app:tabTextColor="@color/color_text_gray"/>
+                app:tabTextColor="@color/color_gray"/>
 
 
             <TextView

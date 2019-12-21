@@ -25,7 +25,13 @@ class GlideImageLoaderStrategy : BaseImageLoaderStrategy<GlideImageConfig> {
     @SuppressLint("CheckResult")
     override fun loadImage(ctx: Context, config: GlideImageConfig) {
         val options = RequestOptions()
-        options.placeholder(config.placeholder)
+        val shimmerDrawable: ShimmerDrawable = ShimmerDrawable()
+        val shimmer: Shimmer =
+            Shimmer.AlphaHighlightBuilder().setAutoStart(true).setBaseAlpha(0.9f).setRepeatCount(1)
+                .build()
+        shimmerDrawable.setShimmer(shimmer)
+        options.placeholder(shimmerDrawable)
+//        options.placeholder(config.placeholder)
         options.error(config.errorPic)
 
         if (config.overWidth > 0 && config.overHeight > 0) {

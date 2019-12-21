@@ -2,7 +2,6 @@ package com.maple.player.model.repository
 
 import com.maple.player.base.BaseRepository
 import com.maple.player.http.RetrofitClient
-import com.maple.player.model.entity.BannerEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -20,7 +19,7 @@ class HomeRepository : BaseRepository() {
         retrofitClient.getRecommend(limit)
     }
 
-    suspend fun getNewDisc(offset:String,limit: String)= withContext(Dispatchers.IO) {
-        retrofitClient.getNewDisc(offset,limit)
+    suspend fun getNewest() = withContext(Dispatchers.IO) {
+        retrofitClient.getNewest()
     }
 }

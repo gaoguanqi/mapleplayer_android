@@ -1,8 +1,7 @@
 package com.maple.player.model.entity
-data class NewDiscEntity(
+data class NewestEntity(
     val albums: List<Album>,
     val code: Int,
-    val total: Int,
     val message:String = "error message!!!"
 )
 
@@ -18,7 +17,6 @@ data class Album(
     val copyrightId: Int,
     val description: String,
     val id: Int,
-    val mark: Int,
     val name: String,
     val onSale: Boolean,
     val paid: Boolean,
@@ -28,9 +26,8 @@ data class Album(
     val picUrl: String,
     val publishTime: Long,
     val size: Int,
-    val songs: List<Any>,
+    val songs: Any,
     val status: Int,
-    val subType: String,
     val tags: String,
     val type: String
 )
@@ -39,7 +36,6 @@ data class Artist(
     val albumSize: Int,
     val alias: List<Any>,
     val briefDesc: String,
-    val followed: Boolean,
     val id: Int,
     val img1v1Id: Long,
     val img1v1Id_str: String,
@@ -57,7 +53,6 @@ data class ArtistX(
     val albumSize: Int,
     val alias: List<Any>,
     val briefDesc: String,
-    val followed: Boolean,
     val id: Int,
     val img1v1Id: Long,
     val img1v1Id_str: String,

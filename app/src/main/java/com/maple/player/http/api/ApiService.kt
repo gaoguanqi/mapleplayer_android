@@ -26,8 +26,8 @@ interface ApiService {
     @GET("/personalized")
     suspend fun getRecommend(@Query("limit") limit:String): RecommendEntity
 
-    @GET("/top/album")
-    suspend fun getNewDisc(@Query("offset") offset:String,@Query("limit") limit:String): NewDiscEntity
+    @GET("/album/newest")
+    suspend fun getNewest(): NewestEntity
 
 
 }

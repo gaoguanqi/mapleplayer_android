@@ -4,7 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
-
+        <import type="android.view.View"/>
+        <variable
+            name="viewModel"
+            type="com.maple.player.viewmodel.NewMusicViewModel" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -35,7 +35,7 @@ class NewDiscFragment : BaseFragment<FragmentNewDiscBinding>() {
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
 
-        LogUtils.logGGQ("新碟")
+        LogUtils.logGGQ("new — 新碟")
 
         binding.rvList.layoutManager = GridLayoutManager(requireContext(),3)
         val adapter: NewDiscAdapter = NewDiscAdapter()

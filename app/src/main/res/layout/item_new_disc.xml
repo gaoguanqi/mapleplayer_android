@@ -36,7 +36,7 @@
             android:id="@+id/tv_desc"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/font_12"
+            android:textSize="@dimen/font_10"
             android:textColor="@color/color_gray"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"

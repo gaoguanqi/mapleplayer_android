@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.maple.player.R
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentFindBinding
+import com.maple.player.utils.ToastUtil
 import com.maple.player.utils.UIUtils
 import com.maple.player.view.adapter.HomeFindAdapter
 import com.maple.player.viewmodel.FindViewModel
@@ -36,9 +37,22 @@ class FindFragment : BaseFragment<FragmentFindBinding>() {
     }
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
-        binding.refreshFind.setColorSchemeColors(UIUtils.getColor(R.color.colorPrimary))
 
+        viewModel.defUI.showDialog.observe(this, Observer {
+            showLoading()
+        })
+
+        viewModel.defUI.dismissDialog.observe(this, Observer {
+            dismissLoading()
+        })
+
+        viewModel.defUI.toastEvent.observe(this, Observer {
+            ToastUtil.showToast(it)
+        })
+
+        binding.refreshFind.setColorSchemeColors(UIUtils.getColor(R.color.colorPrimary))
         binding.rvFind.layoutManager = LinearLayoutManager(requireContext())
+        
         val adapter:HomeFindAdapter = HomeFindAdapter(requireActivity())
         binding.rvFind.adapter = adapter
         viewModel.getBannerData()

@@ -51,9 +51,9 @@
                         android:paddingBottom="10dp">
 
                         <ImageView
-                            android:layout_width="56dp"
-                            android:layout_height="56dp"
-                            android:background="@drawable/icon_logo" />
+                            android:id="@+id/iv_avatar"
+                            android:layout_width="62dp"
+                            android:layout_height="62dp"/>
 
                         <LinearLayout
                             android:layout_width="0dp"
@@ -66,10 +66,10 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="说出来你可能不信"
                                 android:textColor="@color/black"
                                 android:textSize="@dimen/font_14"
                                 android:textStyle="bold"
+                                android:text="@{viewModel.userDetail.profile.nickname}"
                                 tools:text="说出来你可能不信" />
 
                             <TextView

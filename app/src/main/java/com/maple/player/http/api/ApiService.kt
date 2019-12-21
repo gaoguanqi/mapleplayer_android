@@ -30,4 +30,10 @@ interface ApiService {
     suspend fun getNewest(): NewestEntity
 
 
+
+
+    @GET("/user/detail")
+    suspend fun getUserDetail(@Query("uid") uid: String): UserInfoEntity
+
+
 }

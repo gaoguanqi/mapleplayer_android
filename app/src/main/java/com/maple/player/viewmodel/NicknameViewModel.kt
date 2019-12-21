@@ -17,9 +17,6 @@ class NicknameViewModel : BaseViewModel() {
 
     private val repository by lazy { AccountRepository() }
 
-    private val app by lazy {
-        MyApplication.instance
-    }
 
     val backEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val clearEvent: SingleLiveEvent<Any> = SingleLiveEvent()

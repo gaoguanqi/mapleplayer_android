@@ -22,4 +22,9 @@ class HomeRepository : BaseRepository() {
     suspend fun getNewest() = withContext(Dispatchers.IO) {
         retrofitClient.getNewest()
     }
+
+
+    suspend fun getUserDetail(uid:String) = withContext(Dispatchers.IO) {
+        retrofitClient.getUserDetail(uid)
+    }
 }

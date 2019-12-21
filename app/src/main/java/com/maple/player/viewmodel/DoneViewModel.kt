@@ -17,9 +17,6 @@ class DoneViewModel : BaseViewModel() {
 
     private val repository by lazy { AccountRepository() }
 
-    private val app by lazy {
-        MyApplication.instance
-    }
 
     val backEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val doneEvent: SingleLiveEvent<Any> = SingleLiveEvent()
@@ -58,6 +55,7 @@ class DoneViewModel : BaseViewModel() {
                     AppDatabase.getInstance(app).userDao().insertUser(User().apply {
                         this.loginType = result.loginType
                         this.nickname = result.profile?.nickname
+                        this.uid = result.profile?.userId
                     })
                     if (!AppDatabase.getInstance(app).userDao().getAllUser().isNullOrEmpty()) {
                         homeEvent.call()

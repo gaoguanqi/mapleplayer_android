@@ -2,11 +2,19 @@ package com.maple.player.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import com.maple.player.R
+import com.maple.player.app.MyApplication
 import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
+import com.maple.player.db.AppDatabase
+import com.maple.player.extensions.isResultSuccess
+import com.maple.player.model.entity.UserInfoEntity
+import com.maple.player.model.repository.HomeRepository
+import com.maple.player.utils.LogUtils
 import com.maple.player.utils.UIUtils
 
 class AccountViewModel : BaseViewModel() {
+
+    private val repository by lazy { HomeRepository() }
 
     val bellEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val orderEvent: SingleLiveEvent<Any> = SingleLiveEvent()
@@ -27,6 +35,8 @@ class AccountViewModel : BaseViewModel() {
     val theEvent:SingleLiveEvent<Any> = SingleLiveEvent()
 
     val switchDarkValue:MutableLiveData<Boolean> = MutableLiveData(false)
+
+    val userDetail:MutableLiveData<UserInfoEntity> = MutableLiveData()
 
     init {
         defUI.title.set(UIUtils.getString(R.string.title_account))
@@ -82,5 +92,26 @@ class AccountViewModel : BaseViewModel() {
     }
     fun onLogout(){
         logoutEvent.call()
+    }
+
+    fun getUserDetail() {
+        launch(
+            {
+                val user = AppDatabase.getInstance(MyApplication.instance).userDao().getAllUser().last()
+                LogUtils.logGGQ("user:${user.nickname}")
+
+                val result: UserInfoEntity = repository.getUserDetail(user.uid!!)
+                if (result.code.isResultSuccess()) {
+                    userDetail.value = result
+                } else {
+                    defUI.toastEvent.postValue("${result.message}")
+                }
+            },
+            {
+                defUI.toastEvent.postValue("error:${it.code} -- ${it.errMsg}")
+            },
+            {
+                LogUtils.logGGQ("回调完成 complete")
+            })
     }
 }

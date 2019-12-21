@@ -4,6 +4,7 @@ import androidx.databinding.ObservableField
 import androidx.lifecycle.LifecycleObserver
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.maple.player.app.MyApplication
 import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.http.ExceptionHandle
 import com.maple.player.http.ResponseThrowable
@@ -11,6 +12,10 @@ import kotlinx.coroutines.*
 
 open class BaseViewModel : ViewModel(), LifecycleObserver {
     val defUI: UIChange by lazy { UIChange() }
+
+    val app:MyApplication by lazy {
+        MyApplication.instance
+    }
 
     /**
      * 所有网络请求都在 viewModelScope 域中启动，当页面销毁时会自动

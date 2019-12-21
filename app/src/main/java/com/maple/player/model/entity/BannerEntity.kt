@@ -1,22 +1,21 @@
 package com.maple.player.model.entity
-
-data class BannerEntity(
+ data class BannerEntity(
     val banners: List<Banner>,
     val code: Int,
     val message:String = "error message!!!"
-)
+ )
 
 data class Banner(
     val adDispatchJson: Any,
     val adLocation: Any,
     val adSource: Any,
     val adid: Any,
-    val encodeId: String,
+    val encodeId: String = "",
     val event: Any,
     val exclusive: Boolean,
     val extMonitor: Any,
     val extMonitorInfo: Any,
-    val imageUrl: String,
+    val imageUrl: String = "",
     val monitorBlackList: Any,
     val monitorClick: Any,
     val monitorClickList: Any,
@@ -24,12 +23,12 @@ data class Banner(
     val monitorImpressList: Any,
     val monitorType: Any,
     val program: Any,
-    val scm: String,
+    val scm: String = "",
     val song: Any,
-    val targetId: Int,
-    val targetType: Int,
-    val titleColor: String,
-    val typeTitle: String,
-    val url: String,
+    val targetId: String = "",
+    val targetType: String = "",
+    val titleColor: String = "",
+    val typeTitle: String = "",
+    val url: String = "",
     val video: Any
 )

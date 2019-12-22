@@ -28,7 +28,17 @@ class HomeRepository : BaseRepository() {
         retrofitClient.getUserDetail(uid)
     }
 
+
+    suspend fun getVideoGroup() = withContext(Dispatchers.IO) {
+        retrofitClient.getVideoGroup()
+    }
+
+
     suspend fun logout() = withContext(Dispatchers.IO) {
         retrofitClient.logout()
     }
+
+
+
+
 }

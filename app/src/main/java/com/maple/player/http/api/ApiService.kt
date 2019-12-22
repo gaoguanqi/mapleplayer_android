@@ -35,8 +35,13 @@ interface ApiService {
     @GET("/user/detail")
     suspend fun getUserDetail(@Query("uid") uid: String): UserDetailEntity
 
+    @GET("/video/group/list")
+    suspend fun getVideoGroup(): VideoTabEntity
+
     @GET("/logout")
     suspend fun logout(): ResultEntity
+
+
 
 
 }

@@ -9,4 +9,7 @@ class MyRefreshLayout constructor(
 ) : SwipeRefreshLayout(context, attrs) {
 
 
+    override fun setColorSchemeColors(vararg colors: Int) {
+        super.setColorSchemeColors(*colors)
+    }
 }

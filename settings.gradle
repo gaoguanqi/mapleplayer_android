@@ -1,2 +1,2 @@
-include ':app'
+include ':app', ':playerlibrary'
 rootProject.name='mapleplayer_android'

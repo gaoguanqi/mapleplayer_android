@@ -232,7 +232,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:layout_marginEnd="20dp"
-                        android:background="@drawable/shape_radius_top"
+                        android:background="@drawable/shape_radius_vip"
                         android:orientation="horizontal"
                         android:paddingTop="8dp"
                         android:paddingBottom="6dp">

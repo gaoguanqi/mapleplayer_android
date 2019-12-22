@@ -7,8 +7,8 @@ import com.maple.player.app.manager.SingleLiveEvent
 import com.maple.player.base.BaseViewModel
 import com.maple.player.db.AppDatabase
 import com.maple.player.extensions.isResultSuccess
+import com.maple.player.model.entity.ResultEntity
 import com.maple.player.model.entity.UserDetailEntity
-import com.maple.player.model.entity.UserInfoEntity
 import com.maple.player.model.repository.HomeRepository
 import com.maple.player.utils.LogUtils
 import com.maple.player.utils.UIUtils
@@ -30,78 +30,94 @@ class AccountViewModel : BaseViewModel() {
     val aboutEvent: SingleLiveEvent<Any> = SingleLiveEvent()
     val logoutEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
-    val messageEvent:SingleLiveEvent<Any> = SingleLiveEvent()
-    val shopEvent:SingleLiveEvent<Any> = SingleLiveEvent()
-    val showEvent:SingleLiveEvent<Any> = SingleLiveEvent()
-    val theEvent:SingleLiveEvent<Any> = SingleLiveEvent()
+    val messageEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+    val shopEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+    val showEvent: SingleLiveEvent<Any> = SingleLiveEvent()
+    val theEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
-    val switchDarkValue:MutableLiveData<Boolean> = MutableLiveData(false)
+    val switchDarkValue: MutableLiveData<Boolean> = MutableLiveData(false)
 
-    val userDetail:MutableLiveData<UserDetailEntity> = MutableLiveData()
+    val userDetail: MutableLiveData<UserDetailEntity> = MutableLiveData()
 
-    val accountLevel:MutableLiveData<String> = MutableLiveData()
+    val accountLevel: MutableLiveData<String> = MutableLiveData()
+
+    val exitEvent: SingleLiveEvent<Any> = SingleLiveEvent()
 
 
     init {
         defUI.title.set(UIUtils.getString(R.string.title_account))
     }
 
-    fun onMessageClick(){
+    fun onMessageClick() {
         messageEvent.call()
     }
-    fun onShopClick(){
+
+    fun onShopClick() {
         shopEvent.call()
     }
-    fun onShowClick(){
+
+    fun onShowClick() {
         showEvent.call()
     }
-    fun onTheClick(){
+
+    fun onTheClick() {
         theEvent.call()
     }
 
 
-    fun onBellClick(){
+    fun onBellClick() {
         bellEvent.call()
     }
-    fun onOrderClick(){
+
+    fun onOrderClick() {
         orderEvent.call()
     }
-    fun onCreaterClick(){
+
+    fun onCreaterClick() {
         createrEvent.call()
     }
-    fun onSettingClick(){
+
+    fun onSettingClick() {
         settingEvent.call()
     }
 
-    fun onTimerOffClick(){
+    fun onTimerOffClick() {
         timerOffEvent.call()
     }
-    fun onTimerClockClick(){
+
+    fun onTimerClockClick() {
         timerClockEvent.call()
     }
-    fun onFreeLineClick(){
+
+    fun onFreeLineClick() {
         freeLineEvent.call()
     }
-    fun onVoucherClick(){
+
+    fun onVoucherClick() {
         voucherEvent.call()
     }
-    fun onYoungClick(){
+
+    fun onYoungClick() {
         youngEvent.call()
     }
-    fun onShareClick(){
+
+    fun onShareClick() {
         shareEvent.call()
     }
-    fun onAboutClick(){
+
+    fun onAboutClick() {
         aboutEvent.call()
     }
-    fun onLogout(){
+
+    fun onLogout() {
         logoutEvent.call()
     }
 
     fun getUserDetail() {
         launch(
             {
-                val user = AppDatabase.getInstance(MyApplication.instance).userDao().getAllUser().last()
+                val user =
+                    AppDatabase.getInstance(MyApplication.instance).userDao().getAllUser().last()
                 LogUtils.logGGQ("user:${user.nickname}")
 
                 val result: UserDetailEntity = repository.getUserDetail(user.uid!!)
@@ -117,6 +133,27 @@ class AccountViewModel : BaseViewModel() {
             },
             {
                 LogUtils.logGGQ("回调完成 complete")
-            },false)
+            }, false
+        )
+    }
+
+
+    fun logoutAccount() {
+        launch(
+            {
+                val result: ResultEntity = repository.logout()
+                if (result.code.isResultSuccess()) {
+                    exitEvent.call()
+                } else {
+                    defUI.toastEvent.postValue("${result.message}")
+                }
+            },
+            {
+                defUI.toastEvent.postValue("error:${it.code} -- ${it.errMsg}")
+            },
+            {
+                LogUtils.logGGQ("回调完成 complete")
+            }, false
+        )
     }
 }

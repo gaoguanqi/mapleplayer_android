@@ -27,4 +27,8 @@ class HomeRepository : BaseRepository() {
     suspend fun getUserDetail(uid:String) = withContext(Dispatchers.IO) {
         retrofitClient.getUserDetail(uid)
     }
+
+    suspend fun logout() = withContext(Dispatchers.IO) {
+        retrofitClient.logout()
+    }
 }

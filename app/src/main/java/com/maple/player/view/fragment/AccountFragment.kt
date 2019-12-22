@@ -1,25 +1,25 @@
 package com.maple.player.view.fragment
 
 
-import android.animation.ObjectAnimator
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.widget.CompoundButton
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
-import com.google.android.material.animation.AnimationUtils
 import com.google.android.material.appbar.AppBarLayout
 import com.maple.player.R
 import com.maple.player.app.MyApplication
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentAccountBinding
 import com.maple.player.db.AppDatabase
-import com.maple.player.db.user.User
 import com.maple.player.utils.LogUtils
 import com.maple.player.utils.ToastUtil
 import com.maple.player.utils.UIUtils
+import com.maple.player.view.activity.AccountActivity
 import com.maple.player.viewmodel.AccountViewModel
 import com.maple.player.viewmodel.factory.AccountModelFactory
+import com.maple.player.widget.dialog.CommonDialog
 import com.maple.player.widget.imgloader.ImageLoader
 import com.maple.player.widget.imgloader.TransType
 import com.maple.player.widget.imgloader.glide.GlideImageConfig
@@ -27,6 +27,23 @@ import com.maple.player.widget.imgloader.glide.GlideImageConfig
 
 class AccountFragment : BaseFragment<FragmentAccountBinding>() {
 
+
+    val logoutDialog: CommonDialog by lazy {
+        CommonDialog(
+            requireContext(),
+            UIUtils.getString(R.string.app_name),
+            "确定退出当前账号吗？",
+            listener = object : CommonDialog.OnClickListener {
+                override fun onCancleClick() {
+                    logoutDialog.cancel()
+                }
+
+                override fun onConfirmClick() {
+                    logoutDialog.cancel()
+                    viewModel.logoutAccount()
+                }
+            })
+    }
 
     companion object {
         fun getInstance(): AccountFragment {
@@ -64,23 +81,26 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
         viewModel.userDetail.observe(this, Observer {
             ImageLoader.getInstance().loadImage(
                 MyApplication.instance,
-                GlideImageConfig(it.profile.avatarUrl, binding.ivAvatar).also { it.type = TransType.CIRCLE })
+                GlideImageConfig(it.profile.avatarUrl, binding.ivAvatar).also {
+                    it.type = TransType.CIRCLE
+                })
         })
 
         binding.appBarLayout.addOnOffsetChangedListener(object :
             AppBarLayout.OnOffsetChangedListener {
-                override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
-                if(verticalOffset == 0){ //展开
+            override fun onOffsetChanged(appBarLayout: AppBarLayout?, verticalOffset: Int) {
+                if (verticalOffset == 0) { //展开
                     viewModel.defUI.title.set(UIUtils.getString(R.string.title_account))
-                }else if(Math.abs(verticalOffset) >= binding.appBarLayout.totalScrollRange){ //折叠
+                } else if (Math.abs(verticalOffset) >= binding.appBarLayout.totalScrollRange) { //折叠
                     viewModel.defUI.title.set(viewModel.userDetail.value?.profile?.nickname)
-                }else{ //中间
+                } else { //中间
 
                 }
             }
         })
 
-        binding.switchDark.setOnCheckedChangeListener(object :CompoundButton.OnCheckedChangeListener{
+        binding.switchDark.setOnCheckedChangeListener(object :
+            CompoundButton.OnCheckedChangeListener {
             override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
                 viewModel.switchDarkValue.value = isChecked
             }
@@ -131,8 +151,16 @@ class AccountFragment : BaseFragment<FragmentAccountBinding>() {
         viewModel.aboutEvent.observe(this, Observer {
             showTopMessage("11")
         })
+
+
         viewModel.logoutEvent.observe(this, Observer {
-            showTopMessage("登录${viewModel.switchDarkValue.value}")
+            logoutDialog.show()
+        })
+
+        viewModel.exitEvent.observe(this, Observer {
+            AppDatabase.getInstance(MyApplication.instance).userDao().deleteAll()
+            startActivity(Intent(requireContext(), AccountActivity::class.java))
+            requireActivity().finish()
         })
 
     }

@@ -8,4 +8,7 @@
     <string name="title_password_phone">手机号注册</string>
     <string name="title_nickname">给自己取一个昵称</string>
     <string name="title_account">账号</string>
+
+    <string name="text_cancle">取消</string>
+    <string name="text_confirm">确定</string>
 </resources>

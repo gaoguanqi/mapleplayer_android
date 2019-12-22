@@ -23,5 +23,7 @@ class Constants {
         const val EXTRA_PHONE = "phone"
         const val EXTRA_VERIFY_CODE = "verifyCode"
         const val EXTRA_PASSWORD = "password"
+
+        const val EXTRA_TASTE = "taste"
     }
 }

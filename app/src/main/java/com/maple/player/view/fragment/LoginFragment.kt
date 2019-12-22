@@ -64,6 +64,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>() {
                 navController?.navigate(R.id.action_loginFragment_to_phoneFragment)
             })
 
+        (requireActivity() as AccountActivity).hasTaste.get()?.let {
+            binding.btnTaste.visibility = if(it) View.GONE else View.VISIBLE
+        }
+
         viewModel.tasteEvent.observe(
             this,
             Observer {

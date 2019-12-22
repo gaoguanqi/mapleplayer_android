@@ -6,6 +6,7 @@ import androidx.databinding.ObservableField
 import androidx.navigation.findNavController
 import com.maple.player.R
 import com.maple.player.app.MyApplication
+import com.maple.player.app.global.Constants
 import com.maple.player.base.BaseActivity
 import com.maple.player.db.AppDatabase
 import com.maple.player.db.user.Test
@@ -15,12 +16,13 @@ class AccountActivity : BaseActivity() {
 
     val homeAction: ObservableField<Boolean> = ObservableField(false)
 
+    val hasTaste: ObservableField<Boolean> = ObservableField(false)
+
     override fun getLayoutId(): Int = R.layout.activity_account
 
 
     override fun initData(savedInstanceState: Bundle?) {
-
-
+        hasTaste.set(intent.extras?.getBoolean(Constants.BundleKey.EXTRA_TASTE))
     }
 
 

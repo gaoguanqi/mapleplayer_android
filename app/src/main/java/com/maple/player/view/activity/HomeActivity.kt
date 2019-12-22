@@ -1,5 +1,6 @@
 package com.maple.player.view.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MenuItem
@@ -8,8 +9,11 @@ import androidx.viewpager2.widget.ViewPager2
 import com.blankj.utilcode.util.BarUtils
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.maple.player.R
+import com.maple.player.app.MyApplication
+import com.maple.player.app.global.Constants
 import com.maple.player.base.BaseViewActivity
 import com.maple.player.databinding.ActivityHomeBinding
+import com.maple.player.db.AppDatabase
 import com.maple.player.utils.ToastUtil
 import com.maple.player.utils.UIUtils
 import com.maple.player.view.adapter.MyFragmentStateAdapter
@@ -60,18 +64,45 @@ class HomeActivity : BaseViewActivity<ActivityHomeBinding, HomeViewModel>() {
             BottomNavigationView.OnNavigationItemSelectedListener {
             override fun onNavigationItemSelected(item: MenuItem): Boolean {
                 when(item.itemId){
-                    R.id.item_nav_find ->binding.pager.currentItem = 0
-                    R.id.item_nav_video ->binding.pager.currentItem = 1
-                    R.id.item_nav_mine ->binding.pager.currentItem = 2
-                    R.id.item_nav_cloud ->binding.pager.currentItem = 3
-                    R.id.item_nav_account ->binding.pager.currentItem = 4
+                    R.id.item_nav_find ->{
+                        binding.pager.currentItem = 0
+                    }
+                    R.id.item_nav_video ->{
+                        binding.pager.currentItem = 1
+                    }
+                    R.id.item_nav_mine ->{
+
+                        AppDatabase.getInstance(MyApplication.instance).userDao().getAllUser().let {
+                            if(it.isNullOrEmpty()){
+                                startAccountActivity()
+                            }else{
+                                binding.pager.currentItem = 2
+                            }
+                        }
+                    }
+                    R.id.item_nav_cloud ->{
+                        binding.pager.currentItem = 3
+                    }
+                    R.id.item_nav_account ->{
+                        AppDatabase.getInstance(MyApplication.instance).userDao().getAllUser().let {
+                            if(it.isNullOrEmpty()){
+                                startAccountActivity()
+                            }else{
+                                binding.pager.currentItem = 4
+                            }
+                        }
+                    }
                 }
                 return false
             }
         })
-
-
     }
+
+    fun startAccountActivity(){
+        startActivity(Intent(this@HomeActivity,AccountActivity::class.java).putExtra(Constants.BundleKey.EXTRA_TASTE,true))
+        this@HomeActivity.finish()
+    }
+
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent?): Boolean {
         if (keyCode == KeyEvent.KEYCODE_BACK) {

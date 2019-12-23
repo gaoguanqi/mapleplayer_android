@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
@@ -10,16 +11,24 @@
             name="viewModel"
             type="com.maple.player.viewmodel.VideoListViewModel" />
     </data>
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.fragment.VideoListFragment">
 
-
-        <TextView
+        <com.maple.player.widget.refresh.MyRefreshLayout
+            android:id="@+id/refresh_video"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
-            android:text="video" />
+            android:background="@color/white"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rv_video"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </com.maple.player.widget.refresh.MyRefreshLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

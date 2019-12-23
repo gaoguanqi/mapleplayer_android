@@ -1,6 +1,10 @@
 package com.maple.player.http
 
+import com.franmontiel.persistentcookiejar.PersistentCookieJar
+import com.franmontiel.persistentcookiejar.cache.SetCookieCache
+import com.franmontiel.persistentcookiejar.persistence.SharedPrefsCookiePersistor
 import com.maple.player.BuildConfig
+import com.maple.player.app.MyApplication
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -32,6 +36,9 @@ abstract class BaseRetrofitClient {
 
 //            val sslContext = SSLHelper.getSSLContext(caIn, ksIn, ksPwd)
 //            builder.sslSocketFactory(sslContext.socketFactory).hostnameVerifier(SSLHelper.hostnameVerifier)
+
+                    //ClearableCookieJar cookieJar = new PersistentCookieJar(new SetCookieCache(), new SharedPrefsCookiePersistor(context));
+                .cookieJar(PersistentCookieJar(SetCookieCache(), SharedPrefsCookiePersistor(MyApplication.instance)))
                 .connectTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
                 .readTimeout(TIME_OUT, TimeUnit.MILLISECONDS)
             handleBuilder(builder)

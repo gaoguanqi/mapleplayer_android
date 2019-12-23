@@ -49,14 +49,14 @@ class VideoFragment : BaseFragment<FragmentVideoBinding>() {
             ToastUtil.showToast(it)
         })
 
-        viewModel.getVideoGroupData()
+        viewModel.getVideoGroup()
         viewModel.videoTabData.observe(this, Observer {
 
             val listFragment: MutableList<Fragment> = mutableListOf()
             val listTab: MutableList<String> = mutableListOf()
-            it.forEach {
+            it.reversed().forEach {
                 listTab.add(it.name!!)
-                listFragment.add(VideoListFragment.getInstance())
+                listFragment.add(VideoListFragment.getInstance(it.id!!))
             }
 
             binding.pager.adapter = MyFragmentStateAdapter(requireActivity(), listFragment)

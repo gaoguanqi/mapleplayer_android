@@ -16,7 +16,7 @@ class VideoViewModel : BaseViewModel() {
 
     val videoTabData: MutableLiveData<List<VideoData>> = MutableLiveData()
 
-    fun getVideoGroupData() {
+    fun getVideoGroup() {
         launch(
             {
                 val result: VideoTabEntity = repository.getVideoGroup()

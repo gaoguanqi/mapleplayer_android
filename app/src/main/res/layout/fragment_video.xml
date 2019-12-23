@@ -103,14 +103,14 @@
             android:layout_centerVertical="true"
             android:background="@color/white"
             app:tabMode="scrollable"
+            app:tabIndicatorFullWidth="false"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/toolbar"
             app:tabSelectedTextColor="@color/colorPrimary"
-            app:tabTextAppearance="@style/style_tablayout_text"
+            app:tabTextAppearance="@style/style_tabvideo_text"
             app:tabTextColor="@color/color_text_gray"
-            app:tabIndicatorColor="@color/colorPrimary"
-            />
+            app:tabIndicatorColor="@color/colorPrimary" />
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"

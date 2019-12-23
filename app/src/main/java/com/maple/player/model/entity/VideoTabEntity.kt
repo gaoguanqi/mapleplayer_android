@@ -8,7 +8,7 @@ data class VideoTabEntity(
 
 data class VideoData(
     val abExtInfo: Any,
-    val id: Int,
+    val id: String? = "",
     val name: String? = "",
     val relatedVideoType: Any,
     val selectTab: Boolean,

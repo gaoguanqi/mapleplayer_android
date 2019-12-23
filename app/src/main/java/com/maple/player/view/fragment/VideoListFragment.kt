@@ -3,21 +3,26 @@ package com.maple.player.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.maple.player.R
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentVideoListBinding
+import com.maple.player.utils.UIUtils
+import com.maple.player.view.adapter.VideoListAdapter
 import com.maple.player.viewmodel.VideoListViewModel
 import com.maple.player.viewmodel.factory.VideoListModelFactory
 
 
-class VideoListFragment : BaseFragment<FragmentVideoListBinding>() {
+class VideoListFragment(val videoId: String) : BaseFragment<FragmentVideoListBinding>() {
 
     companion object {
-        fun getInstance(): VideoListFragment {
-            return VideoListFragment()
+        fun getInstance(videoId: String): VideoListFragment {
+            return VideoListFragment(videoId)
         }
     }
+
 
     private val viewModel: VideoListViewModel by lazy {
         ViewModelProvider(this, VideoListModelFactory())
@@ -32,6 +37,16 @@ class VideoListFragment : BaseFragment<FragmentVideoListBinding>() {
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
 
+        binding.refreshVideo.setColorSchemeColors(UIUtils.getColor(R.color.colorPrimary))
+        binding.rvVideo.layoutManager = LinearLayoutManager(requireContext())
+
+        val adapter: VideoListAdapter = VideoListAdapter()
+        binding.rvVideo.adapter = adapter
+
+        viewModel.getVideoList(videoId)
+        viewModel.videoListData.observe(this, Observer {
+            adapter.submitList(it)
+        })
     }
 
 

@@ -38,7 +38,8 @@ class HomeRepository : BaseRepository() {
         retrofitClient.logout()
     }
 
-
-
+    suspend fun getVideoList(id:String) = withContext(Dispatchers.IO) {
+        retrofitClient.getVideoList(id)
+    }
 
 }

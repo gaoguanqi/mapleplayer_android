@@ -143,6 +143,7 @@ dependencies {
 
     implementation 'com.github.zhpanvip:BannerViewPager:2.6.1'
     implementation 'com.facebook.shimmer:shimmer:0.4.0@aar'
+    implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
     implementation project(path: ':playerlibrary')

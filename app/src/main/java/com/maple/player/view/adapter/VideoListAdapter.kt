@@ -10,7 +10,6 @@ import com.maple.player.R
 import com.maple.player.app.MyApplication
 import com.maple.player.databinding.ItemVideoListBinding
 import com.maple.player.extensions.layoutInflater
-import com.maple.player.model.entity.VideoListData
 import com.maple.player.model.entity.VideoListDatas
 import com.maple.player.widget.imgloader.ImageLoader
 import com.maple.player.widget.imgloader.TransType
@@ -34,6 +33,12 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.setData(getItem(position))
+    }
+
+
+    fun updataList(list:List<VideoListDatas>){
+        this.submitList(list)
+        this.notifyDataSetChanged()
     }
 
     class DiffCallback : DiffUtil.ItemCallback<VideoListDatas>() {
@@ -72,7 +77,7 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
 
                 it.creator?.avatarUrl?.let {
                     ImageLoader.getInstance().loadImage(MyApplication.instance,
-                        GlideImageConfig(it,binding.ivAvatar).also {
+                        GlideImageConfig(it, binding.ivAvatar).also {
                             it.type = TransType.CIRCLE
                         }
                     )
@@ -80,7 +85,7 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
 
                 it.coverUrl?.let {
                     ImageLoader.getInstance().loadImage(MyApplication.instance,
-                        GlideImageConfig(it,binding.ivImage).also {
+                        GlideImageConfig(it, binding.ivImage).also {
                             it.type = TransType.ROUND
                             it.valueRound = 15
                         }

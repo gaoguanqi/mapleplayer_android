@@ -6,6 +6,7 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.maple.player.R
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentVideoListBinding
@@ -38,14 +39,26 @@ class VideoListFragment(val videoId: String) : BaseFragment<FragmentVideoListBin
     override fun initData(view: View, savedInstanceState: Bundle?) {
 
         binding.refreshVideo.setColorSchemeColors(UIUtils.getColor(R.color.colorPrimary))
+
         binding.rvVideo.layoutManager = LinearLayoutManager(requireContext())
 
         val adapter: VideoListAdapter = VideoListAdapter()
         binding.rvVideo.adapter = adapter
 
         viewModel.getVideoList(videoId)
+        binding.refreshVideo.setOnRefreshListener(object :SwipeRefreshLayout.OnRefreshListener{
+            override fun onRefresh() {
+                viewModel.refreshVideoList(videoId)
+            }
+        })
+
         viewModel.videoListData.observe(this, Observer {
             adapter.submitList(it)
+        })
+
+        viewModel.refreshListData.observe(this, Observer {
+            adapter.updataList(it)
+            binding.refreshVideo.isRefreshing = false
         })
     }
 

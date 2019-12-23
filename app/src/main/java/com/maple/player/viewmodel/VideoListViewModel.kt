@@ -13,6 +13,7 @@ class VideoListViewModel : BaseViewModel() {
     private val repository by lazy { HomeRepository() }
 
     val videoListData: MutableLiveData<List<VideoListDatas>> = MutableLiveData()
+    val refreshListData: MutableLiveData<List<VideoListDatas>> = MutableLiveData()
 
 
     fun getVideoList(videoId: String) {
@@ -34,4 +35,23 @@ class VideoListViewModel : BaseViewModel() {
         )
     }
 
+
+    fun refreshVideoList(videoId: String) {
+        launch(
+            {
+                val result: VideoListEntity = repository.getVideoList(videoId)
+                if (result.code.isResultSuccess()) {
+                    refreshListData.value = result.datas
+                } else {
+                    defUI.toastEvent.postValue("${result.msg}")
+                }
+            },
+            {
+                defUI.toastEvent.postValue("error:${it.code} -- ${it.errMsg}")
+            },
+            {
+                LogUtils.logGGQ("回调完成 complete")
+            }, false
+        )
+    }
 }

@@ -141,9 +141,13 @@ dependencies {
     implementation 'jp.wasabeef:glide-transformations:4.1.0'
     implementation 'com.github.salomonbrys.kotson:kotson:2.5.0'
 
+    //permissions
+    implementation 'com.github.tbruyelle:rxpermissions:0.10.2'
+
     implementation 'com.github.zhpanvip:BannerViewPager:2.6.1'
     implementation 'com.facebook.shimmer:shimmer:0.4.0@aar'
     implementation 'com.github.franmontiel:PersistentCookieJar:v1.0.1'
+
 
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.0-beta-3'
     implementation project(path: ':playerlibrary')

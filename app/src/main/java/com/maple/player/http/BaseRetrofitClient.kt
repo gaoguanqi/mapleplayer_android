@@ -28,6 +28,7 @@ abstract class BaseRetrofitClient {
 
 //            val map:Map<String,String> = HashMap<String,String>()
 //            val header = HeaderInterceptor(map)
+            builder.addInterceptor(TokenInterceptor())
             builder.addInterceptor(logging)
 //            builder.addInterceptor(header)
 

@@ -1,8 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.maple.player">
 
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <uses-permission
+        android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
 
     <application
         android:name=".app.MyApplication"
@@ -30,12 +46,23 @@
         <meta-data
             android:name="design_height_in_dp"
             android:value="640" />
-        <activity android:name=".view.activity.WelcomeActivity"
+
+        <activity
+            android:name=".view.activity.WelcomeActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.activity.AccountActivity"
+        <activity
+            android:name=".view.activity.AccountActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".view.activity.HomeActivity"
+        <activity
+            android:name=".view.activity.HomeActivity"
             android:screenOrientation="portrait" />
+
+        <activity android:name=".view.activity.GlobalActivity"
+            android:theme="@style/GlobalTheme"
+            android:launchMode="singleTop"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:screenOrientation="portrait" />
+
     </application>
 
 </manifest>

@@ -8,6 +8,8 @@ buildscript {
         google()
         jcenter()
         mavenCentral()
+        maven{ url 'https://maven.aliyun.com/repository/releases'}
+        maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
@@ -24,6 +26,8 @@ allprojects {
         jcenter()
         maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
         maven { url "https://jitpack.io" }
+        maven{ url 'https://maven.aliyun.com/repository/releases'}
+        maven { url 'http://oss.jfrog.org/artifactory/oss-snapshot-local/' }
 //        maven { url "https://maven.goole.com" }
 //        maven { url "http://oss.jfrog.org/artifactory/oss-snapshot-local/" }
 //        maven { url "https://dl.google.com/dl/android/maven2/" }

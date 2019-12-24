@@ -14,6 +14,7 @@ import com.maple.player.model.entity.VideoListDatas
 import com.maple.player.widget.imgloader.ImageLoader
 import com.maple.player.widget.imgloader.TransType
 import com.maple.player.widget.imgloader.glide.GlideImageConfig
+import java.io.IOException
 
 class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder>(DiffCallback()) {
 
@@ -36,7 +37,7 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
     }
 
 
-    fun updataList(list:List<VideoListDatas>){
+    fun updataList(list: List<VideoListDatas>) {
         this.submitList(list)
         this.notifyDataSetChanged()
     }
@@ -64,9 +65,6 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
                     binding.tvLike.text = it.toString()
                 }
 
-                it.praisedCount?.let {
-                    binding.tvPlayCount.text = "${it}万"
-                }
                 it.shareCount?.let {
                     binding.tvMsg.text = it.toString()
                 }
@@ -83,13 +81,12 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
                     )
                 }
 
-                it.coverUrl?.let {
-                    ImageLoader.getInstance().loadImage(MyApplication.instance,
-                        GlideImageConfig(it, binding.ivImage).also {
-                            it.type = TransType.ROUND
-                            it.valueRound = 15
-                        }
-                    )
+                it.urlInfo?.url?.let {
+                    try {
+//                        binding.player.load(it)
+                    } catch (e: IOException) {
+                        e.printStackTrace()
+                    }
                 }
             }
         }

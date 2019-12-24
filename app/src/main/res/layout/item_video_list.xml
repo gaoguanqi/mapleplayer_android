@@ -1,93 +1,56 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
 
     </data>
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:orientation="vertical"
         android:paddingTop="6dp"
-        android:paddingBottom="4dp"
-        android:orientation="vertical">
+        android:paddingBottom="4dp">
 
-        <ImageView
-            android:id="@+id/iv_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+        <com.maple.playerlibrary.player.VideoPlayer
+            android:id="@+id/player"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
             android:layout_marginStart="4dp"
             android:layout_marginEnd="10dp"
             android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="h,16:9"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
             tools:background="@drawable/icon_logo" />
 
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/icon_play_fill"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@id/iv_image"
-            app:layout_constraintBottom_toBottomOf="@id/iv_image"/>
-
-        <TextView
-            android:id="@+id/tv_play_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableStart="@drawable/icon_tag_play"
-            android:drawablePadding="2dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginBottom="12dp"
-            android:layout_marginStart="16dp"
-            android:textColor="@color/white"
-            android:textSize="@dimen/font_10"
-            tools:text="10"
-            app:layout_constraintBottom_toBottomOf="@id/iv_image"/>
 
         <TextView
             android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="10dp"
             android:textColor="@color/color_text_gray"
             android:textSize="@dimen/font_14"
             android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/iv_image"
             tools:text="title" />
 
         <View
             android:id="@+id/view_line"
             style="@style/style_line"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_title" />
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginEnd="10dp"
             android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingTop="8dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            android:paddingBottom="10dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_line"
-            app:layout_constraintBottom_toTopOf="@id/view_gap">
+            android:paddingBottom="10dp">
 
             <ImageView
                 android:id="@+id/iv_avatar"
@@ -99,8 +62,8 @@
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="0dp"
-                android:layout_weight="4"
                 android:layout_height="wrap_content"
+                android:layout_weight="4"
                 android:paddingStart="8dp"
                 android:paddingEnd="8dp"
                 android:textColor="@color/color_text_gray"
@@ -111,8 +74,8 @@
             <RelativeLayout
                 android:id="@+id/rl_like"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="40dp">
+                android:layout_height="40dp"
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/iv_like"
@@ -137,8 +100,8 @@
             <RelativeLayout
                 android:id="@+id/rl_msg"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:layout_height="40dp">
+                android:layout_height="40dp"
+                android:layout_weight="1">
 
                 <ImageView
                     android:id="@+id/iv_msg"
@@ -172,9 +135,6 @@
             android:id="@+id/view_gap"
             android:layout_width="match_parent"
             android:layout_height="10dp"
-            android:background="@color/color_line"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:background="@color/color_line" />
+    </LinearLayout>
 </layout>

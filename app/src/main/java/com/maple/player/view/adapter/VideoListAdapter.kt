@@ -21,6 +21,16 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
     private lateinit var binding: ItemVideoListBinding
 
 
+    private var listener: VideoListAdapter.OnClickListener? = null
+
+    fun setListener(listener: VideoListAdapter.OnClickListener?) {
+        this.listener = listener
+    }
+
+    init {
+
+    }
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         binding = DataBindingUtil.inflate<ItemVideoListBinding>(
             parent.context.layoutInflater,
@@ -29,6 +39,9 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
             false
         )
         val holder: VideoListAdapter.ViewHolder = ViewHolder(binding.root)
+        holder.itemView.setOnClickListener {
+            listener?.onItemClick(holder.adapterPosition)
+        }
         return holder
     }
 
@@ -83,14 +96,18 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
 
                 it.urlInfo?.url?.let {
                     try {
-//                        binding.player.load(it)
+
+
                     } catch (e: IOException) {
                         e.printStackTrace()
                     }
                 }
             }
         }
-
     }
 
+
+    interface OnClickListener {
+        fun onItemClick(pos: Int)
+    }
 }

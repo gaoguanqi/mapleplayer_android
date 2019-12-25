@@ -23,7 +23,7 @@ class TokenInterceptor : Interceptor {
                 val jsonObject: JSONObject = JSONObject(sBody)
                 val code: Int = jsonObject.getInt("code")
                 LogUtils.logGGQ("TokenInterceptor : ${code}")
-                if (code == 200) {
+                if (code == 301) {
                     ActivityUtils.startActivity(GlobalActivity::class.java)
                 }
             }

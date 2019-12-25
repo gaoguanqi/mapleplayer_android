@@ -32,21 +32,21 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
 //    # required, enough for most devices.
-//    implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
-//    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
-//
-////    # Other ABIs: optional
-//    implementation 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.8'
-//    implementation 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
-//    implementation 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
-//    implementation 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'
-//
-////    # ExoPlayer as IMediaPlayer: optional, experimental
-//    implementation 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
-//
-//    implementation 'com.github.ctiao:DanmakuFlameMaster:0.9.25'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-java:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.8.8'
+
+//    # Other ABIs: optional
+    implementation 'tv.danmaku.ijk.media:ijkplayer-armv5:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-arm64:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-x86:0.8.8'
+    implementation 'tv.danmaku.ijk.media:ijkplayer-x86_64:0.8.8'
+
+//    # ExoPlayer as IMediaPlayer: optional, experimental
+    implementation 'tv.danmaku.ijk.media:ijkplayer-exo:0.8.8'
+
+    implementation 'com.github.ctiao:DanmakuFlameMaster:0.9.25'
 
 
-    implementation 'com.aliyun.sdk.android:AliyunPlayer:4.7.3-full'
-    implementation 'com.alivc.conan:AlivcConan:1.0.1'
+//    api 'com.aliyun.sdk.android:AliyunPlayer:4.7.3-full'
+//    api 'com.alivc.conan:AlivcConan:1.0.1'
 }

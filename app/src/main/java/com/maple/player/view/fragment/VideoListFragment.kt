@@ -14,6 +14,7 @@ import com.maple.player.utils.UIUtils
 import com.maple.player.view.adapter.VideoListAdapter
 import com.maple.player.viewmodel.VideoListViewModel
 import com.maple.player.viewmodel.factory.VideoListModelFactory
+import com.maple.player.widget.decoration.SimpleItemDecoration
 
 
 class VideoListFragment(val videoId: String) : BaseFragment<FragmentVideoListBinding>() {
@@ -39,14 +40,16 @@ class VideoListFragment(val videoId: String) : BaseFragment<FragmentVideoListBin
     override fun initData(view: View, savedInstanceState: Bundle?) {
 
         binding.refreshVideo.setColorSchemeColors(UIUtils.getColor(R.color.colorPrimary))
-
         binding.rvVideo.layoutManager = LinearLayoutManager(requireContext())
-
+        binding.rvVideo.addItemDecoration(SimpleItemDecoration(requireActivity()))
         val adapter: VideoListAdapter = VideoListAdapter()
+        adapter.setListener(object : VideoListAdapter.OnClickListener {
+            override fun onItemClick(pos: Int) {
+            }
+        })
         binding.rvVideo.adapter = adapter
-
         viewModel.getVideoList(videoId)
-        binding.refreshVideo.setOnRefreshListener(object :SwipeRefreshLayout.OnRefreshListener{
+        binding.refreshVideo.setOnRefreshListener(object : SwipeRefreshLayout.OnRefreshListener {
             override fun onRefresh() {
                 viewModel.refreshVideoList(videoId)
             }
@@ -60,6 +63,8 @@ class VideoListFragment(val videoId: String) : BaseFragment<FragmentVideoListBin
             adapter.updataList(it)
             binding.refreshVideo.isRefreshing = false
         })
+
+
     }
 
 

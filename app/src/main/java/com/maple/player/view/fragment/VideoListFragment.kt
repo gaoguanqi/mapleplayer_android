@@ -10,11 +10,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.maple.player.R
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentVideoListBinding
+import com.maple.player.model.entity.VideoListDatas
 import com.maple.player.utils.UIUtils
 import com.maple.player.view.adapter.VideoListAdapter
 import com.maple.player.viewmodel.VideoListViewModel
 import com.maple.player.viewmodel.factory.VideoListModelFactory
 import com.maple.player.widget.decoration.SimpleItemDecoration
+import com.maple.playerlibrary.player.VideoPlayer
+import com.shuyu.gsyvideoplayer.utils.OrientationUtils
 
 
 class VideoListFragment(val videoId: String) : BaseFragment<FragmentVideoListBinding>() {
@@ -24,6 +27,9 @@ class VideoListFragment(val videoId: String) : BaseFragment<FragmentVideoListBin
             return VideoListFragment(videoId)
         }
     }
+
+    private var player: VideoPlayer? = null
+    private var orientationUtils:OrientationUtils? = null
 
 
     private val viewModel: VideoListViewModel by lazy {
@@ -44,7 +50,19 @@ class VideoListFragment(val videoId: String) : BaseFragment<FragmentVideoListBin
         binding.rvVideo.addItemDecoration(SimpleItemDecoration(requireActivity()))
         val adapter: VideoListAdapter = VideoListAdapter()
         adapter.setListener(object : VideoListAdapter.OnClickListener {
-            override fun onItemClick(pos: Int) {
+            override fun onItemClick(pos: Int, data: VideoListDatas, player: VideoPlayer) {
+                this@VideoListFragment.player = player
+                orientationUtils = OrientationUtils(requireActivity(),player)
+                player.fullscreenButton.setOnClickListener { v ->
+                    showTopMessage("fullscreenButton")
+                    orientationUtils?.resolveByClick()
+                }
+                player.backButton.setOnClickListener { v ->
+                    requireActivity().onBackPressed()
+                    showTopMessage("backButton")
+                }
+
+                player.startPlayLogic()
             }
         })
         binding.rvVideo.adapter = adapter
@@ -63,9 +81,5 @@ class VideoListFragment(val videoId: String) : BaseFragment<FragmentVideoListBin
             adapter.updataList(it)
             binding.refreshVideo.isRefreshing = false
         })
-
-
     }
-
-
 }

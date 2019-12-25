@@ -2,6 +2,7 @@ package com.maple.player.view.adapter
 
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
@@ -14,7 +15,7 @@ import com.maple.player.model.entity.VideoListDatas
 import com.maple.player.widget.imgloader.ImageLoader
 import com.maple.player.widget.imgloader.TransType
 import com.maple.player.widget.imgloader.glide.GlideImageConfig
-import java.io.IOException
+import com.maple.playerlibrary.player.VideoPlayer
 
 class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder>(DiffCallback()) {
 
@@ -22,6 +23,7 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
 
 
     private var listener: VideoListAdapter.OnClickListener? = null
+
 
     fun setListener(listener: VideoListAdapter.OnClickListener?) {
         this.listener = listener
@@ -39,8 +41,12 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
             false
         )
         val holder: VideoListAdapter.ViewHolder = ViewHolder(binding.root)
-        holder.itemView.setOnClickListener {
-            listener?.onItemClick(holder.adapterPosition)
+        binding.player.setOnClickListener {
+            listener?.onItemClick(
+                holder.adapterPosition,
+                currentList.get(holder.adapterPosition),
+                binding.player
+            )
         }
         return holder
     }
@@ -95,11 +101,20 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
                 }
 
                 it.urlInfo?.url?.let {
-                    try {
-
-
-                    } catch (e: IOException) {
-                        e.printStackTrace()
+                    binding.player.apply {
+                        this.setUp(it,true,item.data.title)
+                        val coverImage:ImageView = ImageView(context).also {
+                            it.scaleType = ImageView.ScaleType.CENTER_CROP
+                        }
+                        ImageLoader.getInstance().loadImage(MyApplication.instance,
+                            GlideImageConfig(item.data.coverUrl!!, coverImage).also {
+                                it.type = TransType.NORMAL
+                            }
+                        )
+                        this.thumbImageView = coverImage
+                        this.titleTextView.visibility = View.GONE
+                        this.backButton.visibility = View.GONE
+                        this.setIsTouchWiget(true)
                     }
                 }
             }
@@ -108,6 +123,6 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
 
 
     interface OnClickListener {
-        fun onItemClick(pos: Int)
+        fun onItemClick(pos: Int, data: VideoListDatas, player: VideoPlayer)
     }
 }

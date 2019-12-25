@@ -3,10 +3,13 @@ package com.maple.player.view.fragment
 
 import android.os.Bundle
 import android.view.View
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.tabs.TabLayoutMediator
 import com.maple.player.R
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentCloudBinding
+import com.maple.player.view.adapter.MyFragmentStateAdapter
 import com.maple.player.viewmodel.CloudViewModel
 import com.maple.player.viewmodel.factory.CloudModelFactory
 
@@ -35,6 +38,18 @@ class CloudFragment : BaseFragment<FragmentCloudBinding>() {
     }
 
     override fun initData(view: View, savedInstanceState: Bundle?) {
+        val list: List<Fragment> = listOf(
+            CloudPlazaFragment.getInstance(),
+            CloudActionFragment.getInstance()
+        )
+
+        binding.pager.adapter = MyFragmentStateAdapter(requireActivity(), list)
+        TabLayoutMediator(binding.tabLayout, binding.pager) { tab, position ->
+            when (position) {
+                0 -> tab.text = "广场"
+                1 -> tab.text = "动态"
+            }
+        }.attach()
     }
 
 

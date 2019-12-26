@@ -5,6 +5,7 @@ import android.content.pm.ActivityInfo
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.View
+import androidx.annotation.VisibleForTesting
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +14,7 @@ import com.maple.player.R
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentVideoListBinding
 import com.maple.player.model.entity.VideoListDatas
+import com.maple.player.utils.LogUtils
 import com.maple.player.utils.UIUtils
 import com.maple.player.view.adapter.VideoListAdapter
 import com.maple.player.viewmodel.VideoListViewModel
@@ -32,6 +34,8 @@ class VideoListFragment(val videoId: String) : BaseFragment<FragmentVideoListBin
     }
 
     private var orientationUtils: OrientationUtils? = null
+    private var player:VideoPlayer? = null
+
 
 
     private val viewModel: VideoListViewModel by lazy {
@@ -53,15 +57,18 @@ class VideoListFragment(val videoId: String) : BaseFragment<FragmentVideoListBin
         val adapter: VideoListAdapter = VideoListAdapter()
         adapter.setListener(object : VideoListAdapter.OnClickListener {
             override fun onItemClick(pos: Int, data: VideoListDatas, player: VideoPlayer) {
+                this@VideoListFragment.player = player
 
-                    }
-
+            }
             override fun onItemFullscreenClick(
                 pos: Int, data: VideoListDatas, player: VideoPlayer
             ) {
-                orientationUtils = OrientationUtils(requireParentFragment().activity, player)
+                this@VideoListFragment.player = player
+                orientationUtils = OrientationUtils(requireActivity(), player)
                 //直接横屏
                 orientationUtils?.resolveByClick();
+                //第一个true是否需要隐藏actionbar，第二个true是否需要隐藏statusbar
+                player.startWindowFullscreen(requireActivity(), false, true)
             }
         })
         binding.rvVideo.adapter = adapter
@@ -88,10 +95,12 @@ class VideoListFragment(val videoId: String) : BaseFragment<FragmentVideoListBin
 
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
+        LogUtils.logGGQ("newConfig-- ${newConfig.orientation}")
         if (newConfig.orientation == ActivityInfo.SCREEN_ORIENTATION_USER) {
-
+            //横屏
+            player?.onConfigurationChanged(requireActivity(), newConfig, orientationUtils, true, true);
         } else {
-
+            
         }
     }
 

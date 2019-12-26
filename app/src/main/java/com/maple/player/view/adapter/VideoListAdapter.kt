@@ -128,6 +128,7 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
                         this.backButton.visibility = View.GONE
                         this.setIsTouchWiget(true)
                         this.setIsTouchWigetFull(true)
+                        this.setShowFullAnimation(false)
                     }
                 }
             }

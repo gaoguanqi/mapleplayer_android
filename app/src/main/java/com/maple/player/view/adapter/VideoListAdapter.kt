@@ -48,6 +48,14 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
                 binding.player
             )
         }
+
+        binding.player.fullscreenButton.setOnClickListener {
+            listener?.onItemFullscreenClick(
+                holder.adapterPosition,
+                currentList.get(holder.adapterPosition),
+                binding.player
+            )
+        }
         return holder
     }
 
@@ -61,6 +69,10 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
         this.notifyDataSetChanged()
     }
 
+    override fun getItemViewType(position: Int): Int {
+//        return super.getItemViewType(position)
+        return position
+    }
     class DiffCallback : DiffUtil.ItemCallback<VideoListDatas>() {
         override fun areItemsTheSame(oldItem: VideoListDatas, newItem: VideoListDatas): Boolean {
             return oldItem.data.vid == newItem.data.vid
@@ -115,6 +127,7 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
                         this.titleTextView.visibility = View.GONE
                         this.backButton.visibility = View.GONE
                         this.setIsTouchWiget(true)
+                        this.setIsTouchWigetFull(true)
                     }
                 }
             }
@@ -124,5 +137,6 @@ class VideoListAdapter : ListAdapter<VideoListDatas, VideoListAdapter.ViewHolder
 
     interface OnClickListener {
         fun onItemClick(pos: Int, data: VideoListDatas, player: VideoPlayer)
+        fun onItemFullscreenClick(pos: Int, data: VideoListDatas, player: VideoPlayer)
     }
 }

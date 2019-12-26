@@ -2,8 +2,6 @@ package com.maple.playerlibrary.player;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.maple.playerlibrary.R;
 import com.shuyu.gsyvideoplayer.video.NormalGSYVideoPlayer;
@@ -32,10 +30,5 @@ public class VideoPlayer extends NormalGSYVideoPlayer {
     @Override
     public int getLayoutId() {
         return R.layout.layout_video_normal;
-    }
-
-    @Override
-    public ImageView getFullscreenButton() {
-        return findViewById(R.id.fullscreen);
     }
 }

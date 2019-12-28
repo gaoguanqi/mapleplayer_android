@@ -61,20 +61,15 @@ abstract class BaseActivity : AppCompatActivity(), IView {
     fun showTopMessage(msg: String?) {
         if (!TextUtils.isEmpty(msg)) {
             val sneaker = Sneaker.with(this) // Activity, Fragment or ViewGroup
-            val view: View =
-                this.layoutInflater.inflate(R.layout.sneaker_view, sneaker.getView(), false)
+            val view: View = this.layoutInflater.inflate(R.layout.sneaker_view, sneaker.getView(), false)
             view.findViewById<TextView>(R.id.tv_message).text = msg
             sneaker.sneakCustom(view)
         }
     }
 
     open fun showLoading(){
-        if(loadingDialog == null){
-            loadingDialog = LoadingDialog(this)
-        }
-
-        if(!loadingDialog!!.isShowing){
-            loadingDialog!!.show()
+        loadingDialog?:LoadingDialog(this).let {
+            if(!it.isShowing) it.show()
         }
     }
 

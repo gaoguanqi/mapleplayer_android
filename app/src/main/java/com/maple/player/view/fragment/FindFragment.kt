@@ -18,6 +18,8 @@ import com.maple.player.viewmodel.factory.FindModelFactory
 
 class FindFragment : BaseFragment<FragmentFindBinding>() {
 
+    var offset: Int = 1
+
     companion object {
         fun getInstance(): FindFragment {
             return FindFragment()
@@ -73,6 +75,11 @@ class FindFragment : BaseFragment<FragmentFindBinding>() {
         viewModel.getNewPageList()
         viewModel.newPageFragmentList.observe(this, Observer {
             adapter.setNewPageList(it)
+        })
+
+        viewModel.getArtistsList(offset)
+        viewModel.listData.observe(this, Observer {
+            adapter.setListData(it)
         })
 
     }

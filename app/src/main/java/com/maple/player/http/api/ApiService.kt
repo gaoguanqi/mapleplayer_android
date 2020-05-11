@@ -34,6 +34,8 @@ interface ApiService {
     @GET("/album/newest")
     suspend fun getNewest(): NewestEntity
 
+    @GET("/top/artists")
+    suspend fun getArtists(@Query("offset") offset: String,@Query("limit") limit: String): ArtistsListEntity
 
     @GET("/user/detail")
     suspend fun getUserDetail(@Query("uid") uid: String): UserDetailEntity
@@ -46,6 +48,7 @@ interface ApiService {
 
     @GET("/logout")
     suspend fun logout(): ResultEntity
+
 
 
 }

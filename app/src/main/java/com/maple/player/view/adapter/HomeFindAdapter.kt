@@ -6,16 +6,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.tabs.TabLayout
 import com.google.android.material.tabs.TabLayoutMediator
 import com.maple.player.R
-import com.maple.player.databinding.ItemFindBannerBinding
-import com.maple.player.databinding.ItemFindGatherBinding
-import com.maple.player.databinding.ItemFindNewBinding
-import com.maple.player.databinding.ItemFindRecommendBinding
+import com.maple.player.databinding.*
 import com.maple.player.extensions.layoutInflater
+import com.maple.player.model.entity.Artists
 import com.maple.player.model.entity.Banner
 import com.maple.player.model.entity.GatherData
 import com.maple.player.model.entity.Result
@@ -27,13 +26,21 @@ class HomeFindAdapter(val activity: FragmentActivity) :
 
 
     companion object {
+        //轮播图
         const val TYPE_BANNER: Int = 1
+        //聚合
         const val TYPE_GATHER: Int = 2
+        //推荐歌单
         const val TYPE_RECOMMEND: Int = 3
+        //新碟 新歌
         const val TYPE_NEW: Int = 4
+        //精选
         const val TYPE_GOOD: Int = 5
+        //听听
         const val TYPE_LISTENER: Int = 6
+        //广告
         const val TYPE_AD: Int = 7
+        //列表
         const val TYPE_LIST: Int = 8
     }
 
@@ -42,6 +49,7 @@ class HomeFindAdapter(val activity: FragmentActivity) :
     private var gatherList: List<GatherData>? = null
     private var recommendList: List<Result>? = null
     private var newPageList: List<Fragment>? = null
+    private var artistsList: List<Artists>? = null
     private var listener: OnClickListener? = null
 
     fun setBannerData(list: List<Banner>?) {
@@ -65,6 +73,11 @@ class HomeFindAdapter(val activity: FragmentActivity) :
         notifyItemChanged(3)
     }
 
+
+    fun setListData(list: List<Artists>?) {
+        this.artistsList = list
+        notifyItemChanged(4)
+    }
 
     fun setListener(listener: OnClickListener?) {
         this.listener = listener
@@ -125,14 +138,14 @@ class HomeFindAdapter(val activity: FragmentActivity) :
 //                return bannerHolder
 //            }
             else -> {
-                val gatherBinding = DataBindingUtil.inflate<ItemFindGatherBinding>(
+                val listBinding = DataBindingUtil.inflate<ItemFindListBinding>(
                     parent.context.layoutInflater,
-                    R.layout.item_find_gather,
+                    R.layout.item_find_list,
                     parent,
                     false
                 )
-                val gatherHolder: GatherViewHolder = GatherViewHolder(gatherBinding.root)
-                return gatherHolder
+                val listHolder: ListViewHolder = ListViewHolder(listBinding.root)
+                return listHolder
             }
         }
     }
@@ -146,6 +159,8 @@ class HomeFindAdapter(val activity: FragmentActivity) :
             holder.setData(position)
         } else if ((holder is NewViewHolder)) {
             holder.setData(position)
+        } else if ((holder is ListViewHolder)){
+            holder.setData(position)
         }
 
     }
@@ -153,7 +168,7 @@ class HomeFindAdapter(val activity: FragmentActivity) :
 
     override fun getItemCount(): Int {
 //        return list?.size ?: 0
-        return 4
+        return 6
     }
 
 
@@ -232,7 +247,13 @@ class HomeFindAdapter(val activity: FragmentActivity) :
     }
 
     inner class ListViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
+        fun setData(position: Int) {
+            val rvArtists: RecyclerView = itemView.findViewById<RecyclerView>(R.id.rv_artists)
+            rvArtists.layoutManager = LinearLayoutManager(itemView.context)
+            rvArtists.adapter = FindListAdapter().also {
+                it.submitList(artistsList)
+            }
+        }
     }
 
 

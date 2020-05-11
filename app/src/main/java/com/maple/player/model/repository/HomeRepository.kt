@@ -23,6 +23,9 @@ class HomeRepository : BaseRepository() {
         retrofitClient.getNewest()
     }
 
+    suspend fun getArtists(offset: Int,limit: String) = withContext(Dispatchers.IO) {
+        retrofitClient.getArtists(offset.toString(),limit)
+    }
 
     suspend fun getUserDetail(uid:String) = withContext(Dispatchers.IO) {
         retrofitClient.getUserDetail(uid)

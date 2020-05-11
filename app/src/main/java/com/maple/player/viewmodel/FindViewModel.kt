@@ -20,6 +20,7 @@ class FindViewModel : BaseViewModel() {
     val gatherData: MutableLiveData<List<GatherData>> = MutableLiveData()
     val recommendData: MutableLiveData<List<Result>> = MutableLiveData()
     val newPageFragmentList: MutableLiveData<List<Fragment>> = MutableLiveData()
+    val listData: MutableLiveData<List<Artists>> = MutableLiveData()
 
     fun getBannerData() {
         launch(
@@ -75,5 +76,24 @@ class FindViewModel : BaseViewModel() {
             NewMusicFragment.getInstance()
         )
 
+    }
+
+    fun getArtistsList(offset:Int) {
+        launch(
+            {
+                val limit: String = "10"
+                val result: ArtistsListEntity = repository.getArtists(offset,limit)
+                if (result.code.isResultSuccess()) {
+                    listData.value = result.artists
+                } else {
+                    defUI.toastEvent.postValue("${result.message}")
+                }
+            },
+            {
+                defUI.toastEvent.postValue("error:${it.code} -- ${it.errMsg}")
+            },
+            {
+                LogUtils.logGGQ("回调完成 complete")
+            },false)
     }
 }

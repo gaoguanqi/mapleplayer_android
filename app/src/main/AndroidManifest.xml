@@ -31,7 +31,7 @@
         android:theme="@style/NoTitleBarTheme">
         <activity
             android:name=".view.activity.SplashActivity"
-            android:screenOrientation="portrait"
+            android:screenOrientation="fullSensor"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -49,21 +49,17 @@
             android:value="640" />
 
         <activity
-            android:name=".view.activity.WelcomeActivity"
-            android:screenOrientation="portrait" />
+            android:name=".view.activity.WelcomeActivity"/>
         <activity
-            android:name=".view.activity.AccountActivity"
-            android:screenOrientation="portrait" />
+            android:name=".view.activity.AccountActivity"/>
         <activity
             android:name=".view.activity.HomeActivity"
-            android:configChanges="keyboard|orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
+            android:configChanges="keyboard|orientation|keyboardHidden|screenSize"/>
 
         <activity android:name=".view.activity.GlobalActivity"
             android:theme="@style/GlobalTheme"
             android:launchMode="singleTop"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:screenOrientation="portrait" />
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
 
     </application>
 

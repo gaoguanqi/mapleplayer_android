@@ -6,7 +6,6 @@ import android.view.View
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.maple.player.R
 import com.maple.player.base.BaseFragment
 import com.maple.player.databinding.FragmentFindBinding

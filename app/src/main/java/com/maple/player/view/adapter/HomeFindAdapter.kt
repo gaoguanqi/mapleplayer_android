@@ -128,9 +128,16 @@ class HomeFindAdapter(val activity: FragmentActivity) :
                 val newHolder: NewViewHolder = NewViewHolder(newBinding.root)
                 return newHolder
             }
-//            TYPE_GOOD-> {
-//                return bannerHolder
-//            }
+            TYPE_GOOD-> {
+                val goodBinding = DataBindingUtil.inflate<ItemFindGoodBinding>(
+                    parent.context.layoutInflater,
+                    R.layout.item_find_good,
+                    parent,
+                    false
+                )
+                val goodHolder: GoodViewHolder = GoodViewHolder(goodBinding.root)
+                return goodHolder
+            }
 //            TYPE_LISTENER-> {
 //                return bannerHolder
 //            }
@@ -159,6 +166,8 @@ class HomeFindAdapter(val activity: FragmentActivity) :
             holder.setData(position)
         } else if ((holder is NewViewHolder)) {
             holder.setData(position)
+        } else if ((holder is GoodViewHolder)) {
+            holder.setData(position)
         } else if ((holder is ListViewHolder)){
             holder.setData(position)
         }
@@ -168,7 +177,7 @@ class HomeFindAdapter(val activity: FragmentActivity) :
 
     override fun getItemCount(): Int {
 //        return list?.size ?: 0
-        return 6
+        return 9
     }
 
 
@@ -235,7 +244,9 @@ class HomeFindAdapter(val activity: FragmentActivity) :
     }
 
     inner class GoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun setData(position: Int) {
 
+        }
     }
 
     inner class ListenerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {

@@ -123,7 +123,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="10dp"
+            android:layout_height="@dimen/divider_list"
             android:background="@color/color_line" />
     </LinearLayout>
 </layout>

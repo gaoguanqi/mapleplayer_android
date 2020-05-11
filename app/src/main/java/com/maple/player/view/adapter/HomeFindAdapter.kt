@@ -14,10 +14,7 @@ import com.google.android.material.tabs.TabLayoutMediator
 import com.maple.player.R
 import com.maple.player.databinding.*
 import com.maple.player.extensions.layoutInflater
-import com.maple.player.model.entity.Artists
-import com.maple.player.model.entity.Banner
-import com.maple.player.model.entity.GatherData
-import com.maple.player.model.entity.Result
+import com.maple.player.model.entity.*
 import com.maple.player.view.adapter.holder.BannerPagerViewHolder
 import com.zhpan.bannerview.BannerViewPager
 
@@ -49,6 +46,7 @@ class HomeFindAdapter(val activity: FragmentActivity) :
     private var gatherList: List<GatherData>? = null
     private var recommendList: List<Result>? = null
     private var newPageList: List<Fragment>? = null
+    private var listenerList: List<ComerList>? = null
     private var artistsList: List<Artists>? = null
     private var listener: OnClickListener? = null
 
@@ -73,11 +71,17 @@ class HomeFindAdapter(val activity: FragmentActivity) :
         notifyItemChanged(3)
     }
 
+    fun setListenerData(list: List<ComerList>?) {
+        this.listenerList = list
+        notifyItemChanged(5)
+    }
 
     fun setListData(list: List<Artists>?) {
         this.artistsList = list
-        notifyItemChanged(4)
+        notifyItemChanged(6)
     }
+
+
 
     fun setListener(listener: OnClickListener?) {
         this.listener = listener
@@ -138,9 +142,16 @@ class HomeFindAdapter(val activity: FragmentActivity) :
                 val goodHolder: GoodViewHolder = GoodViewHolder(goodBinding.root)
                 return goodHolder
             }
-//            TYPE_LISTENER-> {
-//                return bannerHolder
-//            }
+            TYPE_LISTENER-> {
+                val listenerBinding = DataBindingUtil.inflate<ItemFindListenerBinding>(
+                    parent.context.layoutInflater,
+                    R.layout.item_find_listener,
+                    parent,
+                    false
+                )
+                val listenerHolder: ListenerViewHolder = ListenerViewHolder(listenerBinding.root)
+                return listenerHolder
+            }
 //            TYPE_AD-> {
 //                return bannerHolder
 //            }
@@ -167,6 +178,8 @@ class HomeFindAdapter(val activity: FragmentActivity) :
         } else if ((holder is NewViewHolder)) {
             holder.setData(position)
         } else if ((holder is GoodViewHolder)) {
+            holder.setData(position)
+        } else if ((holder is ListenerViewHolder)) {
             holder.setData(position)
         } else if ((holder is ListViewHolder)){
             holder.setData(position)
@@ -249,9 +262,19 @@ class HomeFindAdapter(val activity: FragmentActivity) :
         }
     }
 
-    inner class ListenerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
+    inner class ListenerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        fun setData(position: Int) {
+            val rvListener: RecyclerView = itemView.findViewById<RecyclerView>(R.id.rv_listener)
+            rvListener.layoutManager = LinearLayoutManager(itemView.context).also {
+                it.orientation = LinearLayoutManager.HORIZONTAL
+            }
+            rvListener.adapter = FindListenerAdapter().also {
+                it.submitList(listenerList)
+            }
+        }
     }
+
 
     inner class AdViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 

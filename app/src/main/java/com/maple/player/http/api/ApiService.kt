@@ -37,6 +37,9 @@ interface ApiService {
     @GET("/top/artists")
     suspend fun getArtists(@Query("offset") offset: String,@Query("limit") limit: String): ArtistsListEntity
 
+    @GET("/dj/toplist/newcomer")
+    suspend fun getListener(@Query("limit") limit: String): NewComerEntity
+
     @GET("/user/detail")
     suspend fun getUserDetail(@Query("uid") uid: String): UserDetailEntity
 

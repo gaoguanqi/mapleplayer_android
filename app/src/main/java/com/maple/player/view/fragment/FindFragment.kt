@@ -81,6 +81,10 @@ class FindFragment : BaseFragment<FragmentFindBinding>() {
             adapter.setListData(it)
         })
 
+        viewModel.getListenerData()
+        viewModel.listenerList.observe(this, Observer {
+            adapter.setListenerData(it)
+        })
     }
 
 

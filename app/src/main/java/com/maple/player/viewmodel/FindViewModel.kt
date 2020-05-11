@@ -21,6 +21,7 @@ class FindViewModel : BaseViewModel() {
     val recommendData: MutableLiveData<List<Result>> = MutableLiveData()
     val newPageFragmentList: MutableLiveData<List<Fragment>> = MutableLiveData()
     val listData: MutableLiveData<List<Artists>> = MutableLiveData()
+    val listenerList: MutableLiveData<List<ComerList>> = MutableLiveData()
 
     fun getBannerData() {
         launch(
@@ -87,6 +88,25 @@ class FindViewModel : BaseViewModel() {
                     listData.value = result.artists
                 } else {
                     defUI.toastEvent.postValue("${result.message}")
+                }
+            },
+            {
+                defUI.toastEvent.postValue("error:${it.code} -- ${it.errMsg}")
+            },
+            {
+                LogUtils.logGGQ("回调完成 complete")
+            },false)
+    }
+
+    fun getListenerData() {
+        launch(
+            {
+                val limit: String = "10"
+                val result: NewComerEntity = repository.getListener(limit)
+                if (result.code.isResultSuccess()) {
+                    listenerList.value = result.data.list
+                } else {
+                    defUI.toastEvent.postValue("${result.msg}")
                 }
             },
             {

@@ -45,4 +45,8 @@ class HomeRepository : BaseRepository() {
         retrofitClient.getVideoList(id)
     }
 
+    suspend fun getListener(limit: String) = withContext(Dispatchers.IO) {
+        retrofitClient.getListener(limit)
+    }
+
 }

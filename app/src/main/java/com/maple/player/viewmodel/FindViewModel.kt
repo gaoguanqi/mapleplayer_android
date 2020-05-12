@@ -1,5 +1,8 @@
 package com.maple.player.viewmodel
 
+import android.view.animation.Animation
+import android.view.animation.AnimationUtils
+import android.view.animation.LinearInterpolator
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.MutableLiveData
 import com.maple.player.R
@@ -20,8 +23,10 @@ class FindViewModel : BaseViewModel() {
     val gatherData: MutableLiveData<List<GatherData>> = MutableLiveData()
     val recommendData: MutableLiveData<List<Result>> = MutableLiveData()
     val newPageFragmentList: MutableLiveData<List<Fragment>> = MutableLiveData()
-    val listData: MutableLiveData<List<Artists>> = MutableLiveData()
+    val goodData: MutableLiveData<String> = MutableLiveData()
     val listenerList: MutableLiveData<List<ComerList>> = MutableLiveData()
+    val listData: MutableLiveData<List<Artists>> = MutableLiveData()
+
 
     fun getBannerData() {
         launch(
@@ -76,26 +81,11 @@ class FindViewModel : BaseViewModel() {
             NewDiscFragment.getInstance(),
             NewMusicFragment.getInstance()
         )
-
     }
 
-    fun getArtistsList(offset:Int) {
-        launch(
-            {
-                val limit: String = "10"
-                val result: ArtistsListEntity = repository.getArtists(offset,limit)
-                if (result.code.isResultSuccess()) {
-                    listData.value = result.artists
-                } else {
-                    defUI.toastEvent.postValue("${result.message}")
-                }
-            },
-            {
-                defUI.toastEvent.postValue("error:${it.code} -- ${it.errMsg}")
-            },
-            {
-                LogUtils.logGGQ("回调完成 complete")
-            },false)
+
+    fun getGoodData() {
+        goodData.value = "网易云音乐呃呃"
     }
 
     fun getListenerData() {
@@ -107,6 +97,25 @@ class FindViewModel : BaseViewModel() {
                     listenerList.value = result.data.list
                 } else {
                     defUI.toastEvent.postValue("${result.msg}")
+                }
+            },
+            {
+                defUI.toastEvent.postValue("error:${it.code} -- ${it.errMsg}")
+            },
+            {
+                LogUtils.logGGQ("回调完成 complete")
+            },false)
+    }
+
+    fun getArtistsList(offset:Int) {
+        launch(
+            {
+                val limit: String = "10"
+                val result: ArtistsListEntity = repository.getArtists(offset,limit)
+                if (result.code.isResultSuccess()) {
+                    listData.value = result.artists
+                } else {
+                    defUI.toastEvent.postValue("${result.message}")
                 }
             },
             {

@@ -76,14 +76,19 @@ class FindFragment : BaseFragment<FragmentFindBinding>() {
             adapter.setNewPageList(it)
         })
 
-        viewModel.getArtistsList(offset)
-        viewModel.listData.observe(this, Observer {
-            adapter.setListData(it)
+        viewModel.getGoodData()
+        viewModel.goodData.observe(this, Observer {
+            adapter.setGoodData(it)
         })
 
         viewModel.getListenerData()
         viewModel.listenerList.observe(this, Observer {
             adapter.setListenerData(it)
+        })
+
+        viewModel.getArtistsList(offset)
+        viewModel.listData.observe(this, Observer {
+            adapter.setListData(it)
         })
     }
 

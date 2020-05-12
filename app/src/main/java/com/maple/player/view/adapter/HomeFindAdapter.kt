@@ -1,7 +1,13 @@
 package com.maple.player.view.adapter
 
+import android.animation.ObjectAnimator
+import android.animation.ValueAnimator
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.Animation
+import android.view.animation.RotateAnimation
+import android.widget.ImageView
+import android.widget.TextView
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
@@ -46,6 +52,7 @@ class HomeFindAdapter(val activity: FragmentActivity) :
     private var gatherList: List<GatherData>? = null
     private var recommendList: List<Result>? = null
     private var newPageList: List<Fragment>? = null
+    private var goodData: String? = null
     private var listenerList: List<ComerList>? = null
     private var artistsList: List<Artists>? = null
     private var listener: OnClickListener? = null
@@ -69,6 +76,11 @@ class HomeFindAdapter(val activity: FragmentActivity) :
     fun setNewPageList(list: List<Fragment>?) {
         this.newPageList = list
         notifyItemChanged(3)
+    }
+
+    fun setGoodData(data: String?) {
+        this.goodData = data
+        notifyItemChanged(4)
     }
 
     fun setListenerData(list: List<ComerList>?) {
@@ -207,6 +219,8 @@ class HomeFindAdapter(val activity: FragmentActivity) :
         }
     }
 
+
+
     inner class BannerViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun setData(position: Int) {
             val bannerViewPager: BannerViewPager<Banner, BannerPagerViewHolder> =
@@ -258,7 +272,14 @@ class HomeFindAdapter(val activity: FragmentActivity) :
 
     inner class GoodViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun setData(position: Int) {
+            itemView.findViewById<TextView>(R.id.tv_content).text = goodData
+            val iv:ImageView = itemView.findViewById<ImageView>(R.id.iv_icon)
 
+            val rotateAnimator = ObjectAnimator.ofFloat(iv,"rotation",0f,360f)
+            rotateAnimator.duration = 3000
+            rotateAnimator.repeatCount = -1
+            rotateAnimator.repeatMode = ValueAnimator.RESTART
+            rotateAnimator.start()
         }
     }
 
